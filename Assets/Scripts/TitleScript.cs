@@ -34,7 +34,7 @@ public class TitleScript : MonoBehaviour
     //Color for a hovered button
     Color activeButton;
 
-    public Controls controls;
+    public PlayControls controls;
     private InputAction move;
     private InputAction confirm;
     private InputAction back;
@@ -44,12 +44,12 @@ public class TitleScript : MonoBehaviour
 
     private void Awake()
     {
-        controls = new Controls();
+        controls = new PlayControls();
     }
 
     private void OnEnable()
     {
-        move = controls.Menus.Move;
+        move = controls.Menus.Movement;
         move.Enable();
 
         confirm = controls.Menus.Confirm;

@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Player
+    uniqueID: 1257380535
+    locked: 0
+  - name: Hitboxes
+    uniqueID: 1742376851
+    locked: 0

@@ -50,9 +50,14 @@ public class PlayerScript : MonoBehaviour
         Vector2 directions = context.ReadValue<Vector2>();
         animator.SetBool("Forward Hold", false);
         animator.SetBool("Upward Hold", false);
+        animator.SetBool("Downward Hold", false);
         if (directions.y > 0.6)
         {
             animator.SetBool("Upward Hold", true);            
+        }
+        else if (directions.y < -0.6)
+        {
+            animator.SetBool("Downward Hold", true);
         }
         else if(directions.x > 0.4)
         {            

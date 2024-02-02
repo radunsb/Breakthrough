@@ -202,6 +202,15 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Input_Direction"",
+                    ""type"": ""Value"",
+                    ""id"": ""ea6c0227-e3e8-4b23-bf4f-b3cc5be73bcc"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -226,6 +235,72 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""action"": ""Normal_Button"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e0fda73-ccdc-45f5-9789-3c1013e4e603"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Input_Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""fbbc8a2b-f862-4043-a8df-ee316a5ad19e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Input_Direction"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""2c8edf12-372b-492b-8914-12fbd55c9cad"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Input_Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""0c3ee536-3747-4abc-afe0-38f52f47c337"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Input_Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""dbe2eeef-2360-45ce-8a47-9773319cbcee"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Input_Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""3c951a83-479a-4e2a-ba09-38dd42157f0b"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Input_Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -240,6 +315,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
         // Just_Attacks
         m_Just_Attacks = asset.FindActionMap("Just_Attacks", throwIfNotFound: true);
         m_Just_Attacks_Normal_Button = m_Just_Attacks.FindAction("Normal_Button", throwIfNotFound: true);
+        m_Just_Attacks_Input_Direction = m_Just_Attacks.FindAction("Input_Direction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -349,11 +425,13 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Just_Attacks;
     private IJust_AttacksActions m_Just_AttacksActionsCallbackInterface;
     private readonly InputAction m_Just_Attacks_Normal_Button;
+    private readonly InputAction m_Just_Attacks_Input_Direction;
     public struct Just_AttacksActions
     {
         private @PlayControls m_Wrapper;
         public Just_AttacksActions(@PlayControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Normal_Button => m_Wrapper.m_Just_Attacks_Normal_Button;
+        public InputAction @Input_Direction => m_Wrapper.m_Just_Attacks_Input_Direction;
         public InputActionMap Get() { return m_Wrapper.m_Just_Attacks; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -366,6 +444,9 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                 @Normal_Button.started -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnNormal_Button;
                 @Normal_Button.performed -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnNormal_Button;
                 @Normal_Button.canceled -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnNormal_Button;
+                @Input_Direction.started -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnInput_Direction;
+                @Input_Direction.performed -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnInput_Direction;
+                @Input_Direction.canceled -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnInput_Direction;
             }
             m_Wrapper.m_Just_AttacksActionsCallbackInterface = instance;
             if (instance != null)
@@ -373,6 +454,9 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                 @Normal_Button.started += instance.OnNormal_Button;
                 @Normal_Button.performed += instance.OnNormal_Button;
                 @Normal_Button.canceled += instance.OnNormal_Button;
+                @Input_Direction.started += instance.OnInput_Direction;
+                @Input_Direction.performed += instance.OnInput_Direction;
+                @Input_Direction.canceled += instance.OnInput_Direction;
             }
         }
     }
@@ -386,5 +470,6 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
     public interface IJust_AttacksActions
     {
         void OnNormal_Button(InputAction.CallbackContext context);
+        void OnInput_Direction(InputAction.CallbackContext context);
     }
 }

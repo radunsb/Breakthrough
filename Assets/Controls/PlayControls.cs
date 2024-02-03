@@ -50,7 +50,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""0b25411e-4800-4b65-b0c0-44f77138fd79"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 }
@@ -199,7 +199,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""386eaa15-034d-4abf-a603-f72f2b1b656b"",
                     ""expectedControlType"": ""Button"",
-                    ""processors"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },

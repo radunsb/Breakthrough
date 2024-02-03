@@ -71,7 +71,7 @@ public class PlayerScript : MonoBehaviour
         {
             animator.SetBool("Downward Hold", true);
         }
-        else if(directions.x > 0.4 && !_flipX || directions.x < 0.4 && _flipX)
+        else if(directions.x > 0.3 && !_flipX || directions.x < 0.3 && _flipX)
         {            
             animator.SetBool("Forward Hold", true);
         }      
@@ -87,7 +87,7 @@ public class PlayerScript : MonoBehaviour
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
                     _flipX = false;
                     break;
-                case float x when (x > 0.4 && x <= .8):
+                case float x when (x > 0.3 && x <= .8):
                     _rbody.velocity = new Vector2(walkSpeed, 0f);
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
                     _flipX = false;
@@ -97,7 +97,7 @@ public class PlayerScript : MonoBehaviour
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
                     _flipX = true;
                     break;
-                case float x when (x < -0.4 && x >= -.8):
+                case float x when (x < -0.3 && x >= -.8):
                     _rbody.velocity = new Vector2(-walkSpeed, 0f);
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
                     _flipX = true;

@@ -899,6 +899,7 @@ MonoBehaviour:
   - {fileID: 148102748}
   - {fileID: 495949509}
   spPanel: {fileID: 80709321}
+  isSolo: 0
 --- !u!4 &750613148
 Transform:
   m_ObjectHideFlags: 0
@@ -963,6 +964,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0b25411e-4800-4b65-b0c0-44f77138fd79
     m_ActionName: Menus/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 386eaa15-034d-4abf-a603-f72f2b1b656b
+    m_ActionName: Just_Attacks/Normal_Button[/Keyboard/l,/SwitchProControllerHID/buttonEast,/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ea6c0227-e3e8-4b23-bf4f-b3cc5be73bcc
+    m_ActionName: Just_Attacks/Input_Direction[/SwitchProControllerHID/leftStick,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Menus

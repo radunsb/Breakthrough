@@ -1,24 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Runtime.Remoting.Activation;
 using System.Xml.Serialization;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+//using static System.Net.Mime.MediaTypeNames;
+
 [RequireComponent(typeof(PlayerInput))]
 
-public class TitleScript : MonoBehaviour
+public class SinglePlayerScript : MonoBehaviour
 {
     //List of the possible menu options
     public GameObject[] buttons;
-
-    //List of buttons that appear when single-player mode is selected
-    public GameObject[] spbuttons;
-
-    //Panel containing all of the buttons for single-player modes
-    public GameObject spPanel;
 
     //Menu option that is currently being "hovered" over
     int _buttonActive = -1;
@@ -57,11 +53,11 @@ public class TitleScript : MonoBehaviour
         move.Enable();
 
         confirm = controls.Menus.Confirm;
-        confirm.performed += processSelectInput;
+ //       confirm.performed += processSelectInput;
         confirm.Enable();
 
         back = controls.Menus.Back;
-        back.performed += processBackInput;
+ //       back.performed += processBackInput;
         back.Enable();
     }
 
@@ -78,9 +74,9 @@ public class TitleScript : MonoBehaviour
     }
 
     void Update()
-    {   
+    {
         //If there is a sub-menu open...
-        if(menuLevel > 0)
+        if (menuLevel > 0)
         {
             //Scroll right and left within the sub-menu
             if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -113,7 +109,7 @@ public class TitleScript : MonoBehaviour
     {
         //If the user doesn't have an option selected, pushing any navigational key will
         //just select the first button no matter what
-        if(_buttonActive == -1)
+        if (_buttonActive == -1)
         {
             _buttonActive = 0;
         }
@@ -130,7 +126,7 @@ public class TitleScript : MonoBehaviour
     //currentButtons: Current set of buttons (Main, SP, etc.) that is being updated
     void updateSubButton(int inputNum, GameObject[] currentButtons)
     {
-        if(_subButtonActive == -1)
+        if (_subButtonActive == -1)
         {
             _subButtonActive = 0;
         }
@@ -148,9 +144,9 @@ public class TitleScript : MonoBehaviour
     {
         //Update each button color only when the selected one is changed (runs from
         //updateActiveButton())
-        for(int i = 0; i < currentButtons.Length; i++)
+        for (int i = 0; i < currentButtons.Length; i++)
         {
-            if(i != active)
+            if (i != active)
             {
                 currentButtons[i].GetComponent<Image>().color = inactiveButton;
             }
@@ -158,71 +154,6 @@ public class TitleScript : MonoBehaviour
             {
                 currentButtons[i].GetComponent<Image>().color = activeButton;
             }
-        }
-    }
-
-    void processSelectInput(InputAction.CallbackContext context)
-    {
-        //Single-Player Selection
-        if(_buttonActive == 0)
-        {
-            //No Sub-Menu Open
-            if(menuLevel == 0)
-            {
-                spPanel.SetActive(true);
-                _subButtonActive = 0;
-                currentSubButtons = spbuttons;
-                updateButtonColors(currentSubButtons, _subButtonActive);
-                menuLevel = 1;
-            } 
-            //Vs. AI
-            else if(_subButtonActive == 0)
-            {
-                isSolo = true;
-                SceneManager.LoadScene("CSScene");
-            }
-            // 1 V. 1
-            else if (_subButtonActive == 1)
-            {
-                isSolo = false;
-                SceneManager.LoadScene("CSScene");
-            }
-            else
-            {
-                //Training Mode
-                if(_subButtonActive == 2)
-                {
-                    isSolo = true;
-                    SceneManager.LoadScene("CSScene");
-                }
-            }
-        }
-
-        //Multiplayer Selection
-        if(_buttonActive == 1)
-        {
-            SceneManager.LoadScene("MultiPlayerScene");
-        }
-
-        //Options
-        if(_buttonActive == 2)
-        {
-            SceneManager.LoadScene("Options");
-        }
-
-        //Exit
-        else if(_buttonActive == 3)
-        {
-            Application.Quit();
-        }
-    }
-    void processBackInput(InputAction.CallbackContext context)
-    {
-        if (menuLevel > 0)
-        {
-            spPanel.SetActive(false);
-            _subButtonActive = -1;
-            menuLevel = 0;
         }
     }
 }

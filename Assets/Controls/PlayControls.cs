@@ -49,8 +49,8 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""0b25411e-4800-4b65-b0c0-44f77138fd79"",
-                    ""expectedControlType"": ""Stick"",
-                    ""processors"": """",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": ""StickDeadzone"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 }
@@ -125,7 +125,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""28f52958-4cb3-4cef-842d-94ee1fe068d7"",
-                    ""path"": ""<Joystick>/stick"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -199,7 +199,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""386eaa15-034d-4abf-a603-f72f2b1b656b"",
                     ""expectedControlType"": ""Button"",
-                    ""processors"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
@@ -207,7 +207,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""name"": ""Input_Direction"",
                     ""type"": ""Value"",
                     ""id"": ""ea6c0227-e3e8-4b23-bf4f-b3cc5be73bcc"",
-                    ""expectedControlType"": ""Stick"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true

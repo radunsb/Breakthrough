@@ -134,8 +134,7 @@ public class PlayerScript : MonoBehaviour
 
     void moveCharacter()
     {
-        if (_grounded)
-        {
+
             switch (directions.x)
             {
                 case float x when x > .8:
@@ -154,15 +153,15 @@ public class PlayerScript : MonoBehaviour
                     _flipX = true;
                     break;
                 case float x when (x < -0.3 && x >= -.8):
-                    _rbody.velocity = new Vector2(-walkSpeed, 0f);
+                    _rbody.velocity = new Vector2(-walkSpeed, _rbody.velocity.y);
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
                     _flipX = true;
                     break;
                 default:
-                    _rbody.velocity = new Vector2(0f, 0f);
+                    _rbody.velocity = new Vector2(0f, _rbody.velocity.y);
                     break;
             }
-        }
+
     }
     void singleJump()
     {

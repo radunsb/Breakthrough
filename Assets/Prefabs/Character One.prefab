@@ -498,8 +498,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   runSpeed: 6
-  jump1Height: 15
-  jump2Height: 10
+  jump1Height: 20
+  jump2Height: 15
   _flipX: 0
 --- !u!50 &4550727171071105467
 Rigidbody2D:
@@ -516,7 +516,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

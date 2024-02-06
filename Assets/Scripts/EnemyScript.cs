@@ -35,6 +35,7 @@ public class EnemyScript : MonoBehaviour
         float lm = calcLaunchMultiplier(velocityMult);
         launchDirection = launchDirection * Mathf.Deg2Rad;
         Vector2 force = new Vector2(Mathf.Cos(launchDirection) * lm, Mathf.Sin(launchDirection) * lm);
+        _rbody.velocity = Vector2.zero;
         _rbody.AddForce(force);
     }
 
@@ -42,7 +43,6 @@ public class EnemyScript : MonoBehaviour
     {
         if (collision.tag.Equals("Hitbox"))
         {
-            print("Hi");
             if (!_inKnockback)
             {
                 HitboxScript hs = collision.gameObject.GetComponent<HitboxScript>();

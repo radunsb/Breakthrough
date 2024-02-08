@@ -73,7 +73,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        animator.SetBool("Grounded", _grounded);
     }
     private void FixedUpdate()
     {

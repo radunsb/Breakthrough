@@ -194,4 +194,12 @@ public class PlayerScript : MonoBehaviour
         RaycastHit2D hitRight = Physics2D.Raycast(bottomRight, Vector2.down, 0.5f, groundLayer);
         return (hitLeft.collider != null || hitCenter.collider != null || hitRight.collider != null);
     }
+    void stopAttack()
+    {
+        animator.SetBool("Ready", false);
+    }
+    void canAttack()
+    {
+        animator.SetBool("Ready", true);
+    }
 }

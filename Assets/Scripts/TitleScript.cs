@@ -54,6 +54,7 @@ public class TitleScript : MonoBehaviour
     private void OnEnable()
     {
         move = controls.Menus.Movement;
+        move.performed += navigate;
         move.Enable();
 
         confirm = controls.Menus.Confirm;
@@ -79,15 +80,19 @@ public class TitleScript : MonoBehaviour
 
     void Update()
     {   
-        //If there is a sub-menu open...
+        
+    }
+
+    void navigate(InputAction.CallbackContext context)
+    {
+        Vector2 directions = context.ReadValue<Vector2>();
         if(menuLevel > 0)
         {
-            //Scroll right and left within the sub-menu
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if(directions.x > .5)
             {
                 updateSubButton(1, currentSubButtons);
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if(directions.x < -.5)
             {
                 updateSubButton(-1, currentSubButtons);
             }
@@ -96,12 +101,12 @@ public class TitleScript : MonoBehaviour
         {
             //Reset the sub-menu counter if there isn't one open
             _subButtonActive = -1;
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (directions.y > 0.5)
             {
                 //Scroll one button up
                 updateActiveButton(-1);
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (directions.y < -0.5)
             {
                 //Scroll one button down
                 updateActiveButton(1);

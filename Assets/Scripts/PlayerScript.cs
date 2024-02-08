@@ -7,17 +7,20 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerScript : MonoBehaviour
 {
+    //Character Specific Variables
     public float walkSpeed;
     public float runSpeed;
     public float jump1Height;
     public float jump2Height;
 
+    //Input controls
     public PlayControls controls;
     private InputAction normButton;
     private InputAction inputDirection;
     private InputAction jumpButton;
     Animator animator;
 
+    //Private vars
     Rigidbody2D _rbody;
     int timesJumped;
     bool _grounded;
@@ -25,6 +28,7 @@ public class PlayerScript : MonoBehaviour
     public bool _flipX = false;
     Vector2 directions;
 
+    //raycast positions
     Vector2 bottomLeft;
     Vector2 bottomMid;
     Vector2 bottomRight;
@@ -63,6 +67,8 @@ public class PlayerScript : MonoBehaviour
         _rbody = GetComponent<Rigidbody2D>();
         _grounded = true;
         _flipX = false;
+
+        //Initialize variables for raycasting
         bottomLeft = new Vector2(_rbody.position.x - .5f, _rbody.position.y - 1f);
         bottomMid = new Vector2(_rbody.position.x, _rbody.position.y - 1f);
         bottomRight = new Vector2(_rbody.position.x + .5f, _rbody.position.y - 1f);
@@ -80,7 +86,7 @@ public class PlayerScript : MonoBehaviour
         moveCharacter();
         if (isGrounded())
         {
-            print("grounded");
+            //if grounded and you didn't just start a jump...
             if (!_isJumping)
             {
                 _grounded = true;
@@ -100,6 +106,7 @@ public class PlayerScript : MonoBehaviour
 
     void doJumps(InputAction.CallbackContext context)
     {
+        //Determine whether you can jump, and which jump type to do
         switch (timesJumped)
         {
             case 0:
@@ -115,9 +122,12 @@ public class PlayerScript : MonoBehaviour
     void controlHeldDirection(InputAction.CallbackContext context)
     {
         directions = context.ReadValue<Vector2>();
+        //default all directions to false
         animator.SetBool("Forward Hold", false);
         animator.SetBool("Upward Hold", false);
         animator.SetBool("Downward Hold", false);
+        //Game gives a bit of priority to horizontal holiding. These will probably get adjusted
+        //while the game is being refined.
         if (directions.y > 0.6)
         {
             animator.SetBool("Upward Hold", true);            
@@ -132,31 +142,36 @@ public class PlayerScript : MonoBehaviour
         }      
     }
 
+    //Controls horizontal character movement
     void moveCharacter()
     {
-
             switch (directions.x)
             {
+                //Run right
                 case float x when x > .8:
                     _rbody.velocity = new Vector2(runSpeed, _rbody.velocity.y);
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
                     _flipX = false;
                     break;
+                //Walk right
                 case float x when (x > 0.3 && x <= .8):
                     _rbody.velocity = new Vector2(walkSpeed, _rbody.velocity.y);
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
                     _flipX = false;
                     break;
+                //Run left
                 case float x when x < -.8:
                     _rbody.velocity = new Vector2(-runSpeed, _rbody.velocity.y);
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
                     _flipX = true;
                     break;
+                //Walk left
                 case float x when (x < -0.3 && x >= -.8):
                     _rbody.velocity = new Vector2(-walkSpeed, _rbody.velocity.y);
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
                     _flipX = true;
                     break;
+                //No horizontal movement
                 default:
                     _rbody.velocity = new Vector2(0f, _rbody.velocity.y);
                     break;
@@ -165,9 +180,9 @@ public class PlayerScript : MonoBehaviour
     }
     void singleJump()
     {
-        print("sj");
         _grounded = false;
         _isJumping = true;
+        //Done so that the raycast doesn't immediately make you grounded when you try and jump
         Invoke("resetIsJumping", 0.2f);
         _rbody.velocity = new Vector2(_rbody.velocity.x, jump1Height);
         timesJumped = 1;
@@ -180,10 +195,11 @@ public class PlayerScript : MonoBehaviour
 
     void doubleJump()
     {
-        print("dj");
         _rbody.velocity = new Vector2(_rbody.velocity.x, jump2Height);
         timesJumped = 2;
     }
+    //Raycast down from the left, middle, and right sides of the player character.
+    //Returns true if the raycast hits something belonging to the ground layer.
     bool isGrounded()
     {
         bottomLeft = new Vector2(_rbody.position.x - .5f, _rbody.position.y - 1f);
@@ -194,10 +210,12 @@ public class PlayerScript : MonoBehaviour
         RaycastHit2D hitRight = Physics2D.Raycast(bottomRight, Vector2.down, 0.5f, groundLayer);
         return (hitLeft.collider != null || hitCenter.collider != null || hitRight.collider != null);
     }
+    //Used by animator to prevent player from attacking while in a committed state
     void stopAttack()
     {
         animator.SetBool("Ready", false);
     }
+    //Allows the player to attack again.
     void canAttack()
     {
         animator.SetBool("Ready", true);

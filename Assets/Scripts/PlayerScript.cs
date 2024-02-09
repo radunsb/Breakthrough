@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     //Input controls
     public PlayControls controls;
     private InputAction normButton;
+    private InputAction strongButton;
     private InputAction inputDirection;
     private InputAction jumpButton;
     Animator animator;
@@ -24,6 +26,7 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D _rbody;
     int timesJumped;
     bool _grounded;
+    bool _canMove;
     bool _isJumping;
     public bool _flipX = false;
     Vector2 directions;
@@ -43,8 +46,12 @@ public class PlayerScript : MonoBehaviour
     private void OnEnable()
     {
         normButton = controls.InGame.Normal_Button;
-        normButton.performed += normalButton;
+        normButton.performed += doNormalButton;
         normButton.Enable();
+
+        strongButton = controls.InGame.Strong_Button;
+        strongButton.performed += doStrongButton;
+        strongButton.Enable();
 
         inputDirection = controls.InGame.Input_Direction;
         inputDirection.performed += controlHeldDirection;
@@ -58,6 +65,7 @@ public class PlayerScript : MonoBehaviour
     private void OnDisable()
     {
         normButton.Disable();
+        strongButton.Disable();
         inputDirection.Disable();
         jumpButton.Disable();
     }
@@ -99,9 +107,14 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void normalButton(InputAction.CallbackContext context)
+    void doNormalButton(InputAction.CallbackContext context)
     {
         animator.SetTrigger("Normal button");
+    }
+
+    void doStrongButton(InputAction.CallbackContext context)
+    {
+        animator.SetTrigger("Strong Button");
     }
 
     void doJumps(InputAction.CallbackContext context)
@@ -145,6 +158,8 @@ public class PlayerScript : MonoBehaviour
     //Controls horizontal character movement
     void moveCharacter()
     {
+        if (_canMove)
+        {
             switch (directions.x)
             {
                 //Run right
@@ -176,7 +191,7 @@ public class PlayerScript : MonoBehaviour
                     _rbody.velocity = new Vector2(0f, _rbody.velocity.y);
                     break;
             }
-
+        }
     }
     void singleJump()
     {
@@ -214,10 +229,18 @@ public class PlayerScript : MonoBehaviour
     void stopAttack()
     {
         animator.SetBool("Ready", false);
+        //Grounded attacks should stop the character's movement for their duration
+        if (_grounded)
+        {
+            _canMove = false;
+            _rbody.velocity = new Vector2(0f, _rbody.velocity.y);
+        }
+
     }
     //Allows the player to attack again.
     void canAttack()
     {
         animator.SetBool("Ready", true);
+        if (!_canMove) _canMove  = true;
     }
 }

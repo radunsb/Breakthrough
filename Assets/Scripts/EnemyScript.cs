@@ -36,7 +36,7 @@ public class EnemyScript : MonoBehaviour
     //(the function itself is subject to change)
     float calcLaunchMultiplier(float velocityMult)
     {
-        return velocityMult * (_damage / 50 + 1) * 200;
+        return velocityMult * (_damage / 100 + 1) * 200;
     }
 
     void takeKnockback(float velocityMult, float launchDirection)

@@ -237,7 +237,7 @@ public class PlayerScript : MonoBehaviour
         }
 
     }
-    //Allows the player to attack again.
+    //Allows the player to attack and move again.
     void canAttack()
     {
         animator.SetBool("Ready", true);

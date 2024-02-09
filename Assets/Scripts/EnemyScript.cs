@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 public class EnemyScript : MonoBehaviour
@@ -16,6 +17,7 @@ public class EnemyScript : MonoBehaviour
     //gameObject of the player/other player
     public GameObject opponent;
     PlayerScript _opponentScript;
+    public Text dmgText;
     void Start()
     {
         _inKnockback = false;
@@ -27,7 +29,7 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        dmgText.text = "Damage: " + _damage;
     }
 
     //Knockback as a function of the hitbox's power and the character's damage
@@ -56,6 +58,7 @@ public class EnemyScript : MonoBehaviour
             {
                 HitboxScript hs = collision.gameObject.GetComponent<HitboxScript>();
                 float ld = hs.launchDirection;
+                _damage += hs.damage;
                 //for now, just flip the launch direction if attacker is facing left
                 //might have to be made more complex depending on the kinds of moves we add
                 if (_opponentScript._flipX)

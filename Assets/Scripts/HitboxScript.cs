@@ -6,5 +6,5 @@ public class HitboxScript : MonoBehaviour
 {
     public float velocityMult;
     public float launchDirection;
-
+    public int damage;
 }

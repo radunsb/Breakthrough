@@ -38,6 +38,7 @@ public class PlayerScript : MonoBehaviour
 
     LayerMask groundLayer;
 
+
     private void Awake()
     {
         controls = new PlayControls();

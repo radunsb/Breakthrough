@@ -8,6 +8,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerScript : MonoBehaviour
 {
+    [SerializeField]
+    private int playerIndex = 0;
+
     //Character Specific Variables
     public float walkSpeed;
     public float runSpeed;
@@ -150,7 +153,7 @@ public class PlayerScript : MonoBehaviour
         {
             animator.SetBool("Downward Hold", true);
         }
-        else if(directions.x > 0.3 && !_flipX || directions.x < 0.3 && _flipX)
+        else if(directions.x > 0.4 && !_flipX || directions.x < 0.4 && _flipX)
         {            
             animator.SetBool("Forward Hold", true);
         }      
@@ -170,7 +173,7 @@ public class PlayerScript : MonoBehaviour
                     _flipX = false;
                     break;
                 //Walk right
-                case float x when (x > 0.3 && x <= .8):
+                case float x when (x > 0.4 && x <= .8):
                     _rbody.velocity = new Vector2(walkSpeed, _rbody.velocity.y);
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
                     _flipX = false;
@@ -182,7 +185,7 @@ public class PlayerScript : MonoBehaviour
                     _flipX = true;
                     break;
                 //Walk left
-                case float x when (x < -0.3 && x >= -.8):
+                case float x when (x < -0.4 && x >= -.8):
                     _rbody.velocity = new Vector2(-walkSpeed, _rbody.velocity.y);
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
                     _flipX = true;

@@ -68,6 +68,11 @@ public class AIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    private void FixedUpdate()
+    {
         if (isGrounded())
         {
             //if grounded and you didn't just start a jump...
@@ -84,6 +89,8 @@ public class AIScript : MonoBehaviour
         animator.SetBool("Grounded", _grounded);
         if (actionable)
         {
+            animator.SetBool("Ready", true);
+            print(checkCanAttack());
             switch (checkCanAttack())
             {
                 case 0:
@@ -111,22 +118,29 @@ public class AIScript : MonoBehaviour
                     animator.SetBool("Downward Hold", true);
                     break;
                 default:
+                    animator.ResetTrigger("Normal button");
+                    animator.ResetTrigger("Strong Button");
                     break;
             }
+        }
+        else
+        {
+            animator.SetBool("Ready", false);
         }
     }
 
     int checkCanAttack()
-    {
-        float xDistance = _player.transform.position.x - transform.position.x;
-        float yDistance = _player.transform.position.y - transform.position.y;       
+    {      
         if (_grounded)
         {
             for(int i = 0; i <= 5; i++)
             {
-                RaycastHit2D hitPlayer = Physics2D.Raycast(_rbody.position, Vector2.right,
-                    moveRanges[i][0], playerLayer);
-                if(hitPlayer.collider != null)
+                Vector2 topLeft = new Vector2(_rbody.position.x + moveRanges[i][2], _rbody.position.y + moveRanges[i][1]);
+                Vector2 bottomLeft = new Vector2(_rbody.position.x + moveRanges[i][2], _rbody.position.y + moveRanges[i][3]);
+                float xRange = moveRanges[i][0] + moveRanges[i][2];
+                RaycastHit2D hitPlayerTop = Physics2D.Raycast(topLeft, Vector2.right, xRange, playerLayer);
+                RaycastHit2D hitPlayerBottom = Physics2D.Raycast(bottomLeft, Vector2.right, xRange, playerLayer);
+                if(hitPlayerTop.collider != null || hitPlayerBottom.collider != null)
                 {
                     return i;
                 }
@@ -136,7 +150,7 @@ public class AIScript : MonoBehaviour
     }
     void stopAttack()
     {
-        animator.SetBool("Ready", false);
+        //animator.SetBool("Ready", false);
         //Grounded attacks should stop the character's movement for their duration
         if (_grounded)
         {

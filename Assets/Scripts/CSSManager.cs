@@ -43,6 +43,14 @@ public class CSSManager : MonoBehaviour
     //Public boolean for determining solo or Multiplayer
     public bool isSolo;
 
+    // Public GameObject for the character
+    public SpriteRenderer SR;
+    public Sprite Red;
+    public Sprite Blue;
+    public Sprite Yellow;
+    public Sprite Green;
+    public GameObject player;
+
     //Public booleans for determining character players as well as arena
     public bool RedPick = false;
     public bool BluePick = false;
@@ -84,6 +92,7 @@ public class CSSManager : MonoBehaviour
     {
         inactiveButton = new Color(0.03f, 0f, 0.48f, 0.05f);
         activeButton = new Color(0.03f, 0f, 0.48f, 0.5f);
+        //SR = player.GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -175,33 +184,37 @@ public class CSSManager : MonoBehaviour
         if(_buttonActive == 0)
         {
             RedPick = true;
+            //GetComponent(SR).sprite = Red;
         }
         if (_buttonActive == 1)
         {
             BluePick = true;
+            //GetComponent(SR).sprite = Blue;
         }
         if (_buttonActive == 2)
         {
             GreenPick = true;
+            //GetComponent(SR).sprite = Green;
         }
         if (_buttonActive == 3)
         {
             YellowPick = true;
+            //GetComponent(SR).sprite = Yellow;
         }
         if (_buttonActive == 4)
         {
-            HousePick = true;
-            SceneManager.LoadScene("MatchScene");
+            SubwayPick = true;
+            SceneManager.LoadScene("SubwayScene");
         }
         if (_buttonActive == 5)
         {
             TowerPick = true;
-            SceneManager.LoadScene("MatchScene");
+            SceneManager.LoadScene("TowerScene");
         }
         if (_buttonActive == 6)
         {
-            SubwayPick = true;
-            SceneManager.LoadScene("MatchScene");
+            HousePick = true;
+            SceneManager.LoadScene("HouseScene");
         }
         if (_buttonActive == 7)
         {

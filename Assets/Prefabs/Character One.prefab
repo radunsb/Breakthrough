@@ -1689,8 +1689,8 @@ MonoBehaviour:
   playerIndex: 0
   walkSpeed: 3
   runSpeed: 6
-  jump1Height: 8
-  jump2Height: 6
+  jump1Height: 14
+  jump2Height: 14
   _flipX: 0
 --- !u!50 &4550727171071105467
 Rigidbody2D:

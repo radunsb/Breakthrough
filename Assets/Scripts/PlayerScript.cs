@@ -241,6 +241,10 @@ public class PlayerScript : MonoBehaviour
         }
 
     }
+    void stopAttackButAllowMovement()
+    {
+        animator.SetBool("Ready", false);
+    }
     //Allows the player to attack and move again.
     void canAttack()
     {

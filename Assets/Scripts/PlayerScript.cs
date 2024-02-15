@@ -22,7 +22,6 @@ public class PlayerScript : MonoBehaviour
     public float testingThing;
 
     //Input controls
-    private PlayControls controls;
     private InputAction normButton;
     private InputAction strongButton;
     private InputAction inputDirection;
@@ -52,10 +51,15 @@ public class PlayerScript : MonoBehaviour
     private void Awake()
     {
         inputAsset = this.GetComponent<PlayerInput>().actions;
+        //Players should use the "InGame" action map from the PlayControls controller
+        //Using FindAction with strings is kind of "blegh", but it's the only way I could
+        //get the Input System working with different controllers for different characters
         inGame = inputAsset.FindActionMap("InGame");
     }
     private void OnEnable()
     {
+        //Initialize InputActions
+
         normButton = inGame.FindAction("Normal_Button");
         normButton.performed += doNormalButton;
         normButton.Enable();
@@ -74,6 +78,8 @@ public class PlayerScript : MonoBehaviour
 
     private void OnDisable()
     {
+        //Deactivate InputActions
+
         normButton.Disable();
         strongButton.Disable();
         inputDirection.Disable();
@@ -103,9 +109,25 @@ public class PlayerScript : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        //Get the current position of the left joystick/movement keys
         directions = inputDirection.ReadValue<Vector2>();
+        //Determines whether forward hold, upward hold, or downward hold (for attacks)
         controlHeldDirection();
-        moveCharacter();
+        //Controls character's x movement
+        Vector2 xMovement = intendedMovement();
+        if(_canMove)
+        {
+            if (knockbackScript.getMovePercent() < 1)
+            {
+                _rbody.velocity = Vector2.Lerp(_rbody.velocity, xMovement,
+                    1/60f);
+            }
+            else
+            {
+                _rbody.velocity = xMovement;
+            }
+        }
+
         if (isGrounded())
         {
             //if grounded and you didn't just start a jump...
@@ -119,16 +141,24 @@ public class PlayerScript : MonoBehaviour
         {
             _grounded = false;
         }
+        animator.ResetTrigger("Normal button");
+        animator.ResetTrigger("Strong Button");
     }
 
     void doNormalButton(InputAction.CallbackContext context)
     {
-        animator.SetTrigger("Normal button");
+        if (!knockbackScript.getInKnockback())
+        {
+            animator.SetTrigger("Normal button");
+        }
     }
 
     void doStrongButton(InputAction.CallbackContext context)
     {
-        animator.SetTrigger("Strong Button");
+        if (!knockbackScript.getInKnockback())
+        {
+            animator.SetTrigger("Strong Button");
+        }
     }
 
     void doJumps(InputAction.CallbackContext context)
@@ -169,43 +199,38 @@ public class PlayerScript : MonoBehaviour
     }
 
     //Controls horizontal character movement
-    void moveCharacter()
+    Vector2 intendedMovement()
     {
         if (_canMove && !knockbackScript.getInKnockback())
         {
-            float movePercent = knockbackScript.getMovePercent();
             switch (directions.x)
             {
                 //Run right
-                case float x when x > .8f:
-                    _rbody.velocity = new Vector2(runSpeed, _rbody.velocity.y);
+                case float x when x > .8f:                    
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
                     _flipX = false;
-                    break;
+                    return new Vector2(runSpeed, _rbody.velocity.y);
                 //Walk right
                 case float x when (x > 0.4f && x <= .8f):
-                    _rbody.velocity = new Vector2(walkSpeed, _rbody.velocity.y);
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
                     _flipX = false;
-                    break;
+                    return new Vector2(walkSpeed, _rbody.velocity.y);
                 //Run left
                 case float x when x < -.8f:
-                    _rbody.velocity = new Vector2(-runSpeed, _rbody.velocity.y);
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
                     _flipX = true;
-                    break;
+                    return new Vector2(-runSpeed, _rbody.velocity.y);
                 //Walk left
                 case float x when (x < -0.4f && x >= -.8f):
-                    _rbody.velocity = new Vector2(-walkSpeed, _rbody.velocity.y);
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
                     _flipX = true;
-                    break;
+                    return new Vector2(-walkSpeed, _rbody.velocity.y);
                 //No horizontal movement
                 default:
-                    _rbody.velocity = new Vector2(0f, _rbody.velocity.y);
-                    break;
+                    return new Vector2(0f, _rbody.velocity.y);
             }
         }
+        return _rbody.velocity;
     }
     void singleJump()
     {

@@ -190,7 +190,10 @@ public class TitleScript : MonoBehaviour
             else if (_subButtonActive == 1)
             {
                 isSolo = false;
-                SceneManager.LoadScene("CSScene");
+                PlayerPrefs.SetString("Match Type", "1v1");
+                PlayerPrefs.SetInt("P1 Points", 0);
+                PlayerPrefs.SetInt("P2 Points", 0);
+                SceneManager.LoadScene("MatchScene");
             }
             else
             {

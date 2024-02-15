@@ -301,186 +301,6 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Just_Attacks"",
-            ""id"": ""a31ddef4-0f2d-4f56-8d0d-f2075d483e51"",
-            ""actions"": [
-                {
-                    ""name"": ""Normal_Button"",
-                    ""type"": ""Button"",
-                    ""id"": ""386eaa15-034d-4abf-a603-f72f2b1b656b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": ""AxisDeadzone"",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Input_Direction"",
-                    ""type"": ""Value"",
-                    ""id"": ""ea6c0227-e3e8-4b23-bf4f-b3cc5be73bcc"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""StickDeadzone"",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""04afd783-2e0c-44dc-8468-06da951e8218"",
-                    ""path"": ""<Keyboard>/l"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Normal_Button"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e5fc3932-acbf-4ec1-bee3-be6d0053d9e5"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Normal_Button"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7c93714b-389a-46d5-a045-197c9c0f45da"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Normal_Button"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4e0fda73-ccdc-45f5-9789-3c1013e4e603"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""fbbc8a2b-f862-4043-a8df-ee316a5ad19e"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""2c8edf12-372b-492b-8914-12fbd55c9cad"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""0c3ee536-3747-4abc-afe0-38f52f47c337"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""dbe2eeef-2360-45ce-8a47-9773319cbcee"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""3c951a83-479a-4e2a-ba09-38dd42157f0b"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""4fab671a-8417-4e08-be96-e3d2d266223f"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""226ceac0-2e2d-49a1-b07d-68c4c0645846"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""beb65bab-7bdb-45c4-96d9-38a40b058471"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""f194c810-77eb-4a14-9726-f689c7824937"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""0e760085-ebb3-47d8-ad06-cccd653eef8d"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Input_Direction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                }
-            ]
-        },
-        {
             ""name"": ""InGame"",
             ""id"": ""86f4d882-1b0f-4801-b182-a2ef42faf343"",
             ""actions"": [
@@ -498,7 +318,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""29758f20-7176-4a61-9e1c-8f490a2997ce"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""StickDeadzone"",
+                    ""processors"": ""StickDeadzone(min=0.2)"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
@@ -590,6 +410,28 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9f2d91f1-cf75-4991-861b-5a21f80f8c84"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Jump_Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ed46402-68ae-483f-8fcb-2a031ba52e48"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Jump_Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""a5a35ab8-1d51-4987-9634-b17b242964a5"",
                     ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
@@ -635,7 +477,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""e709862d-2ba9-4652-880d-83a062513eb5"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -690,7 +532,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""e3535454-20e9-4f48-837d-439e04e3ac67"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -752,7 +594,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
             ""devices"": [
                 {
                     ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": true,
+                    ""isOptional"": false,
                     ""isOR"": false
                 }
             ]
@@ -763,7 +605,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": true,
+                    ""isOptional"": false,
                     ""isOR"": false
                 }
             ]
@@ -775,10 +617,6 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
         m_Menus_Confirm = m_Menus.FindAction("Confirm", throwIfNotFound: true);
         m_Menus_Back = m_Menus.FindAction("Back", throwIfNotFound: true);
         m_Menus_Movement = m_Menus.FindAction("Movement", throwIfNotFound: true);
-        // Just_Attacks
-        m_Just_Attacks = asset.FindActionMap("Just_Attacks", throwIfNotFound: true);
-        m_Just_Attacks_Normal_Button = m_Just_Attacks.FindAction("Normal_Button", throwIfNotFound: true);
-        m_Just_Attacks_Input_Direction = m_Just_Attacks.FindAction("Input_Direction", throwIfNotFound: true);
         // InGame
         m_InGame = asset.FindActionMap("InGame", throwIfNotFound: true);
         m_InGame_Normal_Button = m_InGame.FindAction("Normal_Button", throwIfNotFound: true);
@@ -890,47 +728,6 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
     }
     public MenusActions @Menus => new MenusActions(this);
 
-    // Just_Attacks
-    private readonly InputActionMap m_Just_Attacks;
-    private IJust_AttacksActions m_Just_AttacksActionsCallbackInterface;
-    private readonly InputAction m_Just_Attacks_Normal_Button;
-    private readonly InputAction m_Just_Attacks_Input_Direction;
-    public struct Just_AttacksActions
-    {
-        private @PlayControls m_Wrapper;
-        public Just_AttacksActions(@PlayControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Normal_Button => m_Wrapper.m_Just_Attacks_Normal_Button;
-        public InputAction @Input_Direction => m_Wrapper.m_Just_Attacks_Input_Direction;
-        public InputActionMap Get() { return m_Wrapper.m_Just_Attacks; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(Just_AttacksActions set) { return set.Get(); }
-        public void SetCallbacks(IJust_AttacksActions instance)
-        {
-            if (m_Wrapper.m_Just_AttacksActionsCallbackInterface != null)
-            {
-                @Normal_Button.started -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnNormal_Button;
-                @Normal_Button.performed -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnNormal_Button;
-                @Normal_Button.canceled -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnNormal_Button;
-                @Input_Direction.started -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnInput_Direction;
-                @Input_Direction.performed -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnInput_Direction;
-                @Input_Direction.canceled -= m_Wrapper.m_Just_AttacksActionsCallbackInterface.OnInput_Direction;
-            }
-            m_Wrapper.m_Just_AttacksActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Normal_Button.started += instance.OnNormal_Button;
-                @Normal_Button.performed += instance.OnNormal_Button;
-                @Normal_Button.canceled += instance.OnNormal_Button;
-                @Input_Direction.started += instance.OnInput_Direction;
-                @Input_Direction.performed += instance.OnInput_Direction;
-                @Input_Direction.canceled += instance.OnInput_Direction;
-            }
-        }
-    }
-    public Just_AttacksActions @Just_Attacks => new Just_AttacksActions(this);
-
     // InGame
     private readonly InputActionMap m_InGame;
     private IInGameActions m_InGameActionsCallbackInterface;
@@ -1010,11 +807,6 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
         void OnConfirm(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
-    }
-    public interface IJust_AttacksActions
-    {
-        void OnNormal_Button(InputAction.CallbackContext context);
-        void OnInput_Direction(InputAction.CallbackContext context);
     }
     public interface IInGameActions
     {

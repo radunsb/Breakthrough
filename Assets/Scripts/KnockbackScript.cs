@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class EnemyScript : MonoBehaviour
+public class KnockbackScript : MonoBehaviour
 {
     bool _inKnockback;
     //Damage increments every time gameobject is hit
@@ -18,6 +18,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject opponent;
     PlayerScript _opponentScript;
     public Text dmgText;
+    private float movePercent;
     void Start()
     {
         _inKnockback = false;
@@ -30,6 +31,14 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         dmgText.text = "Damage: " + _damage;
+    }
+
+    private void FixedUpdate()
+    {
+        if(movePercent < 1)
+        {
+            movePercent += 1 / 60f;
+        }
     }
 
     //Knockback as a function of the hitbox's power and the character's damage
@@ -48,6 +57,7 @@ public class EnemyScript : MonoBehaviour
         //Set the current velocity to zero so moves do knockback consistently
         _rbody.velocity = Vector2.zero;
         _rbody.AddForce(force);
+        movePercent = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -69,7 +79,7 @@ public class EnemyScript : MonoBehaviour
                 //Also subject to change depending on if we implement multi-hit moves
                 takeKnockback(hs.velocityMult, ld);
                 _inKnockback = true;
-                Invoke("allowKnockback", 0.2f);
+                Invoke("allowKnockback", 0.3f);
             }
         }
     }
@@ -77,5 +87,15 @@ public class EnemyScript : MonoBehaviour
     void allowKnockback()
     {
         _inKnockback = false;
+    }
+
+    public float getMovePercent()
+    {
+        return movePercent;
+    }
+
+    public bool getInKnockback()
+    {
+        return _inKnockback;
     }
 }

@@ -8,6 +8,7 @@ using UnityEngine.InputSystem.Users;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(KnockbackScript))]
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField]
@@ -38,6 +39,7 @@ public class PlayerScript : MonoBehaviour
     bool _isJumping;
     public bool _flipX = false;
     Vector2 directions;
+    KnockbackScript knockbackScript;
 
     //raycast positions
     Vector2 bottomLeft;
@@ -90,6 +92,8 @@ public class PlayerScript : MonoBehaviour
         bottomRight = new Vector2(_rbody.position.x + .5f, _rbody.position.y - 1f);
         groundLayer = LayerMask.GetMask("Ground");
         timesJumped = 0;
+
+        knockbackScript = GetComponent<KnockbackScript>();
     }
 
     // Update is called once per frame
@@ -167,8 +171,9 @@ public class PlayerScript : MonoBehaviour
     //Controls horizontal character movement
     void moveCharacter()
     {
-        if (_canMove)
+        if (_canMove && !knockbackScript.getInKnockback())
         {
+            float movePercent = knockbackScript.getMovePercent();
             switch (directions.x)
             {
                 //Run right

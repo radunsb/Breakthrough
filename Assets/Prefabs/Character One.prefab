@@ -1949,8 +1949,8 @@ MonoBehaviour:
   playerIndex: 1
   walkSpeed: 3
   runSpeed: 6
-  jump1Height: 11
-  jump2Height: 8
+  jump1Height: 12
+  jump2Height: 9
   testingThing: 0
   _flipX: 1
 --- !u!50 &4550727171071105467

@@ -1819,7 +1819,7 @@ MonoBehaviour:
   playerIndex: 1
   walkSpeed: 4
   runSpeed: 8
-  jump1Height: 10
+  jump1Height: 11
   jump2Height: 8
   testingThing: 0
   _flipX: 0

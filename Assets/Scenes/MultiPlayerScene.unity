@@ -159,8 +159,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -225, y: -37.5}
-  m_SizeDelta: {x: -550, y: -275}
+  m_AnchoredPosition: {x: -200, y: -37.5}
+  m_SizeDelta: {x: -400, y: -275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &293716327
 MonoBehaviour:
@@ -236,8 +236,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -225, y: 62.5}
-  m_SizeDelta: {x: -550, y: -275}
+  m_AnchoredPosition: {x: -200, y: 62.5}
+  m_SizeDelta: {x: -400, y: -275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &621695263
 MonoBehaviour:
@@ -348,7 +348,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Multiplayer
+  m_Text: Local 1v1
 --- !u!222 &811027166
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -672,6 +672,8 @@ MonoBehaviour:
   - {fileID: 1547079065}
   - {fileID: 293716325}
   - {fileID: 1633547730}
+  inactiveButton: {r: 0.10616275, g: 0.4056604, b: 0.002551273, a: 0.16470589}
+  activeButton: {r: 0.15383442, g: 0.5283019, b: 0, a: 0.69803923}
   isSolo: 0
 --- !u!114 &1468043812
 MonoBehaviour:
@@ -739,8 +741,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -225, y: 12.5}
-  m_SizeDelta: {x: -550, y: -275}
+  m_AnchoredPosition: {x: -200, y: 12.5}
+  m_SizeDelta: {x: -400, y: -275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1547079067
 MonoBehaviour:
@@ -816,8 +818,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -287.5, y: -300}
-  m_SizeDelta: {x: -675, y: 100}
+  m_AnchoredPosition: {x: -225, y: -300}
+  m_SizeDelta: {x: -450, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1633547732
 MonoBehaviour:
@@ -1160,7 +1162,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Multiplayer
+  m_Text: Online 1v1
 --- !u!222 &2047304221
 CanvasRenderer:
   m_ObjectHideFlags: 0

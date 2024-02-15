@@ -25,6 +25,7 @@ public class KnockbackScript : MonoBehaviour
         _damage = 0;
         _rbody = GetComponent<Rigidbody2D>();
         _opponentScript = opponent.GetComponent<PlayerScript>();
+        movePercent = 1;
     }
 
     // Update is called once per frame
@@ -37,7 +38,7 @@ public class KnockbackScript : MonoBehaviour
     {
         if(movePercent < 1)
         {
-            movePercent += 1 / 60f;
+            movePercent += (1 / 60f);
         }
     }
 
@@ -56,8 +57,7 @@ public class KnockbackScript : MonoBehaviour
         Vector2 force = new Vector2(Mathf.Cos(launchDirection) * lm, Mathf.Sin(launchDirection) * lm);
         //Set the current velocity to zero so moves do knockback consistently
         _rbody.velocity = Vector2.zero;
-        _rbody.AddForce(force);
-        movePercent = 0;
+        _rbody.AddForce(force);        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -79,13 +79,14 @@ public class KnockbackScript : MonoBehaviour
                 //Also subject to change depending on if we implement multi-hit moves
                 takeKnockback(hs.velocityMult, ld);
                 _inKnockback = true;
-                Invoke("allowKnockback", 0.3f);
+                Invoke("allowKnockback", 0.2f);
             }
         }
     }
 
     void allowKnockback()
     {
+        movePercent = 0f;
         _inKnockback = false;
     }
 

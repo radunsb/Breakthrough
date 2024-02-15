@@ -20,9 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SinglePlayerScene.unity
     guid: 21d23143f0a026647822956e0c46d870
-  - enabled: 1
-    path: Assets/Scenes/MatchScene.unity
-    guid: ee724355267db704294305b74fb7538f
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/HouseScene.unity
     guid: eea7755e0b3f27043a25d1ff3d71550f
@@ -38,5 +38,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SubwayScene.unity
     guid: 73f38061bc58aec4c8c17bd32cf5194a
+  - enabled: 1
+    path: Assets/Scenes/MatchScene.unity
+    guid: c003a148989fe884ca836c0ec93e0fc0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 92ab969e1efd9634bb16a9bbf2392718, type: 2}

@@ -72,6 +72,8 @@ public class CSSManager : TitleScript
                 PlayerPrefs.SetInt("Player1Char", matchInfo[0]);
                 PlayerPrefs.SetInt("Player2Char", matchInfo[1]);
                 PlayerPrefs.SetInt("Stage", matchInfo[2]);
+                PlayerPrefs.SetInt("P1 Points", 0);
+                PlayerPrefs.SetInt("P2 Points", 0);
                 SceneManager.LoadScene("MatchScene");
             }
         }

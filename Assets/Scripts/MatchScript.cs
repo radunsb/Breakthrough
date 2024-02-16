@@ -9,6 +9,8 @@ public class MatchScript : MonoBehaviour
     public List<GameObject> managers;
     public int roundsToWin;
     public GameObject[] possiblePlayers;
+    public Text p1winsText;
+    public Text p2winsText;
     void Start()
     {
         if(PlayerPrefs.GetString("Match Type") == "2 Player Local")
@@ -21,6 +23,8 @@ public class MatchScript : MonoBehaviour
             new Vector2(4f, -3f), Quaternion.identity);
         playerOne.GetComponent<PlayerScript>().playerIndex = 0;
         playerTwo.GetComponent<PlayerScript>().playerIndex = 1;
+        p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
+        p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
     }
 
     void Update()

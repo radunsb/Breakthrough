@@ -28,10 +28,12 @@ public class SinglePlayerScript : TitleScript
         if(_buttonActive == 1)
         {
             SceneManager.LoadScene("CSScene");
+            PlayerPrefs.SetString("Match Type", "Training");
         }
         if(_buttonActive == 2)
         {
             SceneManager.LoadScene("CSScene");
+            PlayerPrefs.SetString("Match Type", "Training");
         }
     }
 }

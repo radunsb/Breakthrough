@@ -24,7 +24,7 @@ public class KnockbackScript : MonoBehaviour
     void Start()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        playerIndex = _playerScript.playerIndex;
+        playerIndex = _playerScript != null ? _playerScript.playerIndex : -1;
         foreach (GameObject player in players)
         {
             if (player.GetComponent<PlayerScript>().playerIndex != playerIndex)
@@ -35,7 +35,10 @@ public class KnockbackScript : MonoBehaviour
         _inKnockback = false;
         _damage = 0;
         _rbody = GetComponent<Rigidbody2D>();
-        _opponentScript = opponent.GetComponent<PlayerScript>();
+        if (!(PlayerPrefs.GetString("Match Type") == "Training" && gameObject.tag.Equals("Player")))
+        {
+            _opponentScript = opponent.GetComponent<PlayerScript>();
+        }       
         movePercent = 1;               
     }
 
@@ -109,5 +112,10 @@ public class KnockbackScript : MonoBehaviour
     public bool getInKnockback()
     {
         return _inKnockback;
+    }
+
+    public void setOpponent(GameObject opponent)
+    {
+        this.opponent = opponent;
     }
 }

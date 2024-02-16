@@ -47,7 +47,7 @@ public class PlayerScript : MonoBehaviour
     LayerMask groundLayer;
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         inputAsset = this.GetComponent<PlayerInput>().actions;
         //Players should use the "InGame" action map from the PlayControls controller
@@ -55,7 +55,7 @@ public class PlayerScript : MonoBehaviour
         //get the Input System working with different controllers for different characters
         inGame = inputAsset.FindActionMap("InGame");
     }
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         //Initialize InputActions
 
@@ -75,7 +75,7 @@ public class PlayerScript : MonoBehaviour
         jumpButton.Enable();
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         //Deactivate InputActions
 

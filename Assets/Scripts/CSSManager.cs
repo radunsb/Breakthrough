@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-//using System.Security.Policy;
-using System.Xml.Serialization;
-using UnityEditor.VersionControl;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -12,222 +7,94 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerInput))]
 
-public class CSSManager : MonoBehaviour
+public class CSSManager : TitleScript
 {
-    //List of the possible menu options
-    public GameObject[] buttons;
+    
+    int[] matchInfo;
+    public Text statusText;
 
-    //List of buttons that appear when single-player mode is selected
-    public GameObject[] spbuttons;
-
-    //Menu option that is currently being "hovered" over
-    int _buttonActive = -1;
-
-    //Current sub-buttons that are being shown to the player
-    GameObject[] currentSubButtons;
-
-    //Button active if a main option is already selected
-    int _subButtonActive = -1;
-
-    //Color for a non-hovered button
-    Color inactiveButton;
-
-    //Color for a hovered button
-    Color activeButton;
-
-    public PlayControls controls;
-    private InputAction move;
-    private InputAction confirm;
-    private InputAction back;
-
-    //Public boolean for determining solo or Multiplayer
-    public bool isSolo;
-
-    // Public GameObject for the character
-    public SpriteRenderer SR;
-    public Sprite Red;
-    public Sprite Blue;
-    public Sprite Yellow;
-    public Sprite Green;
-    public GameObject player;
-
-    //Public booleans for determining character players as well as arena
-    public bool RedPick = false;
-    public bool BluePick = false;
-    public bool GreenPick = false;
-    public bool YellowPick = false;
-    public bool HousePick = false;
-    public bool TowerPick = false;
-    public bool SubwayPick = false;
-
-    //Number of higher-order menus that are open
-    int menuLevel = 0;
-
-    private void Awake()
+    private void Start()
     {
-        controls = new PlayControls();
+        int numPlayers = PlayerPrefs.GetString("Match Type") == "2 Player Local" ? 2 : 1;
+        matchInfo = new int[] { -1, -1, -1 };
+        statusText.text = "Player 1 Select Character";
+        this._buttonActive = 0;
+        this.updateButtonColors(buttons, _buttonActive);
     }
-
-    private void OnEnable()
+    private void Update()
     {
-        move = controls.Menus.Movement;
-        move.Enable();
-
-        confirm = controls.Menus.Confirm;
-        confirm.performed += processSelectInput;
-        confirm.Enable();
-
-        back = controls.Menus.Back;
-        back.performed += processBackInput;
-        back.Enable();
-    }
-
-    private void OnDisable()
-    {
-        move.Disable();
-        confirm.Disable();
-        back.Disable();
-    }
-    void Start()
-    {
-        inactiveButton = new Color(0.03f, 0f, 0.48f, 0.05f);
-        activeButton = new Color(0.03f, 0f, 0.48f, 0.5f);
-        //SR = player.GetComponent<SpriteRenderer>();
-    }
-
-    void Update()
-    {
-        //If there is a sub-menu open...
-        if (menuLevel > 0)
+        if (matchInfo[0] == -1)
         {
-            //Scroll right and left within the sub-menu
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                updateSubButton(1, currentSubButtons);
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                updateSubButton(-1, currentSubButtons);
-            }
+            statusText.text = "Player 1 Select Character";
+        }
+        else if (matchInfo[1] == -1)
+        {
+            statusText.text = "Player 2 Select Character";
+        }
+        else if (matchInfo[2] == -1)
+        {
+            statusText.text = "Select Stage";
         }
         else
         {
-            //Reset the sub-menu counter if there isn't one open
-            _subButtonActive = -1;
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                //Scroll one button up
-                updateActiveButton(-1);
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                //Scroll one button down
-                updateActiveButton(1);
-            }
+            statusText.text = "Ready to Play!";
         }
     }
 
-    void updateActiveButton(int inputNum)
+    protected override void processSelectInput(InputAction.CallbackContext context)
     {
-        //If the user doesn't have an option selected, pushing any navigational key will
-        //just select the first button no matter what
-        if (_buttonActive == -1)
+        int _buttonActive = this._buttonActive;
+        //Change to between 0 and 3 when other characters are added
+        if(_buttonActive <= 1 && (matchInfo[0] == -1 || matchInfo[1] == -1))
         {
-            _buttonActive = 0;
-        }
-        //Otherwise, scroll. Variable used so this will still work if we add more buttons
-        else
-        {
-            int numButtons = buttons.Length;
-            _buttonActive = (_buttonActive + inputNum + numButtons) % numButtons;
-        }
-        updateButtonColors(buttons, _buttonActive);
-    }
-
-    //inputNum: Indicates the direction the player is scrolling btw the buttons
-    //currentButtons: Current set of buttons (Main, SP, etc.) that is being updated
-    void updateSubButton(int inputNum, GameObject[] currentButtons)
-    {
-        if (_subButtonActive == -1)
-        {
-            _subButtonActive = 0;
-        }
-        else
-        {
-            int numButtons = currentButtons.Length;
-            _subButtonActive = (_subButtonActive + inputNum + numButtons) % numButtons;
-        }
-        updateButtonColors(currentButtons, _subButtonActive);
-    }
-
-    //currentButtons: Current set of buttons (Main, SP, etc.) that is being updated
-    //active: ID of the button that is currently active (within currentButtons)
-    void updateButtonColors(GameObject[] currentButtons, int active)
-    {
-        //Update each button color only when the selected one is changed (runs from
-        //updateActiveButton())
-        for (int i = 0; i < currentButtons.Length; i++)
-        {
-            if (i != active)
+            if (matchInfo[0] == -1)
             {
-                currentButtons[i].GetComponent<Image>().color = inactiveButton;
+                matchInfo[0] = _buttonActive;
             }
             else
             {
-                currentButtons[i].GetComponent<Image>().color = activeButton;
+                matchInfo[1] = _buttonActive;
             }
         }
-    }
-
-    void processSelectInput(InputAction.CallbackContext context)
-    {
-        if(_buttonActive == 0)
+        //Change to between 4 and 6 when other stages added
+        else if(_buttonActive >= 6 && _buttonActive <= 6 && matchInfo[0] != -1 && matchInfo[1] != -1)
         {
-            RedPick = true;
-            //GetComponent(SR).sprite = Red;
+            matchInfo[2] = _buttonActive;
         }
-        if (_buttonActive == 1)
-        {
-            BluePick = true;
-            //GetComponent(SR).sprite = Blue;
-        }
-        if (_buttonActive == 2)
-        {
-            GreenPick = true;
-            //GetComponent(SR).sprite = Green;
-        }
-        if (_buttonActive == 3)
-        {
-            YellowPick = true;
-            //GetComponent(SR).sprite = Yellow;
-        }
-        if (_buttonActive == 4)
-        {
-            SubwayPick = true;
-            SceneManager.LoadScene("SubwayScene");
-        }
-        if (_buttonActive == 5)
-        {
-            TowerPick = true;
-            SceneManager.LoadScene("TowerScene");
-        }
-        if (_buttonActive == 6)
-        {
-            HousePick = true;
-            SceneManager.LoadScene("HouseScene");
-        }
-        if (_buttonActive == 7)
+        else if(_buttonActive == 7)
         {
             SceneManager.LoadScene("TitleScene");
         }
-
-    }
-
-     void processBackInput(InputAction.CallbackContext context)
-    {
-        if (menuLevel > 0)
+        else
         {
-            menuLevel = 0;
+            if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] != -1)
+            {
+                PlayerPrefs.SetInt("Player1Char", matchInfo[0]);
+                PlayerPrefs.SetInt("Player2Char", matchInfo[1]);
+                PlayerPrefs.SetInt("Stage", matchInfo[2]);
+                PlayerPrefs.SetInt("P1 Points", 0);
+                PlayerPrefs.SetInt("P2 Points", 0);
+                SceneManager.LoadScene("MatchScene");
+            }
+        }
+    }
+    public override void processBackInput(InputAction.CallbackContext context)
+    {
+        if (matchInfo[2] != -1)
+        {
+            matchInfo[2] = -1;
+        }
+        else if (matchInfo[1] != -1)
+        {
+            matchInfo[1] = -1;
+        }
+        else if (matchInfo[0] != -1)
+        {
+            matchInfo[0] = -1;
+        }
+        else
+        {
+            SceneManager.LoadScene("TitleScene");
         }
     }
 

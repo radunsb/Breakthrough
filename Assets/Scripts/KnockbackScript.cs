@@ -8,28 +8,49 @@ using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class EnemyScript : MonoBehaviour
+public class KnockbackScript : MonoBehaviour
 {
     bool _inKnockback;
     //Damage increments every time gameobject is hit
     float _damage;
     Rigidbody2D _rbody;
     //gameObject of the player/other player
-    public GameObject opponent;
+    private GameObject opponent;
     PlayerScript _opponentScript;
+    public PlayerScript _playerScript;
+    int playerIndex;
     public Text dmgText;
+    private float movePercent;
     void Start()
     {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        playerIndex = _playerScript.playerIndex;
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<PlayerScript>().playerIndex != playerIndex)
+            {
+                opponent = player;
+            }
+        }
         _inKnockback = false;
         _damage = 0;
         _rbody = GetComponent<Rigidbody2D>();
         _opponentScript = opponent.GetComponent<PlayerScript>();
+        movePercent = 1;               
     }
 
     // Update is called once per frame
     void Update()
     {
         dmgText.text = "Damage: " + _damage;
+    }
+
+    private void FixedUpdate()
+    {
+        if(movePercent < 1)
+        {
+            movePercent += (1 / 30f);
+        }
     }
 
     //Knockback as a function of the hitbox's power and the character's damage
@@ -47,7 +68,7 @@ public class EnemyScript : MonoBehaviour
         Vector2 force = new Vector2(Mathf.Cos(launchDirection) * lm, Mathf.Sin(launchDirection) * lm);
         //Set the current velocity to zero so moves do knockback consistently
         _rbody.velocity = Vector2.zero;
-        _rbody.AddForce(force);
+        _rbody.AddForce(force);        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -76,6 +97,17 @@ public class EnemyScript : MonoBehaviour
 
     void allowKnockback()
     {
+        movePercent = 0f;
         _inKnockback = false;
+    }
+
+    public float getMovePercent()
+    {
+        return movePercent;
+    }
+
+    public bool getInKnockback()
+    {
+        return _inKnockback;
     }
 }

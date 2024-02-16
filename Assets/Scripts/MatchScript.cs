@@ -8,12 +8,19 @@ public class MatchScript : MonoBehaviour
 {
     public List<GameObject> managers;
     public int roundsToWin;
+    public GameObject[] possiblePlayers;
     void Start()
     {
-        if(PlayerPrefs.GetString("Match Type") == "1v1")
+        if(PlayerPrefs.GetString("Match Type") == "2 Player Local")
         {
             Instantiate(managers[0]);
         }
+        GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
+            new Vector2(-4f, -3f), Quaternion.identity);
+        GameObject playerTwo = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player2Char")],
+            new Vector2(4f, -3f), Quaternion.identity);
+        playerOne.GetComponent<PlayerScript>().playerIndex = 0;
+        playerTwo.GetComponent<PlayerScript>().playerIndex = 1;
     }
 
     void Update()

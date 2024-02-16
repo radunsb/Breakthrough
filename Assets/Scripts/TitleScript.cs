@@ -29,13 +29,16 @@ public class TitleScript : MonoBehaviour
 
     //Public boolean for determining solo or Multiplayer
     public bool isSolo;
-
+    private void Start()
+    {
+        updateButtonColors(buttons, _buttonActive);
+    }
     private void Awake()
     {
         controls = new PlayControls();
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         move = controls.Menus.Movement;
         move.performed += navigate;
@@ -56,17 +59,8 @@ public class TitleScript : MonoBehaviour
         confirm.Disable();
         back.Disable();
     }
-    void Start()
-    {
 
-    }
-
-    void Update()
-    {   
-        
-    }
-
-    void navigate(InputAction.CallbackContext context)
+    protected void navigate(InputAction.CallbackContext context)
     {
         Vector2 directions = context.ReadValue<Vector2>();
             if (directions.y > 0.5)
@@ -101,7 +95,7 @@ public class TitleScript : MonoBehaviour
 
     //currentButtons: Current set of buttons (Main, SP, etc.) that is being updated
     //active: ID of the button that is currently active (within currentButtons)
-    void updateButtonColors(GameObject[] currentButtons, int active)
+    protected void updateButtonColors(GameObject[] currentButtons, int active)
     {
         //Update each button color only when the selected one is changed (runs from
         //updateActiveButton())
@@ -118,7 +112,7 @@ public class TitleScript : MonoBehaviour
         }
     }
 
-    public virtual void processSelectInput(InputAction.CallbackContext context)
+    protected virtual void processSelectInput(InputAction.CallbackContext context)
     {
         //Single-Player Selection
         if(_buttonActive == 0)

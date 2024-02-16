@@ -1706,7 +1706,7 @@ GameObject:
   - component: {fileID: 1605938971}
   m_Layer: 0
   m_Name: Character Two
-  m_TagString: Player0
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1819,7 +1819,7 @@ MonoBehaviour:
   playerIndex: 1
   walkSpeed: 4
   runSpeed: 8
-  jump1Height: 11
+  jump1Height: 10
   jump2Height: 8
   testingThing: 0
   _flipX: 0
@@ -1849,7 +1849,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Controller
+  m_DefaultControlScheme: 
   m_DefaultActionMap: InGame
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -1865,7 +1865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6005dce82d82d44ae8a4657c11853e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  opponent: {fileID: 0}
+  _playerScript: {fileID: 5807275142389838648}
   dmgText: {fileID: 1373804943}
 --- !u!1 &8481738432226621734
 GameObject:

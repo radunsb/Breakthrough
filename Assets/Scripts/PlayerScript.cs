@@ -11,8 +11,7 @@ using UnityEngine.InputSystem.Users;
 [RequireComponent(typeof(KnockbackScript))]
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField]
-    private int playerIndex = 0;
+    public int playerIndex = 0;
 
     //Character Specific Variables
     public float walkSpeed;
@@ -120,7 +119,7 @@ public class PlayerScript : MonoBehaviour
             if (knockbackScript.getMovePercent() < 1)
             {
                 _rbody.velocity = Vector2.Lerp(_rbody.velocity, xMovement,
-                    1/60f);
+                    1/30f);
             }
             else
             {

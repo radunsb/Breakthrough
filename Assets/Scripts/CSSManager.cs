@@ -44,7 +44,8 @@ public class CSSManager : TitleScript
     protected override void processSelectInput(InputAction.CallbackContext context)
     {
         int _buttonActive = this._buttonActive;
-        if(_buttonActive <= 3 && (matchInfo[0] == -1 || matchInfo[1] == -1))
+        //Change to between 0 and 3 when other characters are added
+        if(_buttonActive <= 1 && (matchInfo[0] == -1 || matchInfo[1] == -1))
         {
             if (matchInfo[0] == -1)
             {
@@ -55,7 +56,8 @@ public class CSSManager : TitleScript
                 matchInfo[1] = _buttonActive;
             }
         }
-        else if(_buttonActive >= 4 && _buttonActive <= 6 && matchInfo[0] != -1 && matchInfo[1] != -1)
+        //Change to between 4 and 6 when other stages added
+        else if(_buttonActive >= 6 && _buttonActive <= 6 && matchInfo[0] != -1 && matchInfo[1] != -1)
         {
             matchInfo[2] = _buttonActive;
         }
@@ -67,6 +69,9 @@ public class CSSManager : TitleScript
         {
             if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] != -1)
             {
+                PlayerPrefs.SetInt("Player1Char", matchInfo[0]);
+                PlayerPrefs.SetInt("Player2Char", matchInfo[1]);
+                PlayerPrefs.SetInt("Stage", matchInfo[2]);
                 SceneManager.LoadScene("MatchScene");
             }
         }

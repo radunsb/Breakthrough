@@ -11,8 +11,7 @@ using UnityEngine.InputSystem.Users;
 [RequireComponent(typeof(KnockbackScript))]
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField]
-    private int playerIndex = 0;
+    public int playerIndex = 0;
 
     //Character Specific Variables
     public float walkSpeed;

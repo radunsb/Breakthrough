@@ -15,17 +15,28 @@ public class KnockbackScript : MonoBehaviour
     float _damage;
     Rigidbody2D _rbody;
     //gameObject of the player/other player
-    public GameObject opponent;
+    private GameObject opponent;
     PlayerScript _opponentScript;
+    public PlayerScript _playerScript;
+    int playerIndex;
     public Text dmgText;
     private float movePercent;
     void Start()
     {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        playerIndex = _playerScript.playerIndex;
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<PlayerScript>().playerIndex != playerIndex)
+            {
+                opponent = player;
+            }
+        }
         _inKnockback = false;
         _damage = 0;
         _rbody = GetComponent<Rigidbody2D>();
         _opponentScript = opponent.GetComponent<PlayerScript>();
-        movePercent = 1;
+        movePercent = 1;               
     }
 
     // Update is called once per frame

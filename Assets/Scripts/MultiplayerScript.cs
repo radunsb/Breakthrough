@@ -17,12 +17,13 @@ public class MultiplayerScript : TitleScript
         SceneManager.LoadScene("TitleScene");
     }
 
-    public override void processSelectInput(InputAction.CallbackContext context)
+    protected override void processSelectInput(InputAction.CallbackContext context)
     {
         int _buttonActive = this._buttonActive;
         switch (_buttonActive)
         {
             case 0:
+                PlayerPrefs.SetString("Match Type", "2 Player Local");
                 SceneManager.LoadScene("CSScene");
                 break;
             case 1:

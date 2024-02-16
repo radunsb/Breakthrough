@@ -38,7 +38,7 @@ public class KnockbackScript : MonoBehaviour
     {
         if(movePercent < 1)
         {
-            movePercent += (1 / 60f);
+            movePercent += (1 / 30f);
         }
     }
 

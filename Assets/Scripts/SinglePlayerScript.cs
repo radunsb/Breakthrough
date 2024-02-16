@@ -18,7 +18,7 @@ public class SinglePlayerScript : TitleScript
         SceneManager.LoadScene("TitleScene");
     }
 
-    public override void processSelectInput(InputAction.CallbackContext context)
+    protected override void processSelectInput(InputAction.CallbackContext context)
     {
         int _buttonActive = this._buttonActive;
         if(_buttonActive == 0)

@@ -120,7 +120,7 @@ public class PlayerScript : MonoBehaviour
             if (knockbackScript.getMovePercent() < 1)
             {
                 _rbody.velocity = Vector2.Lerp(_rbody.velocity, xMovement,
-                    1/60f);
+                    1/30f);
             }
             else
             {

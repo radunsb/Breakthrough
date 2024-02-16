@@ -10,7 +10,7 @@ public class MatchScript : MonoBehaviour
     public int roundsToWin;
     void Start()
     {
-        if(PlayerPrefs.GetString("Match Type") == "1v1")
+        if(PlayerPrefs.GetString("Match Type") == "2 Player Local")
         {
             Instantiate(managers[0]);
         }

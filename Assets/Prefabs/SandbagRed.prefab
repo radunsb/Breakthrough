@@ -270,10 +270,10 @@ GameObject:
   - component: {fileID: 9096532231997383840}
   - component: {fileID: 9096532231997383841}
   - component: {fileID: 9096532231997383846}
-  - component: {fileID: 1911669923}
+  - component: {fileID: 7538782753053408882}
   m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Untagged
+  m_Name: SandbagRed
+  m_TagString: Sandbag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -354,26 +354,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6005dce82d82d44ae8a4657c11853e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  opponent: {fileID: 0}
+  _playerScript: {fileID: 0}
   dmgText: {fileID: 8958949218780106743}
---- !u!114 &1911669923
-MonoBehaviour:
+--- !u!95 &7538782753053408882
+Animator:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9096532231997383842}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84dfff08ca3325449aa8ed246161ec71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 3
-  runSpeed: 6
-  jump1Height: 4
-  jump2Height: 8
-  _flipX: 0
-  _player: {fileID: 0}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9096532232818881295
 GameObject:
   m_ObjectHideFlags: 0

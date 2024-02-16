@@ -7,6 +7,7 @@ TagManager:
   - Hitbox
   - Player0
   - Player1
+  - Sandbag
   layers:
   - Default
   - TransparentFX

@@ -18,6 +18,7 @@ public class KnockbackScript : MonoBehaviour
     private GameObject opponent;
     PlayerScript _opponentScript;
     public PlayerScript _playerScript;
+    public ShieldScript _shieldScript;
     int playerIndex;
     public Text dmgText;
     private float movePercent;
@@ -81,19 +82,47 @@ public class KnockbackScript : MonoBehaviour
             if (!_inKnockback)
             {
                 HitboxScript hs = collision.gameObject.GetComponent<HitboxScript>();
-                float ld = hs.launchDirection;
-                _damage += hs.damage;
-                //for now, just flip the launch direction if attacker is facing left
-                //might have to be made more complex depending on the kinds of moves we add
-                if (_opponentScript._flipX)
+                if (gameObject.tag.Equals("Sandbag") || !_shieldScript.shieldActive())
                 {
-                    ld = 180 - ld;
+                    float ld = hs.launchDirection;
+                    _damage += hs.damage;
+                    //for now, just flip the launch direction if attacker is facing left
+                    //might have to be made more complex depending on the kinds of moves we add
+                    if (_opponentScript._flipX)
+                    {
+                        ld = 180 - ld;
+                    }
+                    //Character is invulnerable to attacks for a little bit after getting hit
+                    //Also subject to change depending on if we implement multi-hit moves
+                    takeKnockback(hs.velocityMult, ld);
+                    _inKnockback = true;
+                    Invoke("allowKnockback", 0.2f);
                 }
-                //Character is invulnerable to attacks for a little bit after getting hit
-                //Also subject to change depending on if we implement multi-hit moves
-                takeKnockback(hs.velocityMult, ld);
-                _inKnockback = true;
-                Invoke("allowKnockback", 0.2f);
+                else
+                {
+                    _shieldScript.reduceHealth(hs.damage);
+                    if (!_shieldScript.shieldActive())
+                    {
+                        float ld = hs.launchDirection;
+                        _damage += hs.damage;
+                        //for now, just flip the launch direction if attacker is facing left
+                        //might have to be made more complex depending on the kinds of moves we add
+                        if (_opponentScript._flipX)
+                        {
+                            ld = 180 - ld;
+                        }
+                        //Character is invulnerable to attacks for a little bit after getting hit
+                        //Also subject to change depending on if we implement multi-hit moves
+                        takeKnockback(hs.velocityMult, ld);
+                        _inKnockback = true;
+                        Invoke("allowKnockback", 0.2f);
+                    }
+                    else
+                    {
+                        _inKnockback = true;
+                        Invoke("allowKnockback", 0.2f);
+                    }
+                }
             }
         }
     }

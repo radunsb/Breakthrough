@@ -8,6 +8,7 @@ TagManager:
   - Player0
   - Player1
   - Sandbag
+  - Shield
   layers:
   - Default
   - TransparentFX

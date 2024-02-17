@@ -19,11 +19,13 @@ public class KnockbackScript : MonoBehaviour
     PlayerScript _opponentScript;
     public PlayerScript _playerScript;
     public ShieldScript _shieldScript;
+    private MatchScript _matchScript;
     int playerIndex;
     public Text dmgText;
     private float movePercent;
     void Start()
     {
+        _matchScript = GameObject.FindObjectOfType<MatchScript>();
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         playerIndex = _playerScript != null ? _playerScript.playerIndex : -1;
         foreach (GameObject player in players)
@@ -46,6 +48,24 @@ public class KnockbackScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(_rbody.position.x > 9 || _rbody.position.x < -9 || _rbody.position.y > 5 || _rbody.position.y < -5)
+        {
+            if (gameObject.tag.Equals("Sandbag"))
+            {
+                _matchScript.updateCharacterPoints(0);
+            }
+            else
+            {
+                if(_playerScript.playerIndex == 0)
+                {
+                    _matchScript.updateCharacterPoints(1);
+                }
+                else
+                {
+                    _matchScript.updateCharacterPoints(0);
+                }
+            }
+        }
         dmgText.text = "Damage: " + _damage;
     }
 

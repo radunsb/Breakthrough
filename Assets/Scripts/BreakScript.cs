@@ -4,80 +4,40 @@ using UnityEngine;
 
 public class BreakScript : MonoBehaviour
 {
-    Rigidbody2D oneRB;
-    Rigidbody2D twoRB;
-    public GameObject CharacterOne;
-    public GameObject CharacterTwo;
-    public GameObject _prefabRWall;
-    public GameObject _prefabLWall;
-    public GameObject _prefabCeiling;
-    public GameObject _prefabFloor;
-    Animator H_Animator;
-
+    
     float _health = 100;
-    bool isNew = true;
-    bool isHurt = false;
-    bool isBroken = false;
+    public Sprite[] sprites;
 
     void Start()
     {
-        oneRB = CharacterOne.GetComponent<Rigidbody2D>();
-        twoRB = CharacterTwo.GetComponent<Rigidbody2D>();
- //       GameObject RWall = Instantiate(_prefabRWall, new Vector2(-8,0), Quaternion.identity);
- //       RWall.SetActive(true);
- //       GameObject LWall = Instantiate(_prefabLWall, new Vector2(8,0), Quaternion.identity);
- //       LWall.SetActive(true);
- //       GameObject Ceiling = Instantiate(_prefabCeiling, new Vector2(0,4.25f), Quaternion.identity);
- //       Ceiling.SetActive(true);
- //       GameObject Floor = Instantiate(_prefabFloor, new Vector2(0, -4.3f), Quaternion.identity);
- //       Floor.SetActive(true);
- //       H_Animator = gameObject.GetComponent<Animator>();
     }
 
     void Update()
     {
         if (_health < 50)
         {
-            isHurt = true;
-            H_Animator.SetBool("isHurt", true);
+            GetComponent<SpriteRenderer>().sprite = sprites[1];
         }
 
         if (_health < 25)
         {
-            isBroken = true;
-            H_Animator.SetBool("isBroken", true);
+            GetComponent<SpriteRenderer>().sprite = sprites[2];
         }
 
- //       if (RWall._health <= 0)
-//        {
-//            Destroy(rWall);
-//        }
-//        if (LWall._health <= 0)
-//        {
-//            Destroy(lWall);
-//        }
-//        if (Ceiling._health <= 0)
-//        {
-//            Destroy(Ceiling);
-//        }
-//        if (Floor._health <= 0)
-//        {
-//           Destroy(Floor);
-//        }
-
+        if(_health < 0)
+        {
+            Destroy(gameObject);
+        }
 
     }
-    void onCollisionEnter2D(Collision col)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (col.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player" || collision.gameObject.tag == "Sandbag")
         {
-            float oneVel = (oneRB.velocity.x + oneRB.velocity.y) / 2;
-            _health -= oneVel;
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+            _health -= (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y));
         }
-        if (col.gameObject.tag == "Sandbag")
-        {
-            float twoVel = (twoRB.velocity.x + twoRB.velocity.y) / 2;
-            _health -= twoVel;
-        }
+        print(_health);
     }
 }

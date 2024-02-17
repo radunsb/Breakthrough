@@ -13,6 +13,7 @@ public class MatchScript : MonoBehaviour
     public GameObject[] possibleEnemies;
     public Text p1winsText;
     public Text p2winsText;
+
     void Start()
     {
         if(PlayerPrefs.GetString("Match Type") == "2 Player Local")
@@ -45,6 +46,7 @@ public class MatchScript : MonoBehaviour
 
     void Update()
     {
+
         // will eventually open a pause menu
         if (Input.GetKeyDown(KeyCode.Escape)){
             SceneManager.LoadScene("TitleScene");
@@ -59,7 +61,7 @@ public class MatchScript : MonoBehaviour
         }
     }
 
-    void updateCharacterPoints(int playerIndex)
+    public void updateCharacterPoints(int playerIndex)
     {
         int newPoints = 0;
         if(playerIndex == 0)
@@ -84,7 +86,7 @@ public class MatchScript : MonoBehaviour
 
     void roundOver(int winningPlayerIndex)
     {
-        SceneManager.LoadScene("MatchScene");
+        SceneManager.LoadScene("HouseScene");
     }
 
     void matchOver(int winningPlayerIndex)

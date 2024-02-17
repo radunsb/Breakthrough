@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class HouseScript : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {

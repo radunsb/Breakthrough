@@ -109,7 +109,16 @@ AnimationClip:
     path: FSmash/Active2
     classID: 1
     script: {fileID: 0}
-  m_PPtrCurves: []
+  m_PPtrCurves:
+  - curve:
+    - time: 0.25
+      value: {fileID: -1478392173, guid: e267bb095d771d74c8bbc8fe66b61115, type: 3}
+    - time: 0.26666668
+      value: {fileID: 912321417, guid: e267bb095d771d74c8bbc8fe66b61115, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -131,7 +140,16 @@ AnimationClip:
       typeID: 1
       customType: 0
       isPPtrCurve: 0
-    pptrCurveMapping: []
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    pptrCurveMapping:
+    - {fileID: -1478392173, guid: e267bb095d771d74c8bbc8fe66b61115, type: 3}
+    - {fileID: 912321417, guid: e267bb095d771d74c8bbc8fe66b61115, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

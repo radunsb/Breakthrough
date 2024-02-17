@@ -82,14 +82,22 @@ public class PlayerScript : MonoBehaviour
         shieldButton.Enable();
     }
 
-    protected virtual void OnDisable()
+    public virtual void OnDisable()
     {
         //Deactivate InputActions
-
+        normButton.performed -= doNormalButton;
         normButton.Disable();
+
+        strongButton.performed -= doStrongButton;
         strongButton.Disable();
+
         inputDirection.Disable();
+
+        jumpButton.performed -= doJumps;
         jumpButton.Disable();
+
+        shieldButton.performed += (InputAction.CallbackContext context) => { shieldHeld = true; _canMove = false; };
+        shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
         shieldButton.Disable();
     }
     void Start()

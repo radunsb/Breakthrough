@@ -36,7 +36,14 @@ public class BreakScript : MonoBehaviour
         if(collision.gameObject.tag == "Player" || collision.gameObject.tag == "Sandbag")
         {
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-            _health -= (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y));
+            if (gameObject.tag.Equals("Vertical Wall"))
+            {
+                _health -= ((Mathf.Abs(rb.velocity.y) * 50f));
+            }
+            else
+            {
+                _health -= ((Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y)));
+            }
         }
         print(_health);
     }

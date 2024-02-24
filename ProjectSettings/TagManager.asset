@@ -9,6 +9,8 @@ TagManager:
   - Player1
   - Sandbag
   - Shield
+  - Horizontal Wall
+  - Vertical Wall
   layers:
   - Default
   - TransparentFX

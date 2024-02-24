@@ -37,6 +37,8 @@ public class MatchScript : MonoBehaviour
             GameObject sandbagOne = Instantiate(possibleSandbags[PlayerPrefs.GetInt("Player2Char")],
                 new Vector2(4f, -3f), Quaternion.identity);
             playerOne.GetComponent<PlayerScript>().playerIndex = 0;
+            sandbagOne.GetComponent<KnockbackScript>().setOpponent(playerOne);
+            sandbagOne.GetComponent<KnockbackScript>()._playerScript = playerOne.GetComponent<PlayerScript>();
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
             p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
         }

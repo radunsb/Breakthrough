@@ -36,13 +36,17 @@ public class BreakScript : MonoBehaviour
         if(collision.gameObject.tag == "Player" || collision.gameObject.tag == "Sandbag")
         {
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (gameObject.tag.Equals("Vertical Wall"))
+            KnockbackScript ks = collision.gameObject.GetComponent<KnockbackScript>();
+            if (ks.movePercent < 1 || ks.getInKnockback())
             {
-                _health -= ((Mathf.Abs(rb.velocity.y) * 50f));
-            }
-            else
-            {
-                _health -= ((Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y)));
+                if (gameObject.tag.Equals("Vertical Wall"))
+                {
+                    //_health -= ((Mathf.Abs(rb.velocity.y)));
+                }
+                else
+                {
+                    _health -= ((Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y)));
+                }
             }
         }
         print(_health);

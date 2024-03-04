@@ -88,11 +88,11 @@ public class MatchScript : MonoBehaviour
 
     void roundOver(int winningPlayerIndex)
     {
-        SceneManager.LoadScene("HouseScene");
+        SceneManager.LoadScene(PlayerPrefs.GetString("Gameplay Scene"));
     }
 
     void matchOver(int winningPlayerIndex)
     {
-        SceneManager.LoadScene("CSScene");
+        SceneManager.LoadScene("WinScene");
     }
 }

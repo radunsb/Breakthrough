@@ -83,6 +83,7 @@ public class CSSManager : TitleScript
                 PlayerPrefs.SetInt("Stage", matchInfo[2]);
                 PlayerPrefs.SetInt("P1 Points", 0);
                 PlayerPrefs.SetInt("P2 Points", 0);
+                PlayerPrefs.SetString("Gameplay Scene", "HouseScene");
                 SceneManager.LoadScene("HouseScene");
             }
         }

@@ -22,7 +22,7 @@ public class KnockbackScript : MonoBehaviour
     private MatchScript _matchScript;
     int playerIndex;
     public Text dmgText;
-    private float movePercent;
+    public float movePercent;
     void Start()
     {
         _matchScript = GameObject.FindObjectOfType<MatchScript>();
@@ -71,7 +71,11 @@ public class KnockbackScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(movePercent < 1)
+        if (movePercent > .95)
+        {
+            movePercent = 1;
+        }
+        if (movePercent < 1)
         {
             movePercent += (1 / 30f);
         }

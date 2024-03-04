@@ -57,7 +57,7 @@ public class CSSManager : TitleScript
             }
         }
         //Change to between 4 and 6 when other stages added
-        else if(_buttonActive >= 6 && _buttonActive <= 6 && matchInfo[0] != -1 && matchInfo[1] != -1)
+        else if(_buttonActive == 4 || _buttonActive == 6 && matchInfo[0] != -1 && matchInfo[1] != -1)
         {
             matchInfo[2] = _buttonActive;
         }
@@ -67,7 +67,7 @@ public class CSSManager : TitleScript
         }
         else
         {
-            if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] != -1)
+            if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] == 6)
             {
                 PlayerPrefs.SetInt("Player1Char", matchInfo[0]);
                 PlayerPrefs.SetInt("Player2Char", matchInfo[1]);
@@ -75,6 +75,16 @@ public class CSSManager : TitleScript
                 PlayerPrefs.SetInt("P1 Points", 0);
                 PlayerPrefs.SetInt("P2 Points", 0);
                 SceneManager.LoadScene("MatchScene");
+            }
+            if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] == 4)
+            {
+                PlayerPrefs.SetInt("Player1Char", matchInfo[0]);
+                PlayerPrefs.SetInt("Player2Char", matchInfo[1]);
+                PlayerPrefs.SetInt("Stage", matchInfo[2]);
+                PlayerPrefs.SetInt("P1 Points", 0);
+                PlayerPrefs.SetInt("P2 Points", 0);
+                PlayerPrefs.SetString("Gameplay Scene", "HouseScene");
+                SceneManager.LoadScene("HouseScene");
             }
         }
     }

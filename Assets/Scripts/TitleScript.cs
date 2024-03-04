@@ -60,7 +60,7 @@ public class TitleScript : MonoBehaviour
         back.Disable();
     }
 
-    protected void navigate(InputAction.CallbackContext context)
+    protected virtual void navigate(InputAction.CallbackContext context)
     {
         Vector2 directions = context.ReadValue<Vector2>();
             if (directions.y > 0.5)
@@ -76,7 +76,7 @@ public class TitleScript : MonoBehaviour
 
     }
 
-    void updateActiveButton(int inputNum)
+    protected void updateActiveButton(int inputNum)
     {
         //If the user doesn't have an option selected, pushing any navigational key will
         //just select the first button no matter what

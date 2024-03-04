@@ -13,6 +13,7 @@ public class MatchScript : MonoBehaviour
     public GameObject[] possibleEnemies;
     public Text p1winsText;
     public Text p2winsText;
+
     void Start()
     {
         if(PlayerPrefs.GetString("Match Type") == "2 Player Local")
@@ -35,6 +36,11 @@ public class MatchScript : MonoBehaviour
             playerOne.GetComponent<PlayerScript>().playerIndex = 0;
             GameObject sandbagOne = Instantiate(possibleSandbags[PlayerPrefs.GetInt("Player2Char")],
                 new Vector2(4f, -3f), Quaternion.identity);
+            playerOne.GetComponent<PlayerScript>().playerIndex = 0;
+            sandbagOne.GetComponent<KnockbackScript>().setOpponent(playerOne);
+            sandbagOne.GetComponent<KnockbackScript>()._playerScript = playerOne.GetComponent<PlayerScript>();
+            p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
+            p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
         }
         
         
@@ -42,33 +48,51 @@ public class MatchScript : MonoBehaviour
 
     void Update()
     {
+
         // will eventually open a pause menu
         if (Input.GetKeyDown(KeyCode.Escape)){
             SceneManager.LoadScene("TitleScene");
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            updateCharacterPoints(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            updateCharacterPoints(1);
+        }
     }
 
-    void updateCharacterPoints(int playerIndex)
+    public void updateCharacterPoints(int playerIndex)
     {
-        int newPoints = (playerIndex == 0) ? PlayerPrefs.GetInt("P1 Points")
-            : PlayerPrefs.GetInt("P2 Points") + 1;
+        int newPoints = 0;
+        if(playerIndex == 0)
+        {
+            newPoints = PlayerPrefs.GetInt("P1 Points") + 1;
+            PlayerPrefs.SetInt("P1 Points", newPoints);
+        }
+        else if(playerIndex == 1)
+        {
+            newPoints = PlayerPrefs.GetInt("P2 Points") + 1;
+            PlayerPrefs.SetInt("P2 Points", newPoints);
+        }
         if(newPoints >= roundsToWin)
         {
             matchOver(playerIndex);
         }
         else
         {
-            matchOver(playerIndex);
+            roundOver(playerIndex);
         }
     }
 
     void roundOver(int winningPlayerIndex)
     {
-        SceneManager.LoadScene("MatchScene");
+        SceneManager.LoadScene(PlayerPrefs.GetString("Gameplay Scene"));
     }
 
     void matchOver(int winningPlayerIndex)
     {
-        SceneManager.LoadScene("CSScene");
+        SceneManager.LoadScene("WinScene");
     }
 }

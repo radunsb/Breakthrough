@@ -27,7 +27,8 @@ public class OptionsScript : TitleScript
             case 1:
                 break; //Brightness
             case 2:
-                break; //Controls
+                SceneManager.LoadScene("ControlsScene");
+                break;
             case 3:
                 SceneManager.LoadScene("TitleScene");
                 break;

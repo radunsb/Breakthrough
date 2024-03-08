@@ -32,7 +32,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""8eb8d10c-1a7a-4fe8-9794-b6b9665923e8"",
                     ""expectedControlType"": ""Button"",
-                    ""processors"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
@@ -638,6 +638,228 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""CharacterSelect"",
+            ""id"": ""0f564c2c-e085-4ffc-b078-3c84dd5d115f"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""f15236ac-5ecb-42c7-888b-c90030043c4a"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""44e80936-4b92-4b97-9d93-8b81c64d51ee"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""5faab09f-a7d8-4f6d-b4c7-c65b01c21b1e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""207e791d-30cc-4990-ae57-158ae3513a4e"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69469b0b-cc5f-44de-8395-a7a9ca31f97e"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a93d63e3-7dd0-40ff-8120-6a86be89e55b"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c5051576-aed6-4e6f-bbc2-d68805aac88a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ca3dbae-cb83-434b-a62e-df64dc852f88"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a27e7f67-a2e0-4502-bf46-331a8e58e511"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""a5a155d5-194f-4a01-a6b3-5cf93727650d"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""27d58624-f795-4139-9470-e8f60e18d574"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""99850508-b895-4f41-a4b8-b44d1ac0e9b2"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""1ab6740d-256e-4b75-8571-513d1adc63a6"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""9b602062-e2b6-4f25-b4b5-927be8b184a8"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""314bf070-3a66-48dd-8783-bf24686768de"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": ""StickDeadzone"",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""bd62e238-237e-4152-9fa7-b7250364ea4e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""0d28836c-c7dc-40f1-8cdc-ff237091f3ad"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""1f3a95af-f0ff-46a0-aab3-19e4dbb13952"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""47e6f9e6-fd67-4031-a0e5-4415fa032722"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""3a1f72a8-2497-4a4d-9abe-347c58b08d9a"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -677,6 +899,11 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
         m_InGame_Jump_Button = m_InGame.FindAction("Jump_Button", throwIfNotFound: true);
         m_InGame_Strong_Button = m_InGame.FindAction("Strong_Button", throwIfNotFound: true);
         m_InGame_Shield_Button = m_InGame.FindAction("Shield_Button", throwIfNotFound: true);
+        // CharacterSelect
+        m_CharacterSelect = asset.FindActionMap("CharacterSelect", throwIfNotFound: true);
+        m_CharacterSelect_Move = m_CharacterSelect.FindAction("Move", throwIfNotFound: true);
+        m_CharacterSelect_Confirm = m_CharacterSelect.FindAction("Confirm", throwIfNotFound: true);
+        m_CharacterSelect_Back = m_CharacterSelect.FindAction("Back", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -846,6 +1073,55 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
         }
     }
     public InGameActions @InGame => new InGameActions(this);
+
+    // CharacterSelect
+    private readonly InputActionMap m_CharacterSelect;
+    private ICharacterSelectActions m_CharacterSelectActionsCallbackInterface;
+    private readonly InputAction m_CharacterSelect_Move;
+    private readonly InputAction m_CharacterSelect_Confirm;
+    private readonly InputAction m_CharacterSelect_Back;
+    public struct CharacterSelectActions
+    {
+        private @PlayControls m_Wrapper;
+        public CharacterSelectActions(@PlayControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_CharacterSelect_Move;
+        public InputAction @Confirm => m_Wrapper.m_CharacterSelect_Confirm;
+        public InputAction @Back => m_Wrapper.m_CharacterSelect_Back;
+        public InputActionMap Get() { return m_Wrapper.m_CharacterSelect; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CharacterSelectActions set) { return set.Get(); }
+        public void SetCallbacks(ICharacterSelectActions instance)
+        {
+            if (m_Wrapper.m_CharacterSelectActionsCallbackInterface != null)
+            {
+                @Move.started -= m_Wrapper.m_CharacterSelectActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_CharacterSelectActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_CharacterSelectActionsCallbackInterface.OnMove;
+                @Confirm.started -= m_Wrapper.m_CharacterSelectActionsCallbackInterface.OnConfirm;
+                @Confirm.performed -= m_Wrapper.m_CharacterSelectActionsCallbackInterface.OnConfirm;
+                @Confirm.canceled -= m_Wrapper.m_CharacterSelectActionsCallbackInterface.OnConfirm;
+                @Back.started -= m_Wrapper.m_CharacterSelectActionsCallbackInterface.OnBack;
+                @Back.performed -= m_Wrapper.m_CharacterSelectActionsCallbackInterface.OnBack;
+                @Back.canceled -= m_Wrapper.m_CharacterSelectActionsCallbackInterface.OnBack;
+            }
+            m_Wrapper.m_CharacterSelectActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Confirm.started += instance.OnConfirm;
+                @Confirm.performed += instance.OnConfirm;
+                @Confirm.canceled += instance.OnConfirm;
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
+            }
+        }
+    }
+    public CharacterSelectActions @CharacterSelect => new CharacterSelectActions(this);
     private int m_ControllerSchemeIndex = -1;
     public InputControlScheme ControllerScheme
     {
@@ -877,5 +1153,11 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
         void OnJump_Button(InputAction.CallbackContext context);
         void OnStrong_Button(InputAction.CallbackContext context);
         void OnShield_Button(InputAction.CallbackContext context);
+    }
+    public interface ICharacterSelectActions
+    {
+        void OnMove(InputAction.CallbackContext context);
+        void OnConfirm(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
     }
 }

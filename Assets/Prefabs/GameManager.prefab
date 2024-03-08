@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2748154167728070050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2748154167728070052}
+  - component: {fileID: 2748154167728070051}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2748154167728070052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748154167728070050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 494.50122, y: 121.85912, z: 2.0623472}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2748154167728070051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748154167728070050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deca9d336404e3346a881b6db1d65020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  managers:
+  - {fileID: 8765401437978788385, guid: ae415bc9aeeecba4183bb2087b86cde7, type: 3}
+  - {fileID: 8845991853196170392, guid: 10ecb524b261aa744981b9f974204f48, type: 3}
+  roundsToWin: 3
+  possiblePlayers:
+  - {fileID: 7784593719400307393, guid: c8d7428527e30d6478839a38c862eb4b, type: 3}
+  - {fileID: 4550727171071105468, guid: 7692c48c62318f3478fa2b3bd05e8095, type: 3}
+  possibleSandbags:
+  - {fileID: 9096532231997383842, guid: ebd30c47606b17d47b5f38221174097f, type: 3}
+  - {fileID: 9096532231997383842, guid: df2fed55f0925f64b94b8e9a41c428b7, type: 3}
+  possibleEnemies: []
+  p1winsText: {fileID: 0}
+  p2winsText: {fileID: 0}

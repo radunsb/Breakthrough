@@ -339,6 +339,15 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shield_Button"",
+                    ""type"": ""Button"",
+                    ""id"": ""81a2cf75-5bcc-4acc-a5ad-f91a8bc6e489"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -583,6 +592,50 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                     ""action"": ""Input_Direction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80f30277-63d0-420c-be54-c45651c3e8bd"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Shield_Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""186b58f7-031a-462c-9121-89c8bcd3a1f9"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Shield_Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65827922-26b5-4990-b9cd-2765489989e9"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Shield_Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d98c91da-84ef-44ae-a8d0-1ea37aac446e"",
+                    ""path"": ""<Keyboard>/semicolon"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Shield_Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -623,6 +676,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
         m_InGame_Input_Direction = m_InGame.FindAction("Input_Direction", throwIfNotFound: true);
         m_InGame_Jump_Button = m_InGame.FindAction("Jump_Button", throwIfNotFound: true);
         m_InGame_Strong_Button = m_InGame.FindAction("Strong_Button", throwIfNotFound: true);
+        m_InGame_Shield_Button = m_InGame.FindAction("Shield_Button", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -735,6 +789,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Input_Direction;
     private readonly InputAction m_InGame_Jump_Button;
     private readonly InputAction m_InGame_Strong_Button;
+    private readonly InputAction m_InGame_Shield_Button;
     public struct InGameActions
     {
         private @PlayControls m_Wrapper;
@@ -743,6 +798,7 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
         public InputAction @Input_Direction => m_Wrapper.m_InGame_Input_Direction;
         public InputAction @Jump_Button => m_Wrapper.m_InGame_Jump_Button;
         public InputAction @Strong_Button => m_Wrapper.m_InGame_Strong_Button;
+        public InputAction @Shield_Button => m_Wrapper.m_InGame_Shield_Button;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -764,6 +820,9 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                 @Strong_Button.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnStrong_Button;
                 @Strong_Button.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnStrong_Button;
                 @Strong_Button.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnStrong_Button;
+                @Shield_Button.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnShield_Button;
+                @Shield_Button.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnShield_Button;
+                @Shield_Button.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnShield_Button;
             }
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -780,6 +839,9 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
                 @Strong_Button.started += instance.OnStrong_Button;
                 @Strong_Button.performed += instance.OnStrong_Button;
                 @Strong_Button.canceled += instance.OnStrong_Button;
+                @Shield_Button.started += instance.OnShield_Button;
+                @Shield_Button.performed += instance.OnShield_Button;
+                @Shield_Button.canceled += instance.OnShield_Button;
             }
         }
     }
@@ -814,5 +876,6 @@ public partial class @PlayControls : IInputActionCollection2, IDisposable
         void OnInput_Direction(InputAction.CallbackContext context);
         void OnJump_Button(InputAction.CallbackContext context);
         void OnStrong_Button(InputAction.CallbackContext context);
+        void OnShield_Button(InputAction.CallbackContext context);
     }
 }

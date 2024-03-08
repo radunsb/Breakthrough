@@ -18,13 +18,14 @@ public class PlayerScript : MonoBehaviour
     public float runSpeed;
     public float jump1Height;
     public float jump2Height;
-    public float testingThing;
+    public GameObject shield;
 
     //Input controls
     private InputAction normButton;
     private InputAction strongButton;
     private InputAction inputDirection;
     private InputAction jumpButton;
+    private InputAction shieldButton;
     Animator animator;
     private InputActionAsset inputAsset;
     private InputActionMap inGame;
@@ -36,6 +37,7 @@ public class PlayerScript : MonoBehaviour
     bool _canMove;
     bool _isJumping;
     public bool _flipX = false;
+    public bool shieldHeld = false;
     Vector2 directions;
     KnockbackScript knockbackScript;
 
@@ -73,21 +75,36 @@ public class PlayerScript : MonoBehaviour
         jumpButton = inGame.FindAction("Jump_Button");
         jumpButton.performed += doJumps;
         jumpButton.Enable();
+
+        shieldButton = inGame.FindAction("Shield_Button");
+        shieldButton.performed += (InputAction.CallbackContext context) => { shieldHeld = true; _canMove = false; };
+        shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
+        shieldButton.Enable();
     }
 
-    protected virtual void OnDisable()
+    public virtual void OnDisable()
     {
         //Deactivate InputActions
-
+        normButton.performed -= doNormalButton;
         normButton.Disable();
+
+        strongButton.performed -= doStrongButton;
         strongButton.Disable();
+
         inputDirection.Disable();
+
+        jumpButton.performed -= doJumps;
         jumpButton.Disable();
+
+        shieldButton.performed += (InputAction.CallbackContext context) => { shieldHeld = true; _canMove = false; };
+        shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
+        shieldButton.Disable();
     }
     void Start()
     {
         animator = GetComponent<Animator>();
         _rbody = GetComponent<Rigidbody2D>();
+        shieldHeld = false;
         _grounded = true;
         _flipX = false;
 
@@ -285,4 +302,5 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("Ready", true);
         if (!_canMove) _canMove  = true;
     }
+
 }

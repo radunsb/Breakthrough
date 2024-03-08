@@ -355,6 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerScript: {fileID: 0}
+  _shieldScript: {fileID: 0}
   dmgText: {fileID: 8958949218780106743}
 --- !u!95 &5872793097588861770
 Animator:

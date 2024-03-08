@@ -13,6 +13,7 @@ public class MatchScript : MonoBehaviour
     public GameObject[] possibleEnemies;
     public Text p1winsText;
     public Text p2winsText;
+    public int[] matchInfo;
 
     void Start()
     {
@@ -42,7 +43,9 @@ public class MatchScript : MonoBehaviour
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
             p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
         }
-        
+        matchInfo[0] = PlayerPrefs.GetInt("Player1Char");
+        matchInfo[1] = PlayerPrefs.GetInt("Player2Char");
+        matchInfo[2] = PlayerPrefs.GetInt("Stage");
         
     }
 
@@ -94,5 +97,9 @@ public class MatchScript : MonoBehaviour
     void matchOver(int winningPlayerIndex)
     {
         SceneManager.LoadScene("WinScene");
+    }
+    public int getStage()
+    {
+        return matchInfo[2];
     }
 }

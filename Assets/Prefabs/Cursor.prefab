@@ -123,7 +123,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeButton: -1
   playerIndex: 0
-  script: {fileID: 0}
 --- !u!114 &1120953365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +148,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: CharacterSelect
   m_SplitScreenIndex: -1

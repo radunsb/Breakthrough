@@ -29,7 +29,7 @@ public class NewCSScript : MonoBehaviour
             p1Cursor.GetComponent<CursorScript>().playerIndex = 0;
             GameObject p2Cursor = Instantiate(_cursorPrefab, new Vector2(-8, -2), Quaternion.identity);
             p2Cursor.GetComponent<SpriteRenderer>().color = Color.blue;
-            p1Cursor.GetComponent<CursorScript>().playerIndex = 1;
+            p2Cursor.GetComponent<CursorScript>().playerIndex = 1;
         }
     }
 

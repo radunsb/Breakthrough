@@ -1104,7 +1104,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: vs
 --- !u!222 &352541761
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1951,6 +1951,7 @@ MonoBehaviour:
   state: 
   _cursorPrefab: {fileID: 6490386240396025715, guid: 5b0b033c60bbc0d45b84f8f3f38fa4f3, type: 3}
   _readyButton: {fileID: 1478563754}
+  statusText: {fileID: 352541760}
 --- !u!4 &1002874858
 Transform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ public class NewCSScript : MonoBehaviour
     public string state;
     public GameObject _cursorPrefab;
     public GameObject _readyButton;
+    public Text statusText;
+    string[] characters = {"", "REDMAN", "BLUEBLADE", "GREENBOW", "GOLDENFURY" };
     void Start()
     {
         int numPlayers = PlayerPrefs.GetString("Match Type") == "2 Player Local" ? 2 : 1;
@@ -21,6 +23,7 @@ public class NewCSScript : MonoBehaviour
             GameObject p1Cursor = Instantiate(_cursorPrefab, new Vector2(-8, -2), Quaternion.identity);
             p1Cursor.GetComponent<SpriteRenderer>().color = Color.red;
             matchInfo[1] = 0;
+            statusText.text = "vs REDMAN";
         }
         else
         {
@@ -30,6 +33,7 @@ public class NewCSScript : MonoBehaviour
             GameObject p2Cursor = Instantiate(_cursorPrefab, new Vector2(-8, -2), Quaternion.identity);
             p2Cursor.GetComponent<SpriteRenderer>().color = Color.blue;
             p2Cursor.GetComponent<CursorScript>().playerIndex = 1;
+            statusText.text = "vs";
         }
     }
 
@@ -49,6 +53,10 @@ public class NewCSScript : MonoBehaviour
     public void updateMatchInfo(int index, int newVal)
     {
         matchInfo[index] = newVal;
+    }
+    public void updateText()
+    {
+        statusText.text = characters[matchInfo[0] + 1] + " vs " + characters[matchInfo[1] + 1];
     }
     public void tryToPlay()
     {

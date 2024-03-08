@@ -67,7 +67,7 @@ public class CursorScript : MonoBehaviour
         else if(script.state == "player select" && activeButton >= 0 && activeButton <= 1)
         {
             script.updateMatchInfo(playerIndex, activeButton);
-            print("hi");
+            script.updateText();
         }
         else if(script.state == "stage select" && activeButton >= 4 && activeButton <= 6)
         {

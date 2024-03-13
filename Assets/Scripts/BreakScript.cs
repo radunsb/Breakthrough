@@ -41,7 +41,7 @@ public class BreakScript : MonoBehaviour
             {
                 if (gameObject.tag.Equals("Vertical Wall"))
                 {
-                    //_health -= ((Mathf.Abs(rb.velocity.y)));
+                    _health -= ((Mathf.Abs(rb.velocity.y)));
                 }
                 else
                 {

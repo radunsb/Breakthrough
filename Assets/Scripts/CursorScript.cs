@@ -64,7 +64,7 @@ public class CursorScript : MonoBehaviour
         {
             SceneManager.LoadScene("TitleScene");
         }
-        else if(script.state == "player select" && activeButton >= 0 && activeButton <= 1)
+        else if(script.state == "player select" && activeButton >= 0 && activeButton <= 3)
         {
             script.updateMatchInfo(playerIndex, activeButton);
             script.updateText();

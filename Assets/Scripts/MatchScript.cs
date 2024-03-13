@@ -14,9 +14,13 @@ public class MatchScript : MonoBehaviour
     public Text p1winsText;
     public Text p2winsText;
     public int[] matchInfo;
+    GameObject p1;
+    GameObject p2;
+    GameObject currentWorld;
 
     void Start()
     {
+        matchInfo = new int[3];
         if(PlayerPrefs.GetString("Match Type") == "2 Player Local")
         {
             Instantiate(managers[0]);
@@ -28,6 +32,8 @@ public class MatchScript : MonoBehaviour
             playerTwo.GetComponent<PlayerScript>().playerIndex = 1;
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
             p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+            p1 = playerOne;
+            p2 = playerTwo;
         }
         else if(PlayerPrefs.GetString("Match Type") == "Training")
         {
@@ -42,10 +48,16 @@ public class MatchScript : MonoBehaviour
             sandbagOne.GetComponent<KnockbackScript>()._playerScript = playerOne.GetComponent<PlayerScript>();
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
             p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+            p1 = playerOne;
+            p2 = sandbagOne;
         }
         matchInfo[0] = PlayerPrefs.GetInt("Player1Char");
         matchInfo[1] = PlayerPrefs.GetInt("Player2Char");
         matchInfo[2] = PlayerPrefs.GetInt("Stage");
+        if (matchInfo[2] == 4)
+        {
+            currentWorld = GameObject.Find("House (Main)");
+        }
         
     }
 
@@ -56,17 +68,9 @@ public class MatchScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)){
             SceneManager.LoadScene("TitleScene");
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            updateCharacterPoints(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            updateCharacterPoints(1);
-        }
     }
 
-    public void updateCharacterPoints(int playerIndex)
+    public void updateCharacterPoints(int playerIndex, GameObject worldToSpawn)
     {
         int newPoints = 0;
         if(playerIndex == 0)
@@ -85,13 +89,26 @@ public class MatchScript : MonoBehaviour
         }
         else
         {
-            roundOver(playerIndex);
+            roundOver(playerIndex, worldToSpawn);
         }
     }
 
-    void roundOver(int winningPlayerIndex)
+    void roundOver(int winningPlayerIndex, GameObject worldToSpawn)
     {
-        SceneManager.LoadScene(PlayerPrefs.GetString("Gameplay Scene"));
+        //Reset player one
+        p1.transform.position = new Vector2(-4, -3);
+        p1.GetComponent<KnockbackScript>().setDamage(0);
+        p1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        //Reset player two
+        p2.transform.position = new Vector2(4, -3);
+        p2.GetComponent<KnockbackScript>().setDamage(0);
+        p2.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
+        p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+        //Destroy the current background and walls
+        Destroy(currentWorld);
+        //Instantiate the new background and walls
+        Instantiate(worldToSpawn);
     }
 
     void matchOver(int winningPlayerIndex)

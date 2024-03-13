@@ -887,6 +887,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6005dce82d82d44ae8a4657c11853e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackGround: {fileID: 0}
+  House: {fileID: 0}
+  Lawn: {fileID: 0}
+  Roof: {fileID: 0}
+  Basement: {fileID: 0}
+  SubwayMid: {fileID: 0}
+  SubwayRight: {fileID: 0}
+  SubwayFarR: {fileID: 0}
+  SubwayLeft: {fileID: 0}
+  SubwayFarL: {fileID: 0}
   _playerScript: {fileID: 7964291164654892604}
   _shieldScript: {fileID: 1713403748870574648}
   dmgText: {fileID: 8480306166922397600}
@@ -4321,7 +4331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828625803839901431, guid: 9f16bf2fdb85d37409584f056e8fca31, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6692760714856848017, guid: 9f16bf2fdb85d37409584f056e8fca31, type: 3}
       propertyPath: _playerScript

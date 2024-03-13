@@ -4,8 +4,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Permissions;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody2D))]
@@ -16,18 +14,6 @@ public class KnockbackScript : MonoBehaviour
     //Damage increments every time gameobject is hit
     float _damage;
     Rigidbody2D _rbody;
-    //gameObject to change background
-    public GameObject BackGround;
-    private SpriteRenderer spriteR;
-    public Sprite House;
-    public Sprite Lawn;
-    public Sprite Roof;
-    public Sprite Basement;
-    public Sprite SubwayMid;
-    public Sprite SubwayRight;
-    public Sprite SubwayFarR;
-    public Sprite SubwayLeft;
-    public Sprite SubwayFarL;
     //gameObject of the player/other player
     private GameObject opponent;
     PlayerScript _opponentScript;
@@ -37,10 +23,8 @@ public class KnockbackScript : MonoBehaviour
     int playerIndex;
     public Text dmgText;
     public float movePercent;
-
     void Start()
     {
-        SpriteRenderer spriteR = BackGround.GetComponent<SpriteRenderer>();
         _matchScript = GameObject.FindObjectOfType<MatchScript>();
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         playerIndex = _playerScript != null ? _playerScript.playerIndex : -1;
@@ -57,14 +41,15 @@ public class KnockbackScript : MonoBehaviour
         if (!(PlayerPrefs.GetString("Match Type") == "Training" && gameObject.tag.Equals("Player")))
         {
             _opponentScript = opponent.GetComponent<PlayerScript>();
-        }       
-        movePercent = 1;               
+        }
+        movePercent = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(Point());
+
+        dmgText.text = "Damage: " + _damage;
     }
 
     private void FixedUpdate()
@@ -79,52 +64,9 @@ public class KnockbackScript : MonoBehaviour
         }
     }
 
-    //Processes where on the screen a KO happened, and transfers next match to there
-    IEnumerator Point() {
-
-        if (_matchScript.matchInfo[2] == 4) {
-            if (_rbody.position.x > 9) {
-                yield return new WaitForSeconds(3);
-                spriteR.sprite = Lawn;
-                Score(); }
-            if (_rbody.position.x < -9) {
-                yield return new WaitForSeconds(3);
-                spriteR.sprite = Lawn;
-                Score(); } 
-            if (_rbody.position.y > 5) {
-                yield return new WaitForSeconds(3);
-                spriteR.sprite = Roof;
-                Score(); }
-            if (_rbody.position.y < -5) {
-                yield return new WaitForSeconds(3);
-                spriteR.sprite = Basement;
-                Score(); } 
-        }
-
-        if (_matchScript.matchInfo[2] == 5) {
-            if (_rbody.position.x > 9) {
-                yield return new WaitForSeconds(3);
-                Score(); }
-            if (_rbody.position.x < -9) {
-            yield return new WaitForSeconds(3);
-            Score(); }
-        }
-
-        if (_matchScript.matchInfo[2] == 6){
-            if (_rbody.position.y > 5){
-                yield return new WaitForSeconds(3);
-                Score();}
-                
-            if (_rbody.position.y < -5){
-                yield return new WaitForSeconds(3);
-                Score();}
-        }
-        dmgText.text = "Damage: " + _damage;
-    }
-
-//Knockback as a function of the hitbox's power and the character's damage
-//(the function itself is subject to change)
-float calcLaunchMultiplier(float velocityMult)
+    //Knockback as a function of the hitbox's power and the character's damage
+    //(the function itself is subject to change)
+    float calcLaunchMultiplier(float velocityMult)
     {
         return velocityMult * (_damage / 100 + 1) * 200;
     }
@@ -137,22 +79,14 @@ float calcLaunchMultiplier(float velocityMult)
         Vector2 force = new Vector2(Mathf.Cos(launchDirection) * lm, Mathf.Sin(launchDirection) * lm);
         //Set the current velocity to zero so moves do knockback consistently
         _rbody.velocity = Vector2.zero;
-        _rbody.AddForce(force);        
-    }
-
-    void Score(){
-        if (gameObject.tag.Equals("Sandbag")){_matchScript.updateCharacterPoints(0);}
-            else{
-        if (_playerScript.playerIndex == 0){_matchScript.updateCharacterPoints(1);}
-            else{_matchScript.updateCharacterPoints(0);}
-        }
+        _rbody.AddForce(force);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag.Equals("Hitbox"))
         {
-            if (!_inKnockback || collision.GetComponent<HitboxScript>().multiHit == true)
+            if (!_inKnockback)
             {
                 HitboxScript hs = collision.gameObject.GetComponent<HitboxScript>();
                 if (gameObject.tag.Equals("Sandbag") || !_shieldScript.shieldActive())
@@ -219,5 +153,10 @@ float calcLaunchMultiplier(float velocityMult)
     public void setOpponent(GameObject opponent)
     {
         this.opponent = opponent;
+    }
+
+    public void setDamage(float damage)
+    {
+        _damage = damage;
     }
 }

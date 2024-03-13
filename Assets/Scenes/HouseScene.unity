@@ -841,6 +841,18 @@ PrefabInstance:
       propertyPath: p2winsText
       value: 
       objectReference: {fileID: 1002703993}
+    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+      propertyPath: possiblePlayers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+      propertyPath: possiblePlayers.Array.data[2]
+      value: 
+      objectReference: {fileID: 5922149996944618142, guid: 6abd5451a285942479ec794b9510e2a1, type: 3}
+    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+      propertyPath: possiblePlayers.Array.data[3]
+      value: 
+      objectReference: {fileID: 5922149996944618142, guid: 6abd5451a285942479ec794b9510e2a1, type: 3}
     - target: {fileID: 2748154167728070052, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
       propertyPath: m_RootOrder
       value: 7

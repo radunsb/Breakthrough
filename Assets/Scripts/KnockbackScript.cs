@@ -103,7 +103,7 @@ public class KnockbackScript : MonoBehaviour
     {
         if (collision.tag.Equals("Hitbox"))
         {
-            if (!_inKnockback)
+            if (!_inKnockback || collision.GetComponent<HitboxScript>().multiHit == true)
             {
                 HitboxScript hs = collision.gameObject.GetComponent<HitboxScript>();
                 if (gameObject.tag.Equals("Sandbag") || !_shieldScript.shieldActive())

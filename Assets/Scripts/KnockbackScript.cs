@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class KnockbackScript : MonoBehaviour
 {
     //Active for 0.2 seconds following a hit
-    bool _inKnockback;
+    public bool _inKnockback;
     //Damage increments every time gameobject is hit
     float _damage;
     Rigidbody2D _rbody;
@@ -66,6 +66,11 @@ public class KnockbackScript : MonoBehaviour
         {
             movePercent += (1 / 30f);
         }
+        //Double checks that inKnockback is false after 0.2 seconds (avoids weird buggy thing)
+        if(movePercent > 10 / 30f)
+        {
+            _inKnockback = false;
+        }
     }
 
     //Knockback as a function of the hitbox's power and the character's damage
@@ -92,6 +97,7 @@ public class KnockbackScript : MonoBehaviour
         {
             if (!_inKnockback)
             {
+                print("Should be hitting");
                 HitboxScript hs = collision.gameObject.GetComponent<HitboxScript>();
                 //If there is not an active shield, hit and do knockback
                 if (gameObject.tag.Equals("Sandbag") || !_shieldScript.shieldActive())
@@ -108,7 +114,7 @@ public class KnockbackScript : MonoBehaviour
                     //Also subject to change depending on if we implement multi-hit moves
                     takeKnockback(hs.velocityMult, ld);
                     _inKnockback = true;
-                    Invoke("allowKnockback", 0.2f);
+                    movePercent = 0;
                 }
                 //if there is an active shield, do damage to the shield
                 else
@@ -129,22 +135,16 @@ public class KnockbackScript : MonoBehaviour
                         //Also subject to change depending on if we implement multi-hit moves
                         takeKnockback(hs.velocityMult, ld);
                         _inKnockback = true;
-                        Invoke("allowKnockback", 0.2f);
+                        movePercent = 0;
                     }
                     else
                     {
                         _inKnockback = true;
-                        Invoke("allowKnockback", 0.2f);
+                        movePercent = 0;
                     }
                 }
             }
         }
-    }
-
-    void allowKnockback()
-    {
-        movePercent = 0f;
-        _inKnockback = false;
     }
 
     public float getMovePercent()
@@ -165,5 +165,10 @@ public class KnockbackScript : MonoBehaviour
     public void setDamage(float damage)
     {
         _damage = damage;
+    }
+
+    public float getDamage()
+    {
+        return _damage;
     }
 }

@@ -54,7 +54,7 @@ public class MatchScript : MonoBehaviour
                 new Vector2(4f, -3f), Quaternion.identity);
             //Set the sandbag's opponent, since its knockBack script wont do it itself
             sandbagOne.GetComponent<KnockbackScript>().setOpponent(playerOne);
-            sandbagOne.GetComponent<KnockbackScript>()._playerScript = playerOne.GetComponent<PlayerScript>();
+
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
             p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
             //set gameObjects for each entity
@@ -100,12 +100,13 @@ public class MatchScript : MonoBehaviour
         }
         else
         {
-            roundOver(playerIndex, worldToSpawn);
+            StartCoroutine(roundOver(playerIndex, worldToSpawn));
         }
     }
 
-    void roundOver(int winningPlayerIndex, GameObject worldToSpawn)
+    IEnumerator roundOver(int winningPlayerIndex, GameObject worldToSpawn)
     {
+        yield return new WaitForSeconds(1);
         //Reset player one
         p1.transform.position = new Vector2(-4, -3);
         p1.GetComponent<KnockbackScript>().setDamage(0);

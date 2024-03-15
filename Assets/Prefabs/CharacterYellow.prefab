@@ -1115,7 +1115,7 @@ Rigidbody2D:
   m_GravityScale: 1.8
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &2908941092421140442
@@ -1156,6 +1156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6005dce82d82d44ae8a4657c11853e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inKnockback: 0
   _playerScript: {fileID: 7964291164654892604}
   _shieldScript: {fileID: 1713403748870574648}
   dmgText: {fileID: 8480306166922397600}
@@ -6039,7 +6040,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828625803839901431, guid: 9f16bf2fdb85d37409584f056e8fca31, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692760714856848017, guid: 9f16bf2fdb85d37409584f056e8fca31, type: 3}
       propertyPath: _playerScript

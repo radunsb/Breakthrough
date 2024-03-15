@@ -601,6 +601,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: House (Main)
       objectReference: {fileID: 0}
+    - target: {fileID: 6502022748211553673, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
+      propertyPath: m_TagString
+      value: Ceiling
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502022749970332947, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 8636171871336438451, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
       propertyPath: m_RootOrder
       value: 4

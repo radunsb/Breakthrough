@@ -10,8 +10,9 @@ TagManager:
   - Sandbag
   - Shield
   - Horizontal Wall
-  - Vertical Wall
   - Cursor
+  - Ground
+  - Ceiling
   layers:
   - Default
   - TransparentFX

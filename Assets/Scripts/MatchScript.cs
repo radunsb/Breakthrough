@@ -23,37 +23,48 @@ public class MatchScript : MonoBehaviour
         matchInfo = new int[3];
         if(PlayerPrefs.GetString("Match Type") == "2 Player Local")
         {
+            //Instantiates a local multiplayer manager
             Instantiate(managers[0]);
+            //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
             new Vector2(-4f, -3f), Quaternion.identity);
+            //make playerTwo a PLAYER, set to right side
             GameObject playerTwo = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player2Char")],
                 new Vector2(4f, -3f), Quaternion.identity);
+            //Set playerIndex of both players
             playerOne.GetComponent<PlayerScript>().playerIndex = 0;
             playerTwo.GetComponent<PlayerScript>().playerIndex = 1;
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
             p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+            //Set gameObjects for each entity
             p1 = playerOne;
             p2 = playerTwo;
         }
         else if(PlayerPrefs.GetString("Match Type") == "Training")
         {
+            //Instantiates a training manager
             Instantiate(managers[1]);
+            //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
             new Vector2(-4f, -3f), Quaternion.identity);
+            //Set playerIndex
             playerOne.GetComponent<PlayerScript>().playerIndex = 0;
+            //make sandbagOne a SANDBAG, set to right side
             GameObject sandbagOne = Instantiate(possibleSandbags[PlayerPrefs.GetInt("Player2Char")],
                 new Vector2(4f, -3f), Quaternion.identity);
-            playerOne.GetComponent<PlayerScript>().playerIndex = 0;
+            //Set the sandbag's opponent, since its knockBack script wont do it itself
             sandbagOne.GetComponent<KnockbackScript>().setOpponent(playerOne);
             sandbagOne.GetComponent<KnockbackScript>()._playerScript = playerOne.GetComponent<PlayerScript>();
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
             p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+            //set gameObjects for each entity
             p1 = playerOne;
             p2 = sandbagOne;
         }
         matchInfo[0] = PlayerPrefs.GetInt("Player1Char");
         matchInfo[1] = PlayerPrefs.GetInt("Player2Char");
         matchInfo[2] = PlayerPrefs.GetInt("Stage");
+        //Should be updated for the other main stages
         if (matchInfo[2] == 4)
         {
             currentWorld = GameObject.Find("House (Main)");

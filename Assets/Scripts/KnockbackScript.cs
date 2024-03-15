@@ -1,6 +1,4 @@
-//Script for Non-user controlled characters
-//Some code from this will eventually have to be ported over to apply to player characters
-
+//Script to the control the player knockback and movement following hit
 
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +8,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider2D))]
 public class KnockbackScript : MonoBehaviour
 {
+    //Active for 0.2 seconds following a hit
     bool _inKnockback;
     //Damage increments every time gameobject is hit
     float _damage;
@@ -19,15 +18,17 @@ public class KnockbackScript : MonoBehaviour
     PlayerScript _opponentScript;
     public PlayerScript _playerScript;
     public ShieldScript _shieldScript;
-    private MatchScript _matchScript;
     int playerIndex;
     public Text dmgText;
+    //Percentage that the player's input overrides existing velocity
+    //Set to 0 on hit and gradually increases back to 1
     public float movePercent;
     void Start()
     {
-        _matchScript = GameObject.FindObjectOfType<MatchScript>();
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        //player index = playerindex if NOT CPU, otherwise make -1
         playerIndex = _playerScript != null ? _playerScript.playerIndex : -1;
+        //Set the opponent for each entity in game
         foreach (GameObject player in players)
         {
             if (player.GetComponent<PlayerScript>().playerIndex != playerIndex)
@@ -38,6 +39,7 @@ public class KnockbackScript : MonoBehaviour
         _inKnockback = false;
         _damage = 0;
         _rbody = GetComponent<Rigidbody2D>();
+        //If we have two players, set the opponentScript to the other player's playerScript
         if (!(PlayerPrefs.GetString("Match Type") == "Training" && gameObject.tag.Equals("Player")))
         {
             _opponentScript = opponent.GetComponent<PlayerScript>();
@@ -54,10 +56,12 @@ public class KnockbackScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Makes sure we don't get floating point issues
         if (movePercent > .95)
         {
             movePercent = 1;
         }
+        //Should take around .6 seconds to get to full movePercent
         if (movePercent < 1)
         {
             movePercent += (1 / 30f);
@@ -89,6 +93,7 @@ public class KnockbackScript : MonoBehaviour
             if (!_inKnockback)
             {
                 HitboxScript hs = collision.gameObject.GetComponent<HitboxScript>();
+                //If there is not an active shield, hit and do knockback
                 if (gameObject.tag.Equals("Sandbag") || !_shieldScript.shieldActive())
                 {
                     float ld = hs.launchDirection;
@@ -105,9 +110,11 @@ public class KnockbackScript : MonoBehaviour
                     _inKnockback = true;
                     Invoke("allowKnockback", 0.2f);
                 }
+                //if there is an active shield, do damage to the shield
                 else
                 {
                     _shieldScript.reduceHealth(hs.damage);
+                    //If that last hit broke shield, do knockback to player
                     if (!_shieldScript.shieldActive())
                     {
                         float ld = hs.launchDirection;

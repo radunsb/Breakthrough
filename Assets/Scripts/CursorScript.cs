@@ -45,34 +45,35 @@ public class CursorScript : MonoBehaviour
         _rbody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void FixedUpdate()
     {
         moveCursor();
     }
     void moveCursor()
     {
+        //handles 2-dimensional cursor movement with analog stick/keyboard
         _rbody.velocity = move.ReadValue<Vector2>() * 8;
     }
     void onConfirm(InputAction.CallbackContext context)
     {
+        //Back button
         if(activeButton == 7)
         {
             SceneManager.LoadScene("TitleScene");
         }
+        //allow players to choose character during player select stage
         else if(script.state == "player select" && activeButton >= 0 && activeButton <= 3)
         {
             script.updateMatchInfo(playerIndex, activeButton);
+            //update the preview text at the bottom of the screen
             script.updateText();
         }
+        //allow players to choose stage during stage select stage
         else if(script.state == "stage select" && activeButton >= 4 && activeButton <= 6)
         {
             script.updateMatchInfo(2, activeButton);
         }
+        //try to start the game
         else
         {
             script.tryToPlay();

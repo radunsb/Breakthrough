@@ -19,7 +19,7 @@ public class KnockbackScript : MonoBehaviour
     public PlayerScript _playerScript;
     public ShieldScript _shieldScript;
     int playerIndex;
-    public Text dmgText;
+    Text dmgText;
     //Percentage that the player's input overrides existing velocity
     //Set to 0 on hit and gradually increases back to 1
     public float movePercent;
@@ -45,29 +45,37 @@ public class KnockbackScript : MonoBehaviour
             _opponentScript = opponent.GetComponent<PlayerScript>();
         }
         movePercent = 1;
+        if(playerIndex == 0)
+        {
+            dmgText = GameObject.Find("DMG 0").gameObject.GetComponent<Text>();
+        }
+        else
+        {
+            dmgText = GameObject.Find("DMG 1").gameObject.GetComponent<Text>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
         dmgText.text = "Damage: " + _damage;
+        dmgText.transform.position = new Vector2(transform.position.x, transform.position.y + 1);
     }
 
     private void FixedUpdate()
     {
         //Makes sure we don't get floating point issues
-        if (movePercent > .95)
+        if (movePercent > .98)
         {
             movePercent = 1;
         }
         //Should take around .6 seconds to get to full movePercent
         if (movePercent < 1)
         {
-            movePercent += (1 / 30f);
+            movePercent += (1 / 50f);
         }
         //Double checks that inKnockback is false after 0.2 seconds (avoids weird buggy thing)
-        if(movePercent > 10 / 30f)
+        if(movePercent > 10 / 50f)
         {
             _inKnockback = false;
         }
@@ -97,7 +105,6 @@ public class KnockbackScript : MonoBehaviour
         {
             if (!_inKnockback)
             {
-                print("Should be hitting");
                 HitboxScript hs = collision.gameObject.GetComponent<HitboxScript>();
                 //If there is not an active shield, hit and do knockback
                 if (gameObject.tag.Equals("Sandbag") || !_shieldScript.shieldActive())

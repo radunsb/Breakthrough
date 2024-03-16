@@ -48,13 +48,11 @@ public class BreakScript : MonoBehaviour
             //Allows us to avoid having floor take damage from jumping, etc.
             if (ks.movePercent < 1)
             {
-                _health -= ks.getDamage()/10;
-                //Setting this keeps the floor from breaking from constantly taking hits
-                ks.movePercent = 1;
+                _health -= (ks.getDamage()/10f * (1.2f - ks.movePercent));
             }
             else if (gameObject.tag.Equals("Ground"))
             {
-                _health -= 3;
+                _health -= 2;
             }
             //UNCOMMENT FOR INSTANT DEATH ON WALL BREAK
             //WILL PROBABLY LATER BE IMPLEMENTED INTO SEPARATE MODE
@@ -63,8 +61,6 @@ public class BreakScript : MonoBehaviour
 //                rb.velocity = collision.relativeVelocity;
 //           }
         }
-        
-        //DEBUG
-        print(_health);
+
     }
 }

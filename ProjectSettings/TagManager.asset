@@ -13,6 +13,8 @@ TagManager:
   - Cursor
   - Ground
   - Ceiling
+  - Vertical Wall
+  - Boundary
   layers:
   - Default
   - TransparentFX

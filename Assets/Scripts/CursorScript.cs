@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class CursorScript : MonoBehaviour
 {
     private InputActionAsset inputAsset;
+    private InputControlScheme inputControlScheme;
     private InputActionMap characterSelect;
     private InputAction move;
     private InputAction confirm;
@@ -48,6 +49,11 @@ public class CursorScript : MonoBehaviour
     private void FixedUpdate()
     {
         moveCursor();
+    }
+
+    private void Update()
+    {
+
     }
     void moveCursor()
     {

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class KnockbackScript : MonoBehaviour
 {
     //Active for 0.2 seconds following a hit
-    bool _inKnockback;
+    public bool _inKnockback;
     //Damage increments every time gameobject is hit
     float _damage;
     Rigidbody2D _rbody;
@@ -19,7 +19,7 @@ public class KnockbackScript : MonoBehaviour
     public PlayerScript _playerScript;
     public ShieldScript _shieldScript;
     int playerIndex;
-    public Text dmgText;
+    Text dmgText;
     //Percentage that the player's input overrides existing velocity
     //Set to 0 on hit and gradually increases back to 1
     public float movePercent;
@@ -45,26 +45,39 @@ public class KnockbackScript : MonoBehaviour
             _opponentScript = opponent.GetComponent<PlayerScript>();
         }
         movePercent = 1;
+        if(playerIndex == 0)
+        {
+            dmgText = GameObject.Find("DMG 0").gameObject.GetComponent<Text>();
+        }
+        else
+        {
+            dmgText = GameObject.Find("DMG 1").gameObject.GetComponent<Text>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
         dmgText.text = "Damage: " + _damage;
+        dmgText.transform.position = new Vector2(transform.position.x, transform.position.y + 1);
     }
 
     private void FixedUpdate()
     {
         //Makes sure we don't get floating point issues
-        if (movePercent > .95)
+        if (movePercent > .98)
         {
             movePercent = 1;
         }
         //Should take around .6 seconds to get to full movePercent
         if (movePercent < 1)
         {
-            movePercent += (1 / 30f);
+            movePercent += (1 / 50f);
+        }
+        //Double checks that inKnockback is false after 0.2 seconds (avoids weird buggy thing)
+        if(movePercent > 10 / 50f)
+        {
+            _inKnockback = false;
         }
     }
 
@@ -108,7 +121,7 @@ public class KnockbackScript : MonoBehaviour
                     //Also subject to change depending on if we implement multi-hit moves
                     takeKnockback(hs.velocityMult, ld);
                     _inKnockback = true;
-                    Invoke("allowKnockback", 0.2f);
+                    movePercent = 0;
                 }
                 //if there is an active shield, do damage to the shield
                 else
@@ -129,22 +142,16 @@ public class KnockbackScript : MonoBehaviour
                         //Also subject to change depending on if we implement multi-hit moves
                         takeKnockback(hs.velocityMult, ld);
                         _inKnockback = true;
-                        Invoke("allowKnockback", 0.2f);
+                        movePercent = 0;
                     }
                     else
                     {
                         _inKnockback = true;
-                        Invoke("allowKnockback", 0.2f);
+                        movePercent = 0;
                     }
                 }
             }
         }
-    }
-
-    void allowKnockback()
-    {
-        movePercent = 0f;
-        _inKnockback = false;
     }
 
     public float getMovePercent()
@@ -165,5 +172,10 @@ public class KnockbackScript : MonoBehaviour
     public void setDamage(float damage)
     {
         _damage = damage;
+    }
+
+    public float getDamage()
+    {
+        return _damage;
     }
 }

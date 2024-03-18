@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class MatchScript : MonoBehaviour
 {
-    public List<GameObject> managers;
     public int roundsToWin;
     public GameObject[] possiblePlayers;
     public GameObject[] possibleSandbags;
@@ -23,8 +22,6 @@ public class MatchScript : MonoBehaviour
         matchInfo = new int[3];
         if(PlayerPrefs.GetString("Match Type") == "2 Player Local")
         {
-            //Instantiates a local multiplayer manager
-            Instantiate(managers[0]);
             //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
             new Vector2(-4f, -3f), Quaternion.identity);
@@ -42,8 +39,6 @@ public class MatchScript : MonoBehaviour
         }
         else if(PlayerPrefs.GetString("Match Type") == "Training")
         {
-            //Instantiates a training manager
-            Instantiate(managers[1]);
             //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
             new Vector2(-4f, -3f), Quaternion.identity);
@@ -54,7 +49,7 @@ public class MatchScript : MonoBehaviour
                 new Vector2(4f, -3f), Quaternion.identity);
             //Set the sandbag's opponent, since its knockBack script wont do it itself
             sandbagOne.GetComponent<KnockbackScript>().setOpponent(playerOne);
-            sandbagOne.GetComponent<KnockbackScript>()._playerScript = playerOne.GetComponent<PlayerScript>();
+
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
             p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
             //set gameObjects for each entity
@@ -100,24 +95,25 @@ public class MatchScript : MonoBehaviour
         }
         else
         {
-            roundOver(playerIndex, worldToSpawn);
+            StartCoroutine(roundOver(playerIndex, worldToSpawn));
         }
     }
 
-    void roundOver(int winningPlayerIndex, GameObject worldToSpawn)
+    IEnumerator roundOver(int winningPlayerIndex, GameObject worldToSpawn)
     {
-        //Reset player one
-        p1.transform.position = new Vector2(-4, -3);
-        p1.GetComponent<KnockbackScript>().setDamage(0);
-        p1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        //Reset player two
-        p2.transform.position = new Vector2(4, -3);
-        p2.GetComponent<KnockbackScript>().setDamage(0);
-        p2.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
-        p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+        yield return new WaitForSeconds(1);
         //Destroy the current background and walls
         Destroy(currentWorld);
+        //Reset player one
+        p1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        p1.transform.position = new Vector2(-4, -3);
+        p1.GetComponent<KnockbackScript>().setDamage(0);
+        //Reset player two
+        p2.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        p2.transform.position = new Vector2(4, -3);
+        p2.GetComponent<KnockbackScript>().setDamage(0);       
+        p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
+        p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");      
         //Instantiate the new background and walls
         Instantiate(worldToSpawn);
     }

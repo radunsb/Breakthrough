@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Networking.Match;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ public class NewCSScript : MonoBehaviour
     string[] characters = {"", "REDMAN", "BLUEBLADE", "GREENBOW", "GOLDENFURY" };
     void Start()
     {
+        
         int numPlayers = PlayerPrefs.GetString("Match Type") == "2 Player Local" ? 2 : 1;
         matchInfo = new int[] { -1, -1, -1 };
         state = "player select";

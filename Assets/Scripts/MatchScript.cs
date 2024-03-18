@@ -56,6 +56,25 @@ public class MatchScript : MonoBehaviour
             p1 = playerOne;
             p2 = sandbagOne;
         }
+        else if(PlayerPrefs.GetString("Match Type") == "1 Player Local")
+        {
+            //Make playerOne a PLAYER, set to left side
+            GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
+            new Vector2(-4f, -3f), Quaternion.identity);
+            //Set playerIndex
+            playerOne.GetComponent<PlayerScript>().playerIndex = 0;
+            //make sandbagOne a SANDBAG, set to right side
+            GameObject enemyOne = Instantiate(possibleEnemies[PlayerPrefs.GetInt("Player2Char")],
+                new Vector2(4f, -3f), Quaternion.identity);
+            //Set the sandbag's opponent, since its knockBack script wont do it itself
+            enemyOne.GetComponent<KnockbackScript>().setOpponent(playerOne);
+            enemyOne.GetComponent<AIScript>().playerIndex = 1;
+            p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
+            p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+            //set gameObjects for each entity
+            p1 = playerOne;
+            p2 = enemyOne;
+        }
         matchInfo[0] = PlayerPrefs.GetInt("Player1Char");
         matchInfo[1] = PlayerPrefs.GetInt("Player2Char");
         matchInfo[2] = PlayerPrefs.GetInt("Stage");

@@ -28,7 +28,7 @@ public class SinglePlayerScript : TitleScript
         if(_buttonActive == 1)
         {
             SceneManager.LoadScene("CSScene");
-            PlayerPrefs.SetString("Match Type", "Training");
+            PlayerPrefs.SetString("Match Type", "1 Player Local");
         }
         if(_buttonActive == 2)
         {

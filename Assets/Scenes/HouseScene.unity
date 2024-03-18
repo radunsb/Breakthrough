@@ -715,37 +715,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 71940823, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
-      propertyPath: m_TagString
-      value: Boundary
-      objectReference: {fileID: 0}
-    - target: {fileID: 1046282271, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
-      propertyPath: m_TagString
-      value: Boundary
-      objectReference: {fileID: 0}
-    - target: {fileID: 1046282273, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
-      propertyPath: m_Offset.y
-      value: 6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1433406309, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
-      propertyPath: m_TagString
-      value: Boundary
-      objectReference: {fileID: 0}
-    - target: {fileID: 2011628182, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
-      propertyPath: m_TagString
-      value: Boundary
-      objectReference: {fileID: 0}
     - target: {fileID: 954233820983710723, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
       propertyPath: m_Name
       value: House (Main)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6502022748211553673, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
-      propertyPath: m_TagString
-      value: Ceiling
-      objectReference: {fileID: 0}
-    - target: {fileID: 6502022749970332947, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
-      propertyPath: m_TagString
-      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 8636171871336438451, guid: 8af2b043e4948f7469299f1f5e856075, type: 3}
       propertyPath: m_RootOrder

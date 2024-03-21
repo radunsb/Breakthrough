@@ -14,8 +14,8 @@ public class KnockbackScript : MonoBehaviour
     float _damage;
     Rigidbody2D _rbody;
     //gameObject of the player/other player
-    private GameObject opponent;
-    PlayerScript _opponentScript;
+    public GameObject opponent;
+    private PlayerScript _opponentScript;
     public PlayerScript _playerScript;
     public ShieldScript _shieldScript;
     int playerIndex;

@@ -26,27 +26,27 @@ public class PlayerScript : MonoBehaviour
     private InputAction inputDirection;
     private InputAction jumpButton;
     private InputAction shieldButton;
-    Animator animator;
+    protected Animator animator;
     private InputActionAsset inputAsset;
     private InputActionMap inGame;
 
     //Private vars
-    Rigidbody2D _rbody;
-    int timesJumped;
-    bool _grounded;
-    bool _canMove;
-    bool _isJumping;
+    protected Rigidbody2D _rbody;
+    protected int timesJumped;
+    protected bool _grounded;
+    protected bool _canMove;
+    protected bool _isJumping;
     public bool _flipX = false;
     public bool shieldHeld = false;
-    Vector2 directions;
-    KnockbackScript knockbackScript;
+    protected Vector2 directions;
+    protected KnockbackScript knockbackScript;
 
     //raycast positions
-    Vector2 bottomLeft;
-    Vector2 bottomMid;
-    Vector2 bottomRight;
+    protected Vector2 bottomLeft;
+    protected Vector2 bottomMid;
+    protected Vector2 bottomRight;
 
-    LayerMask groundLayer;
+    protected LayerMask groundLayer;
 
 
     protected virtual void Awake()
@@ -82,7 +82,7 @@ public class PlayerScript : MonoBehaviour
         shieldButton.Enable();
     }
 
-    public virtual void OnDisable()
+    protected virtual void OnDisable()
     {
         //Deactivate InputActions
         normButton.performed -= doNormalButton;
@@ -100,7 +100,7 @@ public class PlayerScript : MonoBehaviour
         shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
         shieldButton.Disable();
     }
-    void Start()
+    protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         _rbody = GetComponent<Rigidbody2D>();
@@ -123,7 +123,7 @@ public class PlayerScript : MonoBehaviour
     {
         animator.SetBool("Grounded", _grounded);
     }
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         //Get the current position of the left joystick/movement keys
         directions = inputDirection.ReadValue<Vector2>();
@@ -192,7 +192,7 @@ public class PlayerScript : MonoBehaviour
                 break;
         }
     }
-    void controlHeldDirection()
+    protected void controlHeldDirection()
     {
         //default all directions to false
         animator.SetBool("Forward Hold", false);
@@ -215,7 +215,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     //Controls horizontal character movement
-    Vector2 intendedMovement()
+    protected virtual Vector2 intendedMovement()
     {
         if (_canMove && !knockbackScript.getInKnockback())
         {
@@ -270,7 +270,7 @@ public class PlayerScript : MonoBehaviour
     }
     //Raycast down from the left, middle, and right sides of the player character.
     //Returns true if the raycast hits something belonging to the ground layer.
-    bool isGrounded()
+    protected bool isGrounded()
     {
         bottomLeft = new Vector2(_rbody.position.x - .5f, _rbody.position.y - 1f);
         bottomMid = new Vector2(_rbody.position.x, _rbody.position.y - 1f);

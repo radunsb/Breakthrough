@@ -13,6 +13,7 @@ public class CursorScript : MonoBehaviour
     private InputAction move;
     private InputAction confirm;
     private InputAction back;
+    private InputAction cycleCPU;
 
     Rigidbody2D _rbody;
 
@@ -32,6 +33,12 @@ public class CursorScript : MonoBehaviour
         confirm.performed += onConfirm;
         confirm.Enable();
         back = characterSelect.FindAction("Back");
+        if(PlayerPrefs.GetString("Match Type") == "1 Player Local")
+        {
+            cycleCPU = characterSelect.FindAction("Cycle");
+            cycleCPU.performed += onCycle;
+            cycleCPU.Enable();
+        }
     }
     private void OnDisable()
     {
@@ -84,5 +91,12 @@ public class CursorScript : MonoBehaviour
         {
             script.tryToPlay();
         }
+    }
+
+    void onCycle(InputAction.CallbackContext context)
+    {
+        int current = script.getMatchInfo()[1];
+        current = (current + 1) % 4;
+        script.updateMatchInfo(1, current);
     }
 }

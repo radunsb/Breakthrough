@@ -121,13 +121,13 @@ public class MatchScript : MonoBehaviour
     IEnumerator roundOver(int winningPlayerIndex, GameObject worldToSpawn)
     {
         yield return new WaitForSeconds(1);
-        //Instantiate the new background and walls
-        Instantiate(worldToSpawn);
+        
         //Destroy the current background and walls
         Destroy(currentWorld);
         //Reset player one
-              
-       
+        //Instantiate the new background and walls
+        currentWorld = Instantiate(worldToSpawn);
+
 
         p1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         p1.transform.position = new Vector2(-4, -2);

@@ -160,13 +160,21 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.4.4",
-      "depth": 0,
+      "version": "1.6.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.unity.inputsystem.ps4": {
+      "version": "file:package",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.inputsystem": "1.6.1"
+      }
     },
     "com.unity.mathematics": {
       "version": "1.2.6",

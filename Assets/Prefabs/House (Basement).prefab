@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 6544803790848568055}
   m_Layer: 0
   m_Name: Ceiling
-  m_TagString: Ceiling
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,7 +142,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 18, y: 1.2}
+  m_Size: {x: 18, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &7771253045111112049
 MonoBehaviour:
@@ -202,7 +202,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 802564091, guid: 494ab0d0de7c7884b8679c3edb9aa68d, type: 3}
-  m_Color: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  m_Color: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -447,7 +447,7 @@ PrefabInstance:
     - target: {fileID: 7051571660821004164, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 633608717, guid: 92d5de112eeb86041af56cf59ce1e87e, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7051571660821004164, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_SortingLayer
       value: -1
@@ -462,12 +462,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7051571660821004164, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8231674838881016447, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
     - {fileID: 7019808650228446131, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
     - {fileID: 8605415257849842038, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
+    - {fileID: 8605415257612550780, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
 --- !u!4 &2873139063983703766 stripped
 Transform:
@@ -838,7 +839,7 @@ PrefabInstance:
     - target: {fileID: 7051571660821004164, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 633608717, guid: 92d5de112eeb86041af56cf59ce1e87e, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7051571660821004164, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_SortingLayer
       value: -1
@@ -853,7 +854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7051571660821004164, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8231674838881016447, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
@@ -866,24 +867,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3352965018744875883, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
   m_PrefabInstance: {fileID: 8794008215942935873}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6295424566751685098 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3267151148278439083, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
-  m_PrefabInstance: {fileID: 8794008215942935873}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6154073135900981806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6295424566751685098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a76f8c485a8ff974695106e93cb5cf75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 633608717, guid: 92d5de112eeb86041af56cf59ce1e87e, type: 3}
-  - {fileID: -658314752, guid: 92d5de112eeb86041af56cf59ce1e87e, type: 3}
-  - {fileID: -1764973153, guid: 92d5de112eeb86041af56cf59ce1e87e, type: 3}

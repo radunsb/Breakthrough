@@ -192,7 +192,7 @@ public class PlayerScript : MonoBehaviour
                 break;
         }
     }
-    void controlHeldDirection()
+    protected void controlHeldDirection()
     {
         //default all directions to false
         animator.SetBool("Forward Hold", false);

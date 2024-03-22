@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class MatchScript : MonoBehaviour
 {
+    AudioSource _as;
     public int roundsToWin;
     public GameObject[] possiblePlayers;
     public GameObject[] possibleSandbags;
@@ -19,8 +20,10 @@ public class MatchScript : MonoBehaviour
 
     void Start()
     {
+        _as = GetComponent<AudioSource>();
+        _as.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
         matchInfo = new int[3];
-        if(PlayerPrefs.GetString("Match Type") == "2 Player Local")
+        if (PlayerPrefs.GetString("Match Type") == "2 Player Local")
         {
             //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
@@ -37,7 +40,7 @@ public class MatchScript : MonoBehaviour
             p1 = playerOne;
             p2 = playerTwo;
         }
-        else if(PlayerPrefs.GetString("Match Type") == "Training")
+        else if (PlayerPrefs.GetString("Match Type") == "Training")
         {
             //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
@@ -56,7 +59,7 @@ public class MatchScript : MonoBehaviour
             p1 = playerOne;
             p2 = sandbagOne;
         }
-        else if(PlayerPrefs.GetString("Match Type") == "1 Player Local")
+        else if (PlayerPrefs.GetString("Match Type") == "1 Player Local")
         {
             //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
@@ -83,18 +86,8 @@ public class MatchScript : MonoBehaviour
         {
             currentWorld = GameObject.Find("House (Main)");
         }
-        
+
     }
-
-    void Update()
-    {
-
-        // will eventually open a pause menu
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            SceneManager.LoadScene("TitleScene");
-        }
-    }
-
     public void updateCharacterPoints(int playerIndex, GameObject worldToSpawn)
     {
         int newPoints = 0;

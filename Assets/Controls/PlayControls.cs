@@ -348,6 +348,15 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""4561d592-f18c-4853-8670-ba0e12ebadb2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -413,17 +422,6 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Jump_Button"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9f2d91f1-cf75-4991-861b-5a21f80f8c84"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
                     ""action"": ""Jump_Button"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -634,6 +632,28 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Shield_Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db22a463-a2e6-4544-b75e-b8b6b5204265"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6566b05-58d9-459d-9153-37b7f0399f87"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -930,6 +950,7 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
         m_InGame_Jump_Button = m_InGame.FindAction("Jump_Button", throwIfNotFound: true);
         m_InGame_Strong_Button = m_InGame.FindAction("Strong_Button", throwIfNotFound: true);
         m_InGame_Shield_Button = m_InGame.FindAction("Shield_Button", throwIfNotFound: true);
+        m_InGame_Pause = m_InGame.FindAction("Pause", throwIfNotFound: true);
         // CharacterSelect
         m_CharacterSelect = asset.FindActionMap("CharacterSelect", throwIfNotFound: true);
         m_CharacterSelect_Move = m_CharacterSelect.FindAction("Move", throwIfNotFound: true);
@@ -1064,6 +1085,7 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Jump_Button;
     private readonly InputAction m_InGame_Strong_Button;
     private readonly InputAction m_InGame_Shield_Button;
+    private readonly InputAction m_InGame_Pause;
     public struct InGameActions
     {
         private @PlayControls m_Wrapper;
@@ -1073,6 +1095,7 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
         public InputAction @Jump_Button => m_Wrapper.m_InGame_Jump_Button;
         public InputAction @Strong_Button => m_Wrapper.m_InGame_Strong_Button;
         public InputAction @Shield_Button => m_Wrapper.m_InGame_Shield_Button;
+        public InputAction @Pause => m_Wrapper.m_InGame_Pause;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1097,6 +1120,9 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
             @Shield_Button.started += instance.OnShield_Button;
             @Shield_Button.performed += instance.OnShield_Button;
             @Shield_Button.canceled += instance.OnShield_Button;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -1116,6 +1142,9 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
             @Shield_Button.started -= instance.OnShield_Button;
             @Shield_Button.performed -= instance.OnShield_Button;
             @Shield_Button.canceled -= instance.OnShield_Button;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -1234,6 +1263,7 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
         void OnJump_Button(InputAction.CallbackContext context);
         void OnStrong_Button(InputAction.CallbackContext context);
         void OnShield_Button(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface ICharacterSelectActions
     {

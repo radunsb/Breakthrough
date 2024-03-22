@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class WinScreenScript : TitleScript
 {
     public Text winnerText;
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         if(PlayerPrefs.GetInt("P1 Points") > PlayerPrefs.GetInt("P2 Points"))
         {
             winnerText.text = "Player One Wins!";

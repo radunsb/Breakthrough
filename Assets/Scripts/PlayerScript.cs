@@ -128,7 +128,7 @@ public class PlayerScript : MonoBehaviour
         //Get the current position of the left joystick/movement keys
         directions = inputDirection.ReadValue<Vector2>();
         //Determines whether forward hold, upward hold, or downward hold (for attacks)
-        controlHeldDirection();
+        controlHeldDirection(directions);
         //Controls character's x movement
         Vector2 xMovement = intendedMovement();
         if(_canMove)
@@ -192,7 +192,7 @@ public class PlayerScript : MonoBehaviour
                 break;
         }
     }
-    protected void controlHeldDirection()
+    protected void controlHeldDirection(Vector2 dir)
     {
         //default all directions to false
         animator.SetBool("Forward Hold", false);
@@ -200,15 +200,15 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("Downward Hold", false);
         //Game gives a bit of priority to horizontal holiding. These will probably get adjusted
         //while the game is being refined.
-        if (directions.y > 0.6)
+        if (dir.y > 0.6)
         {
             animator.SetBool("Upward Hold", true);            
         }
-        else if (directions.y < -0.6)
+        else if (dir.y < -0.6)
         {
             animator.SetBool("Downward Hold", true);
         }
-        else if(directions.x > 0.4 && !_flipX || directions.x < 0.4 && _flipX)
+        else if(dir.x > 0.4 && !_flipX || dir.x < 0.4 && _flipX)
         {            
             animator.SetBool("Forward Hold", true);
         }      
@@ -248,7 +248,7 @@ public class PlayerScript : MonoBehaviour
         }
         return _rbody.velocity;
     }
-    void singleJump()
+    protected void singleJump()
     {
         _grounded = false;
         _isJumping = true;

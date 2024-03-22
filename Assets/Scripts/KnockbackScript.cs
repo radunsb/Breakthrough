@@ -26,7 +26,7 @@ public class KnockbackScript : MonoBehaviour
     void Start()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        //player index = playerindex if NOT CPU, otherwise make -1
+        //player index = playerindex if NOT sandbag, otherwise make -1
         playerIndex = _playerScript != null ? _playerScript.playerIndex : -1;
         //Set the opponent for each entity in game
         foreach (GameObject player in players)
@@ -47,11 +47,11 @@ public class KnockbackScript : MonoBehaviour
         movePercent = 1;
         if(playerIndex == 0)
         {
-            dmgText = GameObject.Find("DMG 0").gameObject.GetComponent<Text>();
+            dmgText = GameObject.FindGameObjectWithTag("DMG0").gameObject.GetComponent<Text>();
         }
         else
         {
-            dmgText = GameObject.Find("DMG 1").gameObject.GetComponent<Text>();
+            dmgText = GameObject.FindGameObjectWithTag("DMG1").gameObject.GetComponent<Text>();
         }
     }
 

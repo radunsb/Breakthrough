@@ -13,6 +13,7 @@ public class NewCSScript : MonoBehaviour
     public GameObject _cursorPrefab;
     public GameObject _readyButton;
     public Text statusText;
+    public Text cpuText;
     string[] characters = {"", "REDMAN", "BLUEBLADE", "GREENBOW", "GOLDENFURY" };
     void Start()
     {
@@ -37,6 +38,10 @@ public class NewCSScript : MonoBehaviour
             p2Cursor.GetComponent<CursorScript>().playerIndex = 1;
             statusText.text = "vs";
         }
+        if(PlayerPrefs.GetString("Match Type") == "1 Player Local")
+        {
+            cpuText.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -55,6 +60,11 @@ public class NewCSScript : MonoBehaviour
     public void updateMatchInfo(int index, int newVal)
     {
         matchInfo[index] = newVal;
+        updateText();
+    }
+    public int[] getMatchInfo()
+    {
+        return matchInfo;
     }
     public void updateText()
     {
@@ -69,7 +79,18 @@ public class NewCSScript : MonoBehaviour
             PlayerPrefs.SetInt("Stage", matchInfo[2]);
             PlayerPrefs.SetInt("P1 Points", 0);
             PlayerPrefs.SetInt("P2 Points", 0);
-            SceneManager.LoadScene("MatchScene");
+            PlayerPrefs.SetString("Gameplay Scene", "TowerScene");
+            SceneManager.LoadScene("TowerScene");
+        }
+        else if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] == 5)
+        {
+            PlayerPrefs.SetInt("Player1Char", matchInfo[0]);
+            PlayerPrefs.SetInt("Player2Char", matchInfo[1]);
+            PlayerPrefs.SetInt("Stage", matchInfo[2]);
+            PlayerPrefs.SetInt("P1 Points", 0);
+            PlayerPrefs.SetInt("P2 Points", 0);
+            PlayerPrefs.SetString("Gameplay Scene", "SubwayScene");
+            SceneManager.LoadScene("SubwayScene");
         }
         if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] == 4)
         {

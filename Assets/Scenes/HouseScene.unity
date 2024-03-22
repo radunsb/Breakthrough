@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 1286496666}
   m_Layer: 5
   m_Name: DMG 1
-  m_TagString: Untagged
+  m_TagString: DMG1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -564,7 +564,7 @@ GameObject:
   - component: {fileID: 1512373127}
   m_Layer: 5
   m_Name: DMG 0
-  m_TagString: Untagged
+  m_TagString: DMG0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -650,26 +650,6 @@ PrefabInstance:
       propertyPath: p2winsText
       value: 
       objectReference: {fileID: 1002703993}
-    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
-      propertyPath: possibleEnemies.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
-      propertyPath: possiblePlayers.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
-      propertyPath: possibleEnemies.Array.data[0]
-      value: 
-      objectReference: {fileID: 4815162798190022052, guid: 841798a3dded7e447a6ecc35b01e5dd1, type: 3}
-    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
-      propertyPath: possiblePlayers.Array.data[2]
-      value: 
-      objectReference: {fileID: 5922149996944618142, guid: 6abd5451a285942479ec794b9510e2a1, type: 3}
-    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
-      propertyPath: possiblePlayers.Array.data[3]
-      value: 
-      objectReference: {fileID: 5922149996944618142, guid: 6abd5451a285942479ec794b9510e2a1, type: 3}
     - target: {fileID: 2748154167728070052, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -714,6 +694,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8278488717210116492, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278488717210116492, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: eed289893fb935648a96401009662374, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
 --- !u!1001 &8605415257114195524

@@ -6,9 +6,9 @@ public class AIScript : PlayerScript
 {
     GameObject _opponent;
     PlayerScript _opponentScript;
-    float decideNewThingCounter;
+    float decideNewThingCounter = -20;
 
-    private string status;
+    public string status;
     protected override void Awake()
     {
 
@@ -25,7 +25,7 @@ public class AIScript : PlayerScript
     {
         _opponent = GetComponent<KnockbackScript>().opponent;
         _opponentScript = _opponent.GetComponent<PlayerScript>();
-        status = "Approach";
+        status = "Stationary";
         base.Start();
     }
 
@@ -33,26 +33,68 @@ public class AIScript : PlayerScript
     {
         decideNewThingCounter++;
         directions = decideJoystickInput(status);
-        controlHeldDirection();
+        controlHeldDirection(directions);
         //Controls character's x movement
         Vector2 xMovement = intendedMovement();
         if (_canMove)
         {
-            if (decideNewThingCounter > 50)
+            if(shieldHeld == true)
+            {
+
+            }
+            if (decideNewThingCounter > 30)
             {
                 decideNewThingCounter = 0;
-                status = "Approach";
-                if (Mathf.Abs(transform.position.x - _opponent.transform.position.x) < 3
-                    && Mathf.Abs(transform.position.y - _opponent.transform.position.y) < 3)
+                shieldHeld = false;
+                status = "Approaching";
+
+                if (Mathf.Abs(transform.position.x - _opponent.transform.position.x) < 1.5
+                    && Mathf.Abs(transform.position.y - _opponent.transform.position.y) < 2.5)
                 {
-                    if (knockbackScript.getMovePercent() < 1)
+                    float randNum = Random.Range(0f, 1f);
+                    if (randNum >= 0.5f)
                     {
-                        status = "Retreat";
+                        status = "Retreating";
                     }
                     else
                     {
                         status = "Attacking";
+                        directions = decideJoystickInput(status);
                         Invoke("tryAttack", 0.1f);
+                    }
+                    
+                }
+                else if (Mathf.Abs(transform.position.x - _opponent.transform.position.x) < 3
+                    && Mathf.Abs(transform.position.y - _opponent.transform.position.y) < 3)
+                {
+                    float randNum = Random.Range(0f, 1f);
+                    if (randNum >= .4)
+                    {
+                        if (knockbackScript.getMovePercent() < 1)
+                        {
+                            status = "Retreating";
+                        }
+                        else
+                        {
+                            status = "Attacking";
+                            directions = decideJoystickInput(status);
+                            Invoke("tryAttack", 0.1f);
+                        }
+                    }
+                    else if (randNum >= .2 && randNum < .4)
+                    {
+                        status = "Retreating";
+                        shieldHeld = true;
+                    }
+                    else if (randNum >= .1 && randNum < .2)
+                    {
+                        status = "Approaching";
+                        shieldHeld = true;
+                    }
+                    else
+                    {
+                        status = "Stationary";
+                        shieldHeld = true;
                     }
                 }
             }
@@ -65,6 +107,7 @@ public class AIScript : PlayerScript
             {
                 _rbody.velocity = xMovement;
             }
+            
         }
 
         if (isGrounded())
@@ -74,6 +117,7 @@ public class AIScript : PlayerScript
             {
                 _grounded = true;
                 timesJumped = 0;
+                decideIfJump();
             }
         }
         else
@@ -85,11 +129,11 @@ public class AIScript : PlayerScript
     {
         switch (mode)
         {
-            case "Retreat":
+            case "Retreating":
                 return ((_opponent.transform.position.x < transform.position.x) ? Vector2.right : Vector2.left);
-            case "Approach":
+            case "Approaching":
                 return ((_opponent.transform.position.x < transform.position.x) ? Vector2.left : Vector2.right);
-            case "Attack":
+            case "Attacking":
                 float distX = transform.position.x - _opponent.transform.position.x;
                 float distY = transform.position.y - _opponent.transform.position.y;
                 if(Mathf.Abs(distX) >= Mathf.Abs(distY))
@@ -160,9 +204,37 @@ public class AIScript : PlayerScript
     
     void tryAttack()
     {
+        
         if (!knockbackScript.getInKnockback())
         {
-            animator.SetTrigger("Normal button");
+            if (isGrounded())
+            {
+                float randNum = Random.Range(0f, 1f);
+                if (randNum >= .7f)
+                {
+                    animator.SetTrigger("Strong Button");
+                }
+                else
+                {
+                    animator.SetTrigger("Normal button");
+                }
+            }
+            else
+            {
+                animator.SetTrigger("Normal button");
+            }
+        }
+    }
+
+    void decideIfJump()
+    {
+        if(status == "Approaching" || status == "Attacking")
+        {
+            float randNum = Random.Range(0f, 1f);
+            if(randNum >= 0.99f)
+            {
+                singleJump();
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ public class SinglePlayerScript : TitleScript
         int _buttonActive = this._buttonActive;
         if(_buttonActive == 0)
         {
-            //Load Story Stuff
+            SceneManager.LoadScene("InstructionScene");
         }
         if(_buttonActive == 1)
         {

@@ -16,7 +16,12 @@ public class OptionsScript : TitleScript
     bool _inVolume = false;
     public GameObject volumeBar;
     public GameObject volumeSettings;
-    float volume = 1;
+    float volume;
+    protected override void Start()
+    {
+        base.Start();
+        volume = (PlayerPrefs.HasKey("Volume") ? PlayerPrefs.GetFloat("Volume") : 1);
+    }
     protected override void navigate(InputAction.CallbackContext context)
     {
         Vector2 directions = context.ReadValue<Vector2>();
@@ -78,14 +83,13 @@ public class OptionsScript : TitleScript
             case 0:
                 _inSubMenu = true;
                 _inVolume = true;
+                volumeBar.transform.localScale = new Vector2(volume, 1);
                 volumeSettings.SetActive(true);
                 break; //Volume
             case 1:
-                break; //Brightness
-            case 2:
                 SceneManager.LoadScene("ControlsScene");
                 break;
-            case 3:
+            case 2:
                 SceneManager.LoadScene("TitleScene");
                 break;
             default:

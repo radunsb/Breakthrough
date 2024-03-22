@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -26,6 +27,7 @@ public class PlayerScript : MonoBehaviour
     private InputAction inputDirection;
     private InputAction jumpButton;
     private InputAction shieldButton;
+    private InputAction pauseButton;
     protected Animator animator;
     private InputActionAsset inputAsset;
     private InputActionMap inGame;
@@ -80,6 +82,10 @@ public class PlayerScript : MonoBehaviour
         shieldButton.performed += (InputAction.CallbackContext context) => { shieldHeld = true; _canMove = false; };
         shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
         shieldButton.Enable();
+
+        pauseButton = inGame.FindAction("Pause");
+        pauseButton.performed += pause;
+        pauseButton.Enable();
     }
 
     protected virtual void OnDisable()
@@ -99,6 +105,9 @@ public class PlayerScript : MonoBehaviour
         shieldButton.performed += (InputAction.CallbackContext context) => { shieldHeld = true; _canMove = false; };
         shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
         shieldButton.Disable();
+
+        pauseButton.performed -= pause;
+        pauseButton.Disable();
     }
     protected virtual void Start()
     {
@@ -122,6 +131,11 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         animator.SetBool("Grounded", _grounded);
+    }
+
+    private void pause(InputAction.CallbackContext context)
+    {
+        SceneManager.LoadScene("TitleScene");
     }
     protected virtual void FixedUpdate()
     {

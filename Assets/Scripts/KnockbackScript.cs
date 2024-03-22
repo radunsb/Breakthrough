@@ -8,6 +8,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider2D))]
 public class KnockbackScript : MonoBehaviour
 {
+    AudioSource _as;
     //Active for 0.2 seconds following a hit
     public bool _inKnockback;
     //Damage increments every time gameobject is hit
@@ -25,6 +26,7 @@ public class KnockbackScript : MonoBehaviour
     public float movePercent;
     void Start()
     {
+        _as = GetComponent<AudioSource>();
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         //player index = playerindex if NOT sandbag, otherwise make -1
         playerIndex = _playerScript != null ? _playerScript.playerIndex : -1;
@@ -109,6 +111,7 @@ public class KnockbackScript : MonoBehaviour
                 //If there is not an active shield, hit and do knockback
                 if (gameObject.tag.Equals("Sandbag") || !_shieldScript.shieldActive())
                 {
+                    _as.Play();
                     float ld = hs.launchDirection;
                     _damage += hs.damage;
                     //for now, just flip the launch direction if attacker is facing left
@@ -130,6 +133,7 @@ public class KnockbackScript : MonoBehaviour
                     //If that last hit broke shield, do knockback to player
                     if (!_shieldScript.shieldActive())
                     {
+                        _as.Play();
                         float ld = hs.launchDirection;
                         _damage += hs.damage;
                         //for now, just flip the launch direction if attacker is facing left
@@ -145,7 +149,7 @@ public class KnockbackScript : MonoBehaviour
                         movePercent = 0;
                     }
                     else
-                    {
+                    {                       
                         _inKnockback = true;
                         movePercent = 0;
                     }

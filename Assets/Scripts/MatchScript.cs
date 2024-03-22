@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +18,7 @@ public class MatchScript : MonoBehaviour
     GameObject p1;
     GameObject p2;
     GameObject currentWorld;
+    //GameObject floor;
 
     void Start()
     {
@@ -116,6 +119,8 @@ public class MatchScript : MonoBehaviour
         p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");      
         //Instantiate the new background and walls
         Instantiate(worldToSpawn);
+        //Instantiate(floor);
+        //tranform.position = new Vector3(0, -4.3f, 0);
     }
 
     void matchOver(int winningPlayerIndex)

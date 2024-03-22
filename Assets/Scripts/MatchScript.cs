@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class MatchScript : MonoBehaviour
 {
+    AudioSource _as;
     public int roundsToWin;
     public GameObject[] possiblePlayers;
     public GameObject[] possibleSandbags;
@@ -19,9 +20,11 @@ public class MatchScript : MonoBehaviour
 
     void Start()
     {
+        _as = GetComponent<AudioSource>();
+        _as.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
         matchInfo = new int[3];
         if(PlayerPrefs.GetString("Match Type") == "2 Player Local")
-        {
+        {         
             //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
             new Vector2(-4f, -3f), Quaternion.identity);

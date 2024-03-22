@@ -27,6 +27,7 @@ public class KnockbackScript : MonoBehaviour
     void Start()
     {
         _as = GetComponent<AudioSource>();
+        _as.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         //player index = playerindex if NOT sandbag, otherwise make -1
         playerIndex = _playerScript != null ? _playerScript.playerIndex : -1;

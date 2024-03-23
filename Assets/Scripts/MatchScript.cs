@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +19,7 @@ public class MatchScript : MonoBehaviour
     GameObject p1;
     GameObject p2;
     GameObject currentWorld;
+    //GameObject floor;
 
     void Start()
     {
@@ -131,6 +134,7 @@ public class MatchScript : MonoBehaviour
         p2.GetComponent<KnockbackScript>().setDamage(0);
         p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
         p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+
     }
 
     void matchOver(int winningPlayerIndex)

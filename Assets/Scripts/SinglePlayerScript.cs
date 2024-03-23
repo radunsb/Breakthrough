@@ -23,12 +23,12 @@ public class SinglePlayerScript : TitleScript
         int _buttonActive = this._buttonActive;
         if(_buttonActive == 0)
         {
-            //Load Story Stuff
+            SceneManager.LoadScene("InstructionScene");
         }
         if(_buttonActive == 1)
         {
             SceneManager.LoadScene("CSScene");
-            PlayerPrefs.SetString("Match Type", "Training");
+            PlayerPrefs.SetString("Match Type", "1 Player Local");
         }
         if(_buttonActive == 2)
         {

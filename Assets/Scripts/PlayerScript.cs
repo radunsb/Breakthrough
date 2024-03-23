@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -26,27 +27,28 @@ public class PlayerScript : MonoBehaviour
     private InputAction inputDirection;
     private InputAction jumpButton;
     private InputAction shieldButton;
-    Animator animator;
+    private InputAction pauseButton;
+    protected Animator animator;
     private InputActionAsset inputAsset;
     private InputActionMap inGame;
 
     //Private vars
-    Rigidbody2D _rbody;
-    int timesJumped;
-    bool _grounded;
-    bool _canMove;
-    bool _isJumping;
+    protected Rigidbody2D _rbody;
+    protected int timesJumped;
+    protected bool _grounded;
+    protected bool _canMove;
+    protected bool _isJumping;
     public bool _flipX = false;
     public bool shieldHeld = false;
-    Vector2 directions;
-    KnockbackScript knockbackScript;
+    protected Vector2 directions;
+    protected KnockbackScript knockbackScript;
 
     //raycast positions
-    Vector2 bottomLeft;
-    Vector2 bottomMid;
-    Vector2 bottomRight;
+    protected Vector2 bottomLeft;
+    protected Vector2 bottomMid;
+    protected Vector2 bottomRight;
 
-    LayerMask groundLayer;
+    protected LayerMask groundLayer;
 
 
     protected virtual void Awake()
@@ -80,9 +82,13 @@ public class PlayerScript : MonoBehaviour
         shieldButton.performed += (InputAction.CallbackContext context) => { shieldHeld = true; _canMove = false; };
         shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
         shieldButton.Enable();
+
+        pauseButton = inGame.FindAction("Pause");
+        pauseButton.performed += pause;
+        pauseButton.Enable();
     }
 
-    public virtual void OnDisable()
+    protected virtual void OnDisable()
     {
         //Deactivate InputActions
         normButton.performed -= doNormalButton;
@@ -99,8 +105,11 @@ public class PlayerScript : MonoBehaviour
         shieldButton.performed += (InputAction.CallbackContext context) => { shieldHeld = true; _canMove = false; };
         shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
         shieldButton.Disable();
+
+        pauseButton.performed -= pause;
+        pauseButton.Disable();
     }
-    void Start()
+    protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         _rbody = GetComponent<Rigidbody2D>();
@@ -123,12 +132,17 @@ public class PlayerScript : MonoBehaviour
     {
         animator.SetBool("Grounded", _grounded);
     }
-    private void FixedUpdate()
+
+    private void pause(InputAction.CallbackContext context)
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
+    protected virtual void FixedUpdate()
     {
         //Get the current position of the left joystick/movement keys
         directions = inputDirection.ReadValue<Vector2>();
         //Determines whether forward hold, upward hold, or downward hold (for attacks)
-        controlHeldDirection();
+        controlHeldDirection(directions);
         //Controls character's x movement
         Vector2 xMovement = intendedMovement();
         if(_canMove)
@@ -192,7 +206,7 @@ public class PlayerScript : MonoBehaviour
                 break;
         }
     }
-    void controlHeldDirection()
+    protected void controlHeldDirection(Vector2 dir)
     {
         //default all directions to false
         animator.SetBool("Forward Hold", false);
@@ -200,22 +214,22 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("Downward Hold", false);
         //Game gives a bit of priority to horizontal holiding. These will probably get adjusted
         //while the game is being refined.
-        if (directions.y > 0.6)
+        if (dir.y > 0.6)
         {
             animator.SetBool("Upward Hold", true);            
         }
-        else if (directions.y < -0.6)
+        else if (dir.y < -0.6)
         {
             animator.SetBool("Downward Hold", true);
         }
-        else if(directions.x > 0.4 && !_flipX || directions.x < 0.4 && _flipX)
+        else if(dir.x > 0.4 && !_flipX || dir.x < 0.4 && _flipX)
         {            
             animator.SetBool("Forward Hold", true);
         }      
     }
 
     //Controls horizontal character movement
-    Vector2 intendedMovement()
+    protected virtual Vector2 intendedMovement()
     {
         if (_canMove && !knockbackScript.getInKnockback())
         {
@@ -248,7 +262,7 @@ public class PlayerScript : MonoBehaviour
         }
         return _rbody.velocity;
     }
-    void singleJump()
+    protected void singleJump()
     {
         _grounded = false;
         _isJumping = true;
@@ -270,7 +284,7 @@ public class PlayerScript : MonoBehaviour
     }
     //Raycast down from the left, middle, and right sides of the player character.
     //Returns true if the raycast hits something belonging to the ground layer.
-    bool isGrounded()
+    protected bool isGrounded()
     {
         bottomLeft = new Vector2(_rbody.position.x - .5f, _rbody.position.y - 1f);
         bottomMid = new Vector2(_rbody.position.x, _rbody.position.y - 1f);

@@ -29,7 +29,7 @@ public class TitleScript : MonoBehaviour
 
     //Public boolean for determining solo or Multiplayer
     public bool isSolo;
-    private void Start()
+    protected virtual void Start()
     {
         updateButtonColors(buttons, _buttonActive);
     }

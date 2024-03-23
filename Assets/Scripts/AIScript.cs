@@ -1,78 +1,115 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIScript : MonoBehaviour
+public class AIScript : PlayerScript
 {
-    //Character Specific Variables
-    public float walkSpeed;
-    public float runSpeed;
-    public float jump1Height;
-    public float jump2Height;
-    public List<List<float>> moveRanges = new List<List<float>>();
+    GameObject _opponent;
+    PlayerScript _opponentScript;
+    float decideNewThingCounter = -20;
 
-    //Private vars
-    Animator animator;
-    Rigidbody2D _rbody;
-    int timesJumped;
-    bool _grounded;
-    bool _canMove;
-    bool _isJumping;
-    public bool _flipX = false;
-    Vector2 directions;
-
-    public GameObject _player;
-    PlayerScript _playerScript;
-
-    //raycast positions
-    Vector2 bottomLeft;
-    Vector2 bottomMid;
-    Vector2 bottomRight;
-
-    LayerMask groundLayer;
-    LayerMask playerLayer;
-
-    //AI Specific Variables
-   
-    bool actionable;
-
-    // Start is called before the first frame update
-    void Start()
+    public string status;
+    protected override void Awake()
     {
-        animator = GetComponent<Animator>();
-        _rbody = GetComponent<Rigidbody2D>();
-        _grounded = true;
-        _flipX = false;
 
-        //Initialize variables for raycasting
-        bottomLeft = new Vector2(_rbody.position.x - .5f, _rbody.position.y - 1f);
-        bottomMid = new Vector2(_rbody.position.x, _rbody.position.y - 1f);
-        bottomRight = new Vector2(_rbody.position.x + .5f, _rbody.position.y - 1f);
-        groundLayer = LayerMask.GetMask("Ground");
-        playerLayer = LayerMask.GetMask("Player");
-        timesJumped = 0;
-        actionable = true;
-        _playerScript = _player.GetComponent<PlayerScript>();
-        moveRanges.Add(new List<float> { 2, 2, 0, 0 });
-        moveRanges.Add(new List<float> { 2, 2, 0, 0 });
-        moveRanges.Add(new List<float> { 2, 2, 0, 0 });
-        moveRanges.Add(new List<float> { 2, 2, 0, 0 });
-        moveRanges.Add(new List<float> { 2, 2, 0, 0 });
-        moveRanges.Add(new List<float> { 2, 2, 0, 0 });
-        moveRanges.Add(new List<float> { 2, 2, 0, 0 });
-        moveRanges.Add(new List<float> { 2, 2, 0, 0 });
-        moveRanges.Add(new List<float> { 2, 2, 0, 0 });
     }
-
-    // Update is called once per frame
-    void Update()
+    protected override void OnEnable()
     {
         
     }
-
-    private void FixedUpdate()
+    protected override void OnDisable()
     {
+
+    }
+    protected override void Start()
+    {
+        _opponent = GetComponent<KnockbackScript>().opponent;
+        _opponentScript = _opponent.GetComponent<PlayerScript>();
+        status = "Stationary";
+        base.Start();
+    }
+
+    protected override void FixedUpdate()
+    {
+        decideNewThingCounter++;
+        directions = decideJoystickInput(status);
+        controlHeldDirection(directions);
+        //Controls character's x movement
+        Vector2 xMovement = intendedMovement();
+        if (_canMove)
+        {
+            if(shieldHeld == true)
+            {
+
+            }
+            if (decideNewThingCounter > 30)
+            {
+                decideNewThingCounter = 0;
+                shieldHeld = false;
+                status = "Approaching";
+
+                if (Mathf.Abs(transform.position.x - _opponent.transform.position.x) < 1.5
+                    && Mathf.Abs(transform.position.y - _opponent.transform.position.y) < 2.5)
+                {
+                    float randNum = Random.Range(0f, 1f);
+                    if (randNum >= 0.5f)
+                    {
+                        status = "Retreating";
+                    }
+                    else
+                    {
+                        status = "Attacking";
+                        directions = decideJoystickInput(status);
+                        Invoke("tryAttack", 0.1f);
+                    }
+                    
+                }
+                else if (Mathf.Abs(transform.position.x - _opponent.transform.position.x) < 3
+                    && Mathf.Abs(transform.position.y - _opponent.transform.position.y) < 3)
+                {
+                    float randNum = Random.Range(0f, 1f);
+                    if (randNum >= .4)
+                    {
+                        if (knockbackScript.getMovePercent() < 1)
+                        {
+                            status = "Retreating";
+                        }
+                        else
+                        {
+                            status = "Attacking";
+                            directions = decideJoystickInput(status);
+                            Invoke("tryAttack", 0.1f);
+                        }
+                    }
+                    else if (randNum >= .2 && randNum < .4)
+                    {
+                        status = "Retreating";
+                        shieldHeld = true;
+                    }
+                    else if (randNum >= .1 && randNum < .2)
+                    {
+                        status = "Approaching";
+                        shieldHeld = true;
+                    }
+                    else
+                    {
+                        status = "Stationary";
+                        shieldHeld = true;
+                    }
+                }
+            }
+            if (knockbackScript.getMovePercent() < 1)
+            {
+                _rbody.velocity = Vector2.Lerp(_rbody.velocity, xMovement,
+                    1 / 30f);
+            }
+            else
+            {
+                _rbody.velocity = xMovement;
+            }
+            
+        }
+
         if (isGrounded())
         {
             //if grounded and you didn't just start a jump...
@@ -80,100 +117,124 @@ public class AIScript : MonoBehaviour
             {
                 _grounded = true;
                 timesJumped = 0;
+                decideIfJump();
             }
         }
         else
         {
             _grounded = false;
         }
-        animator.SetBool("Grounded", _grounded);
-        if (actionable)
+    }
+    private Vector2 decideJoystickInput(string mode)
+    {
+        switch (mode)
         {
-            animator.SetBool("Ready", true);
-            print(checkCanAttack());
-            switch (checkCanAttack())
-            {
-                case 0:
-                    animator.SetTrigger("Normal button");
-                    animator.SetBool("Forward Hold", true);
-                    break;
-                case 1:
-                    animator.SetTrigger("Normal button");
-                    animator.SetBool("Upward Hold", true);
-                    break;
-                case 2:
-                    animator.SetTrigger("Normal button");
-                    animator.SetBool("Downward Hold", true);
-                    break;
-                case 3:
-                    animator.SetTrigger("Strong Button");
-                    animator.SetBool("Forward Hold", true);
-                    break;
-                case 4:
-                    animator.SetTrigger("Strong Button");
-                    animator.SetBool("Upward Hold", true);
-                    break;
-                case 5:
-                    animator.SetTrigger("Strong Button");
-                    animator.SetBool("Downward Hold", true);
-                    break;
-                default:
-                    animator.ResetTrigger("Normal button");
-                    animator.ResetTrigger("Strong Button");
-                    break;
-            }
-        }
-        else
-        {
-            animator.SetBool("Ready", false);
+            case "Retreating":
+                return ((_opponent.transform.position.x < transform.position.x) ? Vector2.right : Vector2.left);
+            case "Approaching":
+                return ((_opponent.transform.position.x < transform.position.x) ? Vector2.left : Vector2.right);
+            case "Attacking":
+                float distX = transform.position.x - _opponent.transform.position.x;
+                float distY = transform.position.y - _opponent.transform.position.y;
+                if(Mathf.Abs(distX) >= Mathf.Abs(distY))
+                {
+                    if(distX >= 0)
+                    {
+                        _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
+                        _flipX = true;
+                        return Vector2.left;
+                    }
+                    else
+                    {
+                        _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
+                        _flipX = false;
+                        return Vector2.right;
+                    }
+                }
+                else
+                {
+                    if(distY >= 0)
+                    {
+                        return Vector2.down;
+                    }
+                    else
+                    {
+                        return Vector2.up;
+                    }
+                }
+            default:
+                return Vector2.zero;
+            
         }
     }
 
-    int checkCanAttack()
-    {      
-        if (_grounded)
+    protected override Vector2 intendedMovement()
+    {
+        if (_canMove && !knockbackScript.getInKnockback())
         {
-            for(int i = 0; i <= 5; i++)
+            switch (directions.x)
             {
-                Vector2 topLeft = new Vector2(_rbody.position.x + moveRanges[i][2], _rbody.position.y + moveRanges[i][1]);
-                Vector2 bottomLeft = new Vector2(_rbody.position.x + moveRanges[i][2], _rbody.position.y + moveRanges[i][3]);
-                float xRange = moveRanges[i][0] + moveRanges[i][2];
-                RaycastHit2D hitPlayerTop = Physics2D.Raycast(topLeft, Vector2.right, xRange, playerLayer);
-                RaycastHit2D hitPlayerBottom = Physics2D.Raycast(bottomLeft, Vector2.right, xRange, playerLayer);
-                if(hitPlayerTop.collider != null || hitPlayerBottom.collider != null)
+                //Run right
+                case float x when x > .8f:
+                    _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
+                    _flipX = false;
+                    return new Vector2(runSpeed, _rbody.velocity.y);
+                //Walk right
+                case float x when (x > 0.4f && x <= .8f):
+                    _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
+                    _flipX = false;
+                    return new Vector2(walkSpeed, _rbody.velocity.y);
+                //Run left
+                case float x when x < -.8f:
+                    _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
+                    _flipX = true;
+                    return new Vector2(-runSpeed, _rbody.velocity.y);
+                //Walk left
+                case float x when (x < -0.4f && x >= -.8f):
+                    _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
+                    _flipX = true;
+                    return new Vector2(-walkSpeed, _rbody.velocity.y);
+                //No horizontal movement
+                default:
+                    return new Vector2(0f, _rbody.velocity.y);
+            }
+        }
+        return _rbody.velocity;
+    }
+    
+    void tryAttack()
+    {
+        
+        if (!knockbackScript.getInKnockback())
+        {
+            if (isGrounded())
+            {
+                float randNum = Random.Range(0f, 1f);
+                if (randNum >= .7f)
                 {
-                    return i;
+                    animator.SetTrigger("Strong Button");
+                }
+                else
+                {
+                    animator.SetTrigger("Normal button");
                 }
             }
+            else
+            {
+                animator.SetTrigger("Normal button");
+            }
         }
-        return -1;
     }
-    void stopAttack()
+
+    void decideIfJump()
     {
-        //animator.SetBool("Ready", false);
-        //Grounded attacks should stop the character's movement for their duration
-        if (_grounded)
+        if(status == "Approaching" || status == "Attacking")
         {
-            _canMove = false;
-            _rbody.velocity = new Vector2(0f, _rbody.velocity.y);
+            float randNum = Random.Range(0f, 1f);
+            if(randNum >= 0.99f)
+            {
+                singleJump();
+            }
         }
-
-    }
-    //Allows the player to attack and move again.
-    void canAttack()
-    {
-        animator.SetBool("Ready", true);
-        if (!_canMove) _canMove = true;
-    }
-
-    bool isGrounded()
-    {
-        bottomLeft = new Vector2(_rbody.position.x - .5f, _rbody.position.y - 1f);
-        bottomMid = new Vector2(_rbody.position.x, _rbody.position.y - 1f);
-        bottomRight = new Vector2(_rbody.position.x + .5f, _rbody.position.y - 1f);
-        RaycastHit2D hitLeft = Physics2D.Raycast(bottomLeft, Vector2.down, 0.5f, groundLayer);
-        RaycastHit2D hitCenter = Physics2D.Raycast(bottomMid, Vector2.down, 0.5f, groundLayer);
-        RaycastHit2D hitRight = Physics2D.Raycast(bottomRight, Vector2.down, 0.5f, groundLayer);
-        return (hitLeft.collider != null || hitCenter.collider != null || hitRight.collider != null);
     }
 }

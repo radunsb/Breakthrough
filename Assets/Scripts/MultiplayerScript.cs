@@ -27,10 +27,8 @@ public class MultiplayerScript : TitleScript
                 SceneManager.LoadScene("CSScene");
                 break;
             case 1:
-                break; //Tourney mode
-            case 2:
                 break; //Online Multiplayer
-            case 3:
+            case 2:
                 SceneManager.LoadScene("TitleScene");
                 break;
             default:

@@ -8,14 +8,15 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider2D))]
 public class KnockbackScript : MonoBehaviour
 {
+    AudioSource _as;
     //Active for 0.2 seconds following a hit
     public bool _inKnockback;
     //Damage increments every time gameobject is hit
     float _damage;
     Rigidbody2D _rbody;
     //gameObject of the player/other player
-    private GameObject opponent;
-    PlayerScript _opponentScript;
+    public GameObject opponent;
+    private PlayerScript _opponentScript;
     public PlayerScript _playerScript;
     public ShieldScript _shieldScript;
     int playerIndex;
@@ -25,8 +26,10 @@ public class KnockbackScript : MonoBehaviour
     public float movePercent;
     void Start()
     {
+        _as = GetComponent<AudioSource>();
+        _as.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        //player index = playerindex if NOT CPU, otherwise make -1
+        //player index = playerindex if NOT sandbag, otherwise make -1
         playerIndex = _playerScript != null ? _playerScript.playerIndex : -1;
         //Set the opponent for each entity in game
         foreach (GameObject player in players)
@@ -47,11 +50,11 @@ public class KnockbackScript : MonoBehaviour
         movePercent = 1;
         if(playerIndex == 0)
         {
-            dmgText = GameObject.Find("DMG 0").gameObject.GetComponent<Text>();
+            dmgText = GameObject.FindGameObjectWithTag("DMG0").gameObject.GetComponent<Text>();
         }
         else
         {
-            dmgText = GameObject.Find("DMG 1").gameObject.GetComponent<Text>();
+            dmgText = GameObject.FindGameObjectWithTag("DMG1").gameObject.GetComponent<Text>();
         }
     }
 
@@ -109,6 +112,7 @@ public class KnockbackScript : MonoBehaviour
                 //If there is not an active shield, hit and do knockback
                 if (gameObject.tag.Equals("Sandbag") || !_shieldScript.shieldActive())
                 {
+                    _as.Play();
                     float ld = hs.launchDirection;
                     _damage += hs.damage;
                     //for now, just flip the launch direction if attacker is facing left
@@ -130,6 +134,7 @@ public class KnockbackScript : MonoBehaviour
                     //If that last hit broke shield, do knockback to player
                     if (!_shieldScript.shieldActive())
                     {
+                        _as.Play();
                         float ld = hs.launchDirection;
                         _damage += hs.damage;
                         //for now, just flip the launch direction if attacker is facing left
@@ -145,7 +150,7 @@ public class KnockbackScript : MonoBehaviour
                         movePercent = 0;
                     }
                     else
-                    {
+                    {                       
                         _inKnockback = true;
                         movePercent = 0;
                     }

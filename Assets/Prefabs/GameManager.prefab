@@ -48,7 +48,7 @@ MonoBehaviour:
   roundsToWin: 3
   possiblePlayers:
   - {fileID: 7784593719400307393, guid: c8d7428527e30d6478839a38c862eb4b, type: 3}
-  - {fileID: 4550727171071105468, guid: 7692c48c62318f3478fa2b3bd05e8095, type: 3}
+  - {fileID: 4783516849323813632, guid: 7692c48c62318f3478fa2b3bd05e8095, type: 3}
   - {fileID: 5922149996944618142, guid: 6abd5451a285942479ec794b9510e2a1, type: 3}
   - {fileID: 5922149996944618142, guid: 6abd5451a285942479ec794b9510e2a1, type: 3}
   possibleSandbags:

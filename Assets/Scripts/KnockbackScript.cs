@@ -75,7 +75,7 @@ public class KnockbackScript : MonoBehaviour
         //Should take around .6 seconds to get to full movePercent
         if (movePercent < 1)
         {
-            movePercent += (1 / 50f);
+            movePercent += (1 / 30f);
         }
         //Double checks that inKnockback is false after 0.2 seconds (avoids weird buggy thing)
         if(movePercent > 10 / 50f)

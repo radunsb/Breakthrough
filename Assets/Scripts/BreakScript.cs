@@ -48,11 +48,11 @@ public class BreakScript : MonoBehaviour
             //Allows us to avoid having floor take damage from jumping, etc.
             if (ks.movePercent < 1)
             {
-                _health -= (ks.getDamage()/10f * (1.2f - ks.movePercent));
+                _health -= (ks.getDamage()/8f * (1.2f - ks.movePercent));
             }
             else if (gameObject.tag.Equals("Ground"))
             {
-                _health -= 2;
+                _health -= 1;
             }
             //UNCOMMENT FOR INSTANT DEATH ON WALL BREAK
             //WILL PROBABLY LATER BE IMPLEMENTED INTO SEPARATE MODE

@@ -89,6 +89,14 @@ public class MatchScript : MonoBehaviour
         {
             currentWorld = GameObject.Find("House (Main)");
         }
+        else if (matchInfo[2] == 5)
+        {
+            currentWorld = GameObject.Find("Subway (Main)");
+        }
+        else
+        {
+            currentWorld = GameObject.Find("Tower (Main)");
+        }
 
     }
     public void updateCharacterPoints(int playerIndex, GameObject worldToSpawn)

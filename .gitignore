@@ -8,7 +8,8 @@
 /[Bb]uild/
 /[Bb]uilds/
 /[Pp]s4[Bb]uild/
-/[Pp]s4[Bb]build_[Ss]ymbol[Ff]iles/
+/[Pp]s4[Bb]uild_[Ss]ymbol[Ff]iles/
+/[Pp]s4[Bb]uild_BurstDebugInformation_DoNotShip/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
@@ -48,6 +49,7 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*Sprint2.zip
 
 # Unity3D generated meta files
 *.pidb.meta

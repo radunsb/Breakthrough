@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Unity.Netcode;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(KnockbackScript))]
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : NetworkBehaviour
 {
     public int playerIndex = 0;
 
@@ -24,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     //Input controls
     private InputAction normButton;
     private InputAction strongButton;
-    private InputAction inputDirection;
+    protected InputAction inputDirection;
     private InputAction jumpButton;
     private InputAction shieldButton;
     private InputAction pauseButton;

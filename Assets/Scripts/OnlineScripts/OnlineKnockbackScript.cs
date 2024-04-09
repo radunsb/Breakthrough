@@ -112,9 +112,4 @@ public class OnlineKnockbackScript : KnockbackScript
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

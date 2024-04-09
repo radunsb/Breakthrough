@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.InputSystem;
+using System.Linq;
+using System;
 
 public class OnlinePlayerScript : PlayerScript
 {
@@ -10,6 +12,10 @@ public class OnlinePlayerScript : PlayerScript
     Vector3 _oldRot;
     NetworkVariable<Vector2> _receivedPosn = new NetworkVariable<Vector2>();
     NetworkVariable<Vector3> _receivedRot = new NetworkVariable<Vector3>();
+    Queue<int> pingList;
+    int currentPing;
+    ulong serverId;
+    uint tickRate;
 
     protected override void Awake()
     {
@@ -28,10 +34,13 @@ public class OnlinePlayerScript : PlayerScript
         {
             playerIndex = 0;
         }
+        tickRate = NetworkManager.Singleton.NetworkTickSystem.TickRate;
     }
     protected override void Start()
     {
         base.Start();
+        pingList = new Queue<int>();
+        serverId = NetworkManager.ServerClientId;
         _oldPos = _rbody.position;
         _oldRot = _rbody.transform.eulerAngles;
         if (IsServer)
@@ -44,6 +53,13 @@ public class OnlinePlayerScript : PlayerScript
     protected override void FixedUpdate()
     {
         if (IsLocalPlayer) {
+            ulong ping = NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetCurrentRtt(serverId);
+            pingList.Enqueue(Convert.ToInt32(ping.ToString()));
+            if(pingList.Count > 5)
+            {
+                pingList.Dequeue();
+            }
+            currentPing = pingList.Aggregate(0, (acc, x) => x + acc) / pingList.Count;
             //Get the current position of the left joystick/movement keys
             directions = inputDirection.ReadValue<Vector2>();
             //Determines whether forward hold, upward hold, or downward hold (for attacks)
@@ -94,8 +110,9 @@ public class OnlinePlayerScript : PlayerScript
         {     
             return;
         }
-        Vector2 target = _receivedPosn.Value;
-        _rbody.position = Vector2.Lerp(_rbody.position, _receivedPosn.Value, 0.4f);
+        Vector2 velocity = (_receivedPosn.Value - _rbody.position) * tickRate;
+        Vector2 target = _receivedPosn.Value + (velocity * currentPing/2);
+        _rbody.position = Vector2.Lerp(_rbody.position, target, 0.4f);
     }
 
     [ServerRpc]

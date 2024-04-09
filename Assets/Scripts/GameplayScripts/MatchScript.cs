@@ -8,7 +8,9 @@ using UnityEngine.UI;
 
 public class MatchScript : MonoBehaviour
 {
-    AudioSource _as;
+    public AudioSource _as;
+    public AudioSource _asSFX;
+    public AudioClip[] sfx;
     public int roundsToWin;
     public GameObject[] possiblePlayers;
     public GameObject[] possibleSandbags;
@@ -23,8 +25,8 @@ public class MatchScript : MonoBehaviour
 
     void Start()
     {
-        _as = GetComponent<AudioSource>();
         _as.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
+        _asSFX.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
         matchInfo = new int[3];
         if (PlayerPrefs.GetString("Match Type") == "2 Player Local")
         {
@@ -98,6 +100,11 @@ public class MatchScript : MonoBehaviour
             currentWorld = GameObject.Find("Tower (Main)");
         }
 
+    }
+
+    public void playSFX(int sfxID)
+    {
+        _asSFX.PlayOneShot(sfx[sfxID]);
     }
     public void updateCharacterPoints(int playerIndex, GameObject worldToSpawn)
     {

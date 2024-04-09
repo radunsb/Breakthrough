@@ -17,6 +17,7 @@ TagManager:
   - Boundary
   - DMG0
   - DMG1
+  - OnlineManager
   layers:
   - Default
   - TransparentFX

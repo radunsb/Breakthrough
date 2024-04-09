@@ -27,6 +27,10 @@ public class NewCSScript : MonoBehaviour
             p1Cursor.GetComponent<SpriteRenderer>().color = Color.red;
             matchInfo[1] = 0;
             statusText.text = "vs REDMAN";
+            if(PlayerPrefs.GetString("Match Type") == "2 Player Online")
+            {
+                statusText.text = "vs ????";
+            }
         }
         else
         {
@@ -72,7 +76,13 @@ public class NewCSScript : MonoBehaviour
     }
     public void tryToPlay()
     {
-        if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] == 6)
+        if(PlayerPrefs.GetString("Match Type") == "2 Player Online" && matchInfo[0] != -1 && matchInfo[2] != -1)
+        {
+            PlayerPrefs.SetInt("Player1Char", matchInfo[0]);
+            PlayerPrefs.SetInt("Stage", matchInfo[2]);
+            SceneManager.LoadScene("OnlineScene");
+        }
+        else if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] == 6)
         {
             PlayerPrefs.SetInt("Player1Char", matchInfo[0]);
             PlayerPrefs.SetInt("Player2Char", matchInfo[1]);

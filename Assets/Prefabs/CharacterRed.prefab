@@ -1525,6 +1525,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6005dce82d82d44ae8a4657c11853e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitsound1: {fileID: 8300000, guid: 3e1b92e16de89b143b5cbe1a1bdd82c9, type: 3}
+  hitsound2: {fileID: 8300000, guid: 7a041ff3a0f43f64784df9da6b7ac143, type: 3}
+  shieldHitsound: {fileID: 8300000, guid: c05c35e76e3bba0408bf7b8cf0152c2a, type: 3}
   _inKnockback: 0
   opponent: {fileID: 0}
   _playerScript: {fileID: 5807275142389838648}

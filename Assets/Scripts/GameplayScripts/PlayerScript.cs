@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Unity.Netcode;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(KnockbackScript))]
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : NetworkBehaviour
 {
     public int playerIndex = 0;
 
@@ -24,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     //Input controls
     private InputAction normButton;
     private InputAction strongButton;
-    private InputAction inputDirection;
+    protected InputAction inputDirection;
     private InputAction jumpButton;
     private InputAction shieldButton;
     private InputAction pauseButton;
@@ -38,7 +39,7 @@ public class PlayerScript : MonoBehaviour
     protected bool _grounded;
     protected bool _canMove;
     protected bool _isJumping;
-    public bool _flipX = false;
+    NetworkVariable<bool> _flipX = new NetworkVariable<bool>(false);
     public bool shieldHeld = false;
     protected Vector2 directions;
     protected KnockbackScript knockbackScript;
@@ -115,7 +116,10 @@ public class PlayerScript : MonoBehaviour
         _rbody = GetComponent<Rigidbody2D>();
         shieldHeld = false;
         _grounded = true;
-        _flipX = false;
+        if (IsServer)
+        {
+            _flipX.Value = false;
+        }
 
         //Initialize variables for raycasting
         bottomLeft = new Vector2(_rbody.position.x - .5f, _rbody.position.y - 1f);
@@ -175,7 +179,7 @@ public class PlayerScript : MonoBehaviour
         animator.ResetTrigger("Strong Button");
     }
 
-    void doNormalButton(InputAction.CallbackContext context)
+    protected virtual void doNormalButton(InputAction.CallbackContext context)
     {
         if (!knockbackScript.getInKnockback())
         {
@@ -183,7 +187,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void doStrongButton(InputAction.CallbackContext context)
+    protected virtual void doStrongButton(InputAction.CallbackContext context)
     {
         if (!knockbackScript.getInKnockback())
         {
@@ -191,7 +195,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void doJumps(InputAction.CallbackContext context)
+    protected virtual void doJumps(InputAction.CallbackContext context)
     {
         //Determine whether you can jump, and which jump type to do
         switch (timesJumped)
@@ -206,7 +210,7 @@ public class PlayerScript : MonoBehaviour
                 break;
         }
     }
-    protected void controlHeldDirection(Vector2 dir)
+    protected virtual void controlHeldDirection(Vector2 dir)
     {
         //default all directions to false
         animator.SetBool("Forward Hold", false);
@@ -222,7 +226,7 @@ public class PlayerScript : MonoBehaviour
         {
             animator.SetBool("Downward Hold", true);
         }
-        else if(dir.x > 0.4 && !_flipX || dir.x < 0.4 && _flipX)
+        else if(dir.x > 0.4 && !_flipX.Value || dir.x < 0.4 && _flipX.Value)
         {            
             animator.SetBool("Forward Hold", true);
         }      
@@ -238,22 +242,22 @@ public class PlayerScript : MonoBehaviour
                 //Run right
                 case float x when x > .8f:                    
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
-                    _flipX = false;
+                    _flipX.Value = false;
                     return new Vector2(runSpeed, _rbody.velocity.y);
                 //Walk right
                 case float x when (x > 0.4f && x <= .8f):
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
-                    _flipX = false;
+                    _flipX.Value = false;
                     return new Vector2(walkSpeed, _rbody.velocity.y);
                 //Run left
                 case float x when x < -.8f:
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
-                    _flipX = true;
+                    _flipX.Value = true;
                     return new Vector2(-runSpeed, _rbody.velocity.y);
                 //Walk left
                 case float x when (x < -0.4f && x >= -.8f):
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
-                    _flipX = true;
+                    _flipX.Value = true;
                     return new Vector2(-walkSpeed, _rbody.velocity.y);
                 //No horizontal movement
                 default:
@@ -262,6 +266,8 @@ public class PlayerScript : MonoBehaviour
         }
         return _rbody.velocity;
     }
+
+    
     protected void singleJump()
     {
         _grounded = false;
@@ -315,6 +321,15 @@ public class PlayerScript : MonoBehaviour
     {
         animator.SetBool("Ready", true);
         if (!_canMove) _canMove  = true;
+    }
+
+    public bool getFlipX()
+    {
+        return _flipX.Value;
+    }
+    public void setFlipX(bool val)
+    {
+        _flipX.Value = val;
     }
 
 }

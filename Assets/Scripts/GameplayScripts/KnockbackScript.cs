@@ -3,20 +3,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class KnockbackScript : MonoBehaviour
+public class KnockbackScript : NetworkBehaviour
 {
-    AudioSource _as;
+    protected AudioSource _as;
+    public AudioClip hitsound1;
+    public AudioClip hitsound2;
+    public AudioClip shieldHitsound;
     //Active for 0.2 seconds following a hit
     public bool _inKnockback;
     //Damage increments every time gameobject is hit
-    float _damage;
-    Rigidbody2D _rbody;
+    protected float _damage;
+    protected Rigidbody2D _rbody;
     //gameObject of the player/other player
     public GameObject opponent;
-    private PlayerScript _opponentScript;
+    protected PlayerScript _opponentScript;
     public PlayerScript _playerScript;
     public ShieldScript _shieldScript;
     int playerIndex;
@@ -24,7 +28,7 @@ public class KnockbackScript : MonoBehaviour
     //Percentage that the player's input overrides existing velocity
     //Set to 0 on hit and gradually increases back to 1
     public float movePercent;
-    void Start()
+    protected virtual void Start()
     {
         _as = GetComponent<AudioSource>();
         _as.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
@@ -86,12 +90,12 @@ public class KnockbackScript : MonoBehaviour
 
     //Knockback as a function of the hitbox's power and the character's damage
     //(the function itself is subject to change)
-    float calcLaunchMultiplier(float velocityMult)
+    protected float calcLaunchMultiplier(float velocityMult)
     {
         return velocityMult * (_damage / 100 + 1) * 200;
     }
 
-    void takeKnockback(float velocityMult, float launchDirection)
+    protected virtual void takeKnockback(float velocityMult, float launchDirection)
     {
         float lm = calcLaunchMultiplier(velocityMult);
         launchDirection = launchDirection * Mathf.Deg2Rad;
@@ -102,7 +106,8 @@ public class KnockbackScript : MonoBehaviour
         _rbody.AddForce(force);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag.Equals("Hitbox"))
         {
@@ -112,12 +117,12 @@ public class KnockbackScript : MonoBehaviour
                 //If there is not an active shield, hit and do knockback
                 if (gameObject.tag.Equals("Sandbag") || !_shieldScript.shieldActive())
                 {
-                    _as.Play();
+                    _as.PlayOneShot(Random.Range(0f, 1f) < 0.5 ? hitsound1 : hitsound2);
                     float ld = hs.launchDirection;
                     _damage += hs.damage;
                     //for now, just flip the launch direction if attacker is facing left
                     //might have to be made more complex depending on the kinds of moves we add
-                    if (_opponentScript._flipX)
+                    if (_opponentScript.getFlipX())
                     {
                         ld = 180 - ld;
                     }
@@ -134,12 +139,12 @@ public class KnockbackScript : MonoBehaviour
                     //If that last hit broke shield, do knockback to player
                     if (!_shieldScript.shieldActive())
                     {
-                        _as.Play();
+                        _as.PlayOneShot(Random.Range(0f, 1f) < 0.5 ? hitsound1 : hitsound2);
                         float ld = hs.launchDirection;
                         _damage += hs.damage;
                         //for now, just flip the launch direction if attacker is facing left
                         //might have to be made more complex depending on the kinds of moves we add
-                        if (_opponentScript._flipX)
+                        if (_opponentScript.getFlipX())
                         {
                             ld = 180 - ld;
                         }
@@ -150,7 +155,8 @@ public class KnockbackScript : MonoBehaviour
                         movePercent = 0;
                     }
                     else
-                    {                       
+                    {
+                        _as.PlayOneShot(shieldHitsound);
                         _inKnockback = true;
                         movePercent = 0;
                     }

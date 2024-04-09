@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[RequireComponent(typeof(AudioSource))]
 
 public class BreakScript : MonoBehaviour
 {
@@ -8,7 +9,13 @@ public class BreakScript : MonoBehaviour
     float _health = 100;
     //List of healthy and damaged sprites
     public Sprite[] sprites;
+    MatchScript _ms;
+    bool[] hasPlayedSFX = { false, false, false };
 
+    private void Start()
+    {
+        _ms = GameObject.FindObjectOfType<MatchScript>();
+    }
 
     void Update()
     {
@@ -20,6 +27,11 @@ public class BreakScript : MonoBehaviour
             {
                 gameObject.GetComponent<Animator>().SetBool("IsHurt", true);
             }
+            if (!hasPlayedSFX[0]) 
+            {
+                _ms.playSFX(0);
+                hasPlayedSFX[0] = true;
+            }
         }
         //At quarter health go to major damage
         if (_health < 25)
@@ -29,10 +41,20 @@ public class BreakScript : MonoBehaviour
             {
                 gameObject.GetComponent<Animator>().SetBool("IsBroken", true);
             }
+            if (!hasPlayedSFX[1])
+            {
+                _ms.playSFX(0);
+                hasPlayedSFX[1] = true;
+            }
         }
         //Destory damage at 0 health
         if(_health < 0)
         {
+            if (!hasPlayedSFX[2])
+            {
+                _ms.playSFX(1);
+                hasPlayedSFX[2] = true;
+            }
             Destroy(gameObject);
         }
 
@@ -48,11 +70,11 @@ public class BreakScript : MonoBehaviour
             //Allows us to avoid having floor take damage from jumping, etc.
             if (ks.movePercent < 1)
             {
-                _health -= (ks.getDamage()/8f * (1.2f - ks.movePercent));
+                _health -= (ks.getDamage()/7f * (1.2f - ks.movePercent));
             }
             else if (gameObject.tag.Equals("Ground"))
             {
-                _health -= 1;
+                _health -= .8f;
             }
             //UNCOMMENT FOR INSTANT DEATH ON WALL BREAK
             //WILL PROBABLY LATER BE IMPLEMENTED INTO SEPARATE MODE

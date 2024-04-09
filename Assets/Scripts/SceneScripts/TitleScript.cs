@@ -7,9 +7,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(AudioSource))]
 
 public class TitleScript : MonoBehaviour
 {
+    AudioSource _as;
+    public AudioClip buttonTick;
     //List of the possible menu options
     public GameObject[] buttons;
 
@@ -31,6 +34,7 @@ public class TitleScript : MonoBehaviour
     public bool isSolo;
     protected virtual void Start()
     {
+        _as = GetComponent<AudioSource>();
         updateButtonColors(buttons, _buttonActive);
     }
     private void Awake()
@@ -90,6 +94,7 @@ public class TitleScript : MonoBehaviour
             int numButtons = buttons.Length;
             _buttonActive = (_buttonActive + inputNum + numButtons) % numButtons;
         }
+        _as.PlayOneShot(buttonTick);
         updateButtonColors(buttons, _buttonActive);
     }
 

@@ -39,7 +39,7 @@ public class PlayerScript : NetworkBehaviour
     protected bool _grounded;
     protected bool _canMove;
     protected bool _isJumping;
-    public bool _flipX = false;
+    NetworkVariable<bool> _flipX = new NetworkVariable<bool>(false);
     public bool shieldHeld = false;
     protected Vector2 directions;
     protected KnockbackScript knockbackScript;
@@ -116,7 +116,10 @@ public class PlayerScript : NetworkBehaviour
         _rbody = GetComponent<Rigidbody2D>();
         shieldHeld = false;
         _grounded = true;
-        _flipX = false;
+        if (IsServer)
+        {
+            _flipX.Value = false;
+        }
 
         //Initialize variables for raycasting
         bottomLeft = new Vector2(_rbody.position.x - .5f, _rbody.position.y - 1f);
@@ -176,7 +179,7 @@ public class PlayerScript : NetworkBehaviour
         animator.ResetTrigger("Strong Button");
     }
 
-    void doNormalButton(InputAction.CallbackContext context)
+    protected virtual void doNormalButton(InputAction.CallbackContext context)
     {
         if (!knockbackScript.getInKnockback())
         {
@@ -184,7 +187,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
-    void doStrongButton(InputAction.CallbackContext context)
+    protected virtual void doStrongButton(InputAction.CallbackContext context)
     {
         if (!knockbackScript.getInKnockback())
         {
@@ -192,7 +195,7 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
-    void doJumps(InputAction.CallbackContext context)
+    protected virtual void doJumps(InputAction.CallbackContext context)
     {
         //Determine whether you can jump, and which jump type to do
         switch (timesJumped)
@@ -207,7 +210,7 @@ public class PlayerScript : NetworkBehaviour
                 break;
         }
     }
-    protected void controlHeldDirection(Vector2 dir)
+    protected virtual void controlHeldDirection(Vector2 dir)
     {
         //default all directions to false
         animator.SetBool("Forward Hold", false);
@@ -223,7 +226,7 @@ public class PlayerScript : NetworkBehaviour
         {
             animator.SetBool("Downward Hold", true);
         }
-        else if(dir.x > 0.4 && !_flipX || dir.x < 0.4 && _flipX)
+        else if(dir.x > 0.4 && !_flipX.Value || dir.x < 0.4 && _flipX.Value)
         {            
             animator.SetBool("Forward Hold", true);
         }      
@@ -239,22 +242,22 @@ public class PlayerScript : NetworkBehaviour
                 //Run right
                 case float x when x > .8f:                    
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
-                    _flipX = false;
+                    _flipX.Value = false;
                     return new Vector2(runSpeed, _rbody.velocity.y);
                 //Walk right
                 case float x when (x > 0.4f && x <= .8f):
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
-                    _flipX = false;
+                    _flipX.Value = false;
                     return new Vector2(walkSpeed, _rbody.velocity.y);
                 //Run left
                 case float x when x < -.8f:
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
-                    _flipX = true;
+                    _flipX.Value = true;
                     return new Vector2(-runSpeed, _rbody.velocity.y);
                 //Walk left
                 case float x when (x < -0.4f && x >= -.8f):
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
-                    _flipX = true;
+                    _flipX.Value = true;
                     return new Vector2(-walkSpeed, _rbody.velocity.y);
                 //No horizontal movement
                 default:
@@ -263,6 +266,8 @@ public class PlayerScript : NetworkBehaviour
         }
         return _rbody.velocity;
     }
+
+    
     protected void singleJump()
     {
         _grounded = false;
@@ -316,6 +321,15 @@ public class PlayerScript : NetworkBehaviour
     {
         animator.SetBool("Ready", true);
         if (!_canMove) _canMove  = true;
+    }
+
+    public bool getFlipX()
+    {
+        return _flipX.Value;
+    }
+    public void setFlipX(bool val)
+    {
+        _flipX.Value = val;
     }
 
 }

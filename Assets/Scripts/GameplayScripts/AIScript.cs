@@ -141,13 +141,13 @@ public class AIScript : PlayerScript
                     if(distX >= 0)
                     {
                         _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
-                        _flipX = true;
+                        setFlipX(true);
                         return Vector2.left;
                     }
                     else
                     {
                         _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
-                        _flipX = false;
+                        setFlipX(true);
                         return Vector2.right;
                     }
                 }
@@ -177,22 +177,22 @@ public class AIScript : PlayerScript
                 //Run right
                 case float x when x > .8f:
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
-                    _flipX = false;
+                    setFlipX(false);
                     return new Vector2(runSpeed, _rbody.velocity.y);
                 //Walk right
                 case float x when (x > 0.4f && x <= .8f):
                     _rbody.transform.eulerAngles = new Vector3(0f, 0f, 0);
-                    _flipX = false;
+                    setFlipX(false);
                     return new Vector2(walkSpeed, _rbody.velocity.y);
                 //Run left
                 case float x when x < -.8f:
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
-                    _flipX = true;
+                    setFlipX(true);
                     return new Vector2(-runSpeed, _rbody.velocity.y);
                 //Walk left
                 case float x when (x < -0.4f && x >= -.8f):
                     _rbody.transform.eulerAngles = new Vector3(0f, 180f, 0);
-                    _flipX = true;
+                    setFlipX(true);
                     return new Vector2(-walkSpeed, _rbody.velocity.y);
                 //No horizontal movement
                 default:

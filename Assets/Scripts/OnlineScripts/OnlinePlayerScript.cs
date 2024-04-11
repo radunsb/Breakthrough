@@ -16,6 +16,7 @@ public class OnlinePlayerScript : PlayerScript
     int currentPing;
     ulong serverId;
     uint tickRate;
+    public int preferredStage = -1;
 
     protected override void Awake()
     {

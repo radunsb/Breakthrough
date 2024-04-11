@@ -15,6 +15,7 @@ public class BreakScript : MonoBehaviour
     private void Start()
     {
         _ms = GameObject.FindObjectOfType<MatchScript>();
+
     }
 
     void Update()

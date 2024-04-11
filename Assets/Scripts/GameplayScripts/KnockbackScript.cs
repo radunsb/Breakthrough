@@ -20,7 +20,7 @@ public class KnockbackScript : NetworkBehaviour
     protected Rigidbody2D _rbody;
     //gameObject of the player/other player
     public GameObject opponent;
-    protected PlayerScript _opponentScript;
+    public PlayerScript _opponentScript;
     public PlayerScript _playerScript;
     public ShieldScript _shieldScript;
     int playerIndex;
@@ -65,8 +65,11 @@ public class KnockbackScript : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        dmgText.text = "Damage: " + _damage;
-        dmgText.transform.position = new Vector2(transform.position.x, transform.position.y + 1);
+        if (dmgText != null)
+        {
+            dmgText.text = "Damage: " + _damage;
+            dmgText.transform.position = new Vector2(transform.position.x, transform.position.y + 1);
+        }
     }
 
     private void FixedUpdate()

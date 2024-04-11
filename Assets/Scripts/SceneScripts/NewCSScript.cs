@@ -102,7 +102,7 @@ public class NewCSScript : MonoBehaviour
             PlayerPrefs.SetString("Gameplay Scene", "SubwayScene");
             SceneManager.LoadScene("SubwayScene");
         }
-        if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] == 4)
+        else if (matchInfo[0] != -1 && matchInfo[1] != -1 && matchInfo[2] == 4)
         {
             PlayerPrefs.SetInt("Player1Char", matchInfo[0]);
             PlayerPrefs.SetInt("Player2Char", matchInfo[1]);

@@ -7,6 +7,7 @@ using UnityEngine.Networking.Match;
 
 public class OnlineMatchScript : NetworkBehaviour
 {
+    public GameObject lobby;
     public NetManScript _netScript;
     public GameObject _playerPrefab;
     public AudioSource _as;
@@ -73,6 +74,7 @@ public class OnlineMatchScript : NetworkBehaviour
             playerTwo = gameObject;
             playerOne.transform.position = new Vector2(-4, -2);
             playerTwo.transform.position = new Vector2(4, -2);
+            destroyBackgroundClientRpc("Lobby");
         }
         else
         {
@@ -107,5 +109,18 @@ public class OnlineMatchScript : NetworkBehaviour
             currentWorld = GameObject.Find("Tower (Main)");
         }
         playMusic(matchInfo[2]);
+    }
+
+    [ClientRpc]
+    void destroyBackgroundClientRpc(string toDestroy)
+    {
+        if(toDestroy == "Lobby")
+        {
+            Destroy(lobby);
+        }
+        else if(toDestroy == "Current World")
+        {
+            Destroy(currentWorld);
+        }
     }
 }

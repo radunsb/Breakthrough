@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,27 @@ public class BreakScript : MonoBehaviour
     float _health = 100;
     //List of healthy and damaged sprites
     public Sprite[] sprites;
-
+    //Colors to indicate damage and breakability
+    Color ColorStart = new Color(0,0,0);
+    Color ColorEnd = new Color(0,255,0);
+    Color ColorHurt = new Color(255, 165, 0);
+    Color ColorBroke = new Color(255,0,0);
+    float i = 0;
 
     void Update()
     {
-        //At half health go to minor damage
-        if (_health < 50)
+        gameObject.GetComponent<SpriteRenderer>().color = ColorEnd;
+        //i = i + Time.deltaTime;
+        //SpriteRenderer.material.color = Color.Lerp(ColorStart, ColorEnd, Mathf.PingPong(i * 2, 1));
+        //if (i >= 1)
+        //{
+        //    i = 0;
+        //    SpriteRenderer.material.color = Color.Lerp(ColorEnd, ColorStart, Mathf.PingPong(i * 2, 1));
+        //}
+            //At half health go to minor damage
+            if (_health < 50)
         {
+            gameObject.GetComponent<SpriteRenderer>().color = ColorHurt;
             GetComponent<SpriteRenderer>().sprite = sprites[1];
             if (gameObject.tag.Equals("Ceiling"))
             {
@@ -24,6 +39,7 @@ public class BreakScript : MonoBehaviour
         //At quarter health go to major damage
         if (_health < 25)
         {
+            gameObject.GetComponent<SpriteRenderer>().color = ColorBroke;
             GetComponent<SpriteRenderer>().sprite = sprites[2];
             if (gameObject.tag.Equals("Ceiling"))
             {

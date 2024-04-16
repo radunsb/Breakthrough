@@ -6,9 +6,11 @@ using UnityEngine;
 public class OnlineKnockbackScript : KnockbackScript
 {
     OnlineMatchScript _oms;
+    NetworkVariable<float> charDamage = new NetworkVariable<float>();
     // Start is called before the first frame update
     protected override void Start()
     {
+        charDamage.Value = 0;
         _oms = GameObject.FindObjectOfType<OnlineMatchScript>();
         StartCoroutine(waitForSecondPlayer());      
     }
@@ -109,12 +111,20 @@ public class OnlineKnockbackScript : KnockbackScript
                     }
                 }
             }
-        }
+            updateDamageServerRpc(_damage);
+        }       
     }
 
-    // Update is called once per frame
-    void Update()
+    [ServerRpc]
+    public void updateDamageServerRpc(float d)
     {
-        
+        charDamage.Value = d;
+        updateDamageClientRpc();
     }
+    [ClientRpc]
+    void updateDamageClientRpc()
+    {
+        _damage = charDamage.Value;
+    }
+
 }

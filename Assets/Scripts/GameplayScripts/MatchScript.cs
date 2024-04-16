@@ -5,12 +5,14 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Unity.Netcode;
 
-public class MatchScript : MonoBehaviour
+public class MatchScript : NetworkBehaviour
 {
     public AudioSource _as;
     public AudioSource _asSFX;
     public AudioClip[] sfx;
+    
     public int roundsToWin;
     public GameObject[] possiblePlayers;
     public GameObject[] possibleSandbags;
@@ -106,7 +108,7 @@ public class MatchScript : MonoBehaviour
     {
         _asSFX.PlayOneShot(sfx[sfxID]);
     }
-    public void updateCharacterPoints(int playerIndex, GameObject worldToSpawn)
+    public virtual void updateCharacterPoints(int playerIndex, GameObject worldToSpawn)
     {
         int newPoints = 0;
         if(playerIndex == 0)
@@ -129,7 +131,7 @@ public class MatchScript : MonoBehaviour
         }
     }
 
-    IEnumerator roundOver(int winningPlayerIndex, GameObject worldToSpawn)
+    protected virtual IEnumerator roundOver(int winningPlayerIndex, GameObject worldToSpawn)
     {
         yield return new WaitForSeconds(1);
         

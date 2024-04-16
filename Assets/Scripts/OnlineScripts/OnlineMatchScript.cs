@@ -4,23 +4,22 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking.Match;
+using UnityEngine.SceneManagement;
+using System.Globalization;
 
-public class OnlineMatchScript : NetworkBehaviour
+public class OnlineMatchScript : MatchScript
 {
     public GameObject lobby;
     public NetManScript _netScript;
     public GameObject _playerPrefab;
-    public AudioSource _as;
-    public AudioSource _asSFX;
-    public AudioClip[] sfx;
     public AudioClip[] bm;
-    int[] matchInfo;
     GameObject p1;
     GameObject p2;
     GameObject currentWorld;
-    public Text p1winsText;
-    public Text p2winsText;
     public KnockbackScript _ks;
+
+    NetworkVariable<int> p1Score = new NetworkVariable<int>();
+    NetworkVariable<int> p2Score = new NetworkVariable<int>();
     // Start is called before the first frame update
     void Start()
     {
@@ -36,11 +35,6 @@ public class OnlineMatchScript : NetworkBehaviour
             return true;
         }
         return false;
-    }
-
-    public void playSFX(int sfxID)
-    {
-        _asSFX.PlayOneShot(sfx[sfxID]);
     }
 
     public void playMusic(int bmID)
@@ -89,8 +83,8 @@ public class OnlineMatchScript : NetworkBehaviour
             }
         }
 
-        p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
-        p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+        p1winsText.text = "Player one wins: " + p1Score.Value;
+        p2winsText.text = "Player two wins: " + p2Score.Value;
         //Set gameObjects for each entity
         p1 = playerOne;
         p2 = playerTwo;
@@ -122,5 +116,52 @@ public class OnlineMatchScript : NetworkBehaviour
         {
             Destroy(currentWorld);
         }
+    }
+
+    [ServerRpc]
+    public void updatePointsServerRpc(int playerIndex)
+    {
+        if(playerIndex == 0)
+        {
+            p1Score.Value = p1Score.Value + 1;
+        }
+        else
+        {
+            p2Score.Value = p2Score.Value + 1;
+        }
+    }
+    
+    protected override IEnumerator roundOver(int winningPlayerIndex, GameObject worldToSpawn)
+    {
+        yield return new WaitForSeconds(1);
+        roundOverServerRpc();      
+        p1winsText.text = "Player one wins: " + p1Score.Value;
+        p2winsText.text = "Player two wins: " + p2Score.Value;
+
+    }
+
+    [ServerRpc]
+    void roundOverServerRpc()
+    {
+        currentWorld.GetComponent<NetworkObject>().Despawn();
+        Destroy(currentWorld);
+        destroyBackgroundClientRpc("Current World");
+        p1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        p1.transform.position = new Vector2(-4, -2);
+        p1.GetComponent<OnlineKnockbackScript>().updateDamageServerRpc(0);
+        //Reset player two
+        p2.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        p2.transform.position = new Vector2(4, -2);
+        p2.GetComponent<OnlineKnockbackScript>().updateDamageServerRpc(0);
+    }
+
+    void matchOver(int winningPlayerIndex)
+    {
+        SceneManager.LoadScene("WinScene");
+    }
+
+    public override void updateCharacterPoints(int playerIndex, GameObject worldToSpawn)
+    {
+        updatePointsServerRpc(playerIndex);
     }
 }

@@ -236,20 +236,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4285292a56be1ec448697d5370a2dffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobby: {fileID: 934594001338464295}
-  _netScript: {fileID: 2013474715}
-  _playerPrefab: {fileID: 4945755221771313701, guid: fdbd03c2339a3264dbc21dc08e54139a, type: 3}
   _as: {fileID: 1508709085}
   _asSFX: {fileID: 1508709084}
   sfx:
   - {fileID: 8300000, guid: 0de4b83ddcec69342bf7ed360190fece, type: 3}
   - {fileID: 8300000, guid: 6fac748d2e0d2ec4ea8401fba0f838ab, type: 3}
+  roundsToWin: 0
+  possiblePlayers: []
+  possibleSandbags: []
+  possibleEnemies: []
+  p1winsText: {fileID: 1527319233}
+  p2winsText: {fileID: 87067942}
+  matchInfo: 
+  lobby: {fileID: 934594001338464295}
+  _netScript: {fileID: 2013474715}
+  _playerPrefab: {fileID: 4945755221771313701, guid: fdbd03c2339a3264dbc21dc08e54139a, type: 3}
   bm:
   - {fileID: 8300000, guid: eed289893fb935648a96401009662374, type: 3}
   - {fileID: 8300000, guid: de65cc693a2d3cc4f9abb19be8554346, type: 3}
   - {fileID: 8300000, guid: 97015bacda822774082e59c0493afff3, type: 3}
-  p1winsText: {fileID: 1527319233}
-  p2winsText: {fileID: 87067942}
   _ks: {fileID: 0}
 --- !u!4 &1508709082
 Transform:

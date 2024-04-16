@@ -10,6 +10,7 @@ public class OnlineKnockbackScript : KnockbackScript
     // Start is called before the first frame update
     protected override void Start()
     {
+        charDamage.Value = 0;
         _oms = GameObject.FindObjectOfType<OnlineMatchScript>();
         StartCoroutine(waitForSecondPlayer());      
     }
@@ -115,7 +116,7 @@ public class OnlineKnockbackScript : KnockbackScript
     }
 
     [ServerRpc]
-    void updateDamageServerRpc(float d)
+    public void updateDamageServerRpc(float d)
     {
         charDamage.Value = d;
         updateDamageClientRpc();
@@ -125,4 +126,5 @@ public class OnlineKnockbackScript : KnockbackScript
     {
         _damage = charDamage.Value;
     }
+
 }

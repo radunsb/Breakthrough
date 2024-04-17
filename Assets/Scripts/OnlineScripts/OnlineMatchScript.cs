@@ -15,8 +15,8 @@ public class OnlineMatchScript : MatchScript
     public AudioClip[] bm;
     GameObject p1;
     GameObject p2;
-    GameObject currentWorld;
-    public KnockbackScript _ks;
+    public GameObject currentWorld;
+    public GameObject oldWorld;
 
     NetworkVariable<int> p1Score = new NetworkVariable<int>();
     NetworkVariable<int> p2Score = new NetworkVariable<int>();
@@ -89,25 +89,13 @@ public class OnlineMatchScript : MatchScript
         p1 = playerOne;
         p2 = playerTwo;
         matchInfo[2] = PlayerPrefs.GetInt("Stage");
-        //Should be updated for the other main stages
-        if (matchInfo[2] == 4)
-        {
-            currentWorld = GameObject.Find("House (Main)");
-        }
-        else if (matchInfo[2] == 5)
-        {
-            currentWorld = GameObject.Find("Subway (Main)");
-        }
-        else
-        {
-            currentWorld = GameObject.Find("Tower (Main)");
-        }
         playMusic(matchInfo[2]);
     }
 
     [ClientRpc]
     void destroyBackgroundClientRpc(string toDestroy)
     {
+        print("Made it to destoryBackgroundClientRpc");
         if(toDestroy == "Lobby")
         {
             Destroy(lobby);
@@ -116,11 +104,16 @@ public class OnlineMatchScript : MatchScript
         {
             Destroy(currentWorld);
         }
+        else if(toDestroy == "Old World")
+        {
+            Destroy(oldWorld);
+        }
     }
 
     [ServerRpc]
     public void updatePointsServerRpc(int playerIndex)
     {
+        print("Made it to updatePointsServerRpc");
         if(playerIndex == 0)
         {
             p1Score.Value = p1Score.Value + 1;
@@ -129,23 +122,32 @@ public class OnlineMatchScript : MatchScript
         {
             p2Score.Value = p2Score.Value + 1;
         }
+        if(p1Score.Value >= 3)
+        {
+            matchOver(0);
+        }
+        else if(p2Score.Value >= 3)
+        {
+            matchOver(1);
+        }
+        else
+        {
+            p1winsText.text = "Player one wins: " + p1Score.Value;
+            p2winsText.text = "Player two wins: " + p2Score.Value;
+            roundOverServerRpc();           
+        }
     }
     
-    protected override IEnumerator roundOver(int winningPlayerIndex, GameObject worldToSpawn)
-    {
-        yield return new WaitForSeconds(1);
-        roundOverServerRpc();      
-        p1winsText.text = "Player one wins: " + p1Score.Value;
-        p2winsText.text = "Player two wins: " + p2Score.Value;
-
-    }
 
     [ServerRpc]
     void roundOverServerRpc()
     {
-        currentWorld.GetComponent<NetworkObject>().Despawn();
-        Destroy(currentWorld);
-        destroyBackgroundClientRpc("Current World");
+        print("Made it to roundOverServerRpc");
+        oldWorld.GetComponent<NetworkObject>().Despawn();
+        Destroy(oldWorld);
+        destroyBackgroundClientRpc("Old World");
+        GameObject newWorld = Instantiate(currentWorld);
+        newWorld.GetComponent<NetworkObject>().Spawn();
         p1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         p1.transform.position = new Vector2(-4, -2);
         p1.GetComponent<OnlineKnockbackScript>().updateDamageServerRpc(0);
@@ -162,6 +164,14 @@ public class OnlineMatchScript : MatchScript
 
     public override void updateCharacterPoints(int playerIndex, GameObject worldToSpawn)
     {
+        print("Made it to updateCharacterPoints");
+        oldWorld = currentWorld;
+        currentWorld = worldToSpawn;
         updatePointsServerRpc(playerIndex);
+    }
+
+    public void setCurrentWorld(GameObject toSet)
+    {
+        currentWorld = toSet;
     }
 }

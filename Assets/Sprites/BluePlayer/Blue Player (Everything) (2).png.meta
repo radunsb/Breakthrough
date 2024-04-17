@@ -1,0 +1,685 @@
+fileFormatVersion: 2
+guid: 81b42d1a984cbf447ade3f704bcfbfea
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: PS4
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_0
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 960
+        width: 130
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c86471d4078dc3b458937b8820e1f12a
+      internalID: 1236244263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 960
+        width: 125
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f80b47f0c5ad55247ba339c62ce61569
+      internalID: 1493891094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_2
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 960
+        width: 140
+        height: 170
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9c148d35916e4b4491588b7edc64965
+      internalID: -1672556711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_3
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 960
+        width: 170
+        height: 170
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4d0edfc6806e134f80213f37d261d14
+      internalID: -78533842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_4
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 960
+        width: 180
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab72c9d834d789d4d99df1f41e8a3b17
+      internalID: 1101765633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_5
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 720
+        width: 180
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bf321c9d2495924db3fd6a31928ea6e
+      internalID: -1252029127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_6
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 720
+        width: 160
+        height: 235
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39e7e59ef7b43324ca1134f5b9b0f7c9
+      internalID: -1228355089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_7
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 720
+        width: 190
+        height: 235
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb2ef05ab5bba6549980ac417b7def80
+      internalID: -1542320726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_8
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 720
+        width: 130
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27fc8b7b4ceb6654c91c6649775e2d70
+      internalID: -1834331819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_9
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 720
+        width: 140
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 720b125d32876874da4903a5df6e4bb7
+      internalID: -807459668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_10
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 238
+        width: 222
+        height: 241
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5032b4afe6bdb594097baf11463b9d70
+      internalID: 1433800883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_11
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 240
+        width: 199
+        height: 246
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edf31177280679a40bc2f6c24d0a1e1e
+      internalID: 927421344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_13
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 480
+        width: 200
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baf435305808e19429e45fdb3a4cf469
+      internalID: 732829651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_14
+      rect:
+        serializedVersion: 2
+        x: 1035
+        y: 480
+        width: 125
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ecdd1b75ab4ef349ab3458a88ebe7ce
+      internalID: -1126902415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_16
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 305
+        width: 145
+        height: 175
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ba695b37a6802940b538ff14c0faa41
+      internalID: 2047510310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_17
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 305
+        width: 170
+        height: 175
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b3ce647286f2ec4e9dad0ca26a1c341
+      internalID: -1979204787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_21
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 65
+        width: 175
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b9f819bb05ffed4cbc65b77653cce1e
+      internalID: -1883524347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_22
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 5
+        width: 190
+        height: 220
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df546b0b59454d0478e6210325d0ccb4
+      internalID: 93896653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_23
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 40
+        width: 155
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12e458b77c8cf5f49897e3027d2cd696
+      internalID: -2105984712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_24
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 10
+        width: 160
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42f02050e62b1de48ab01af5ad8d0e4c
+      internalID: 633856456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_25
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 10
+        width: 190
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc86d1eff9ee59744a01ec9de80f4d33
+      internalID: 537856806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_12
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 479
+        width: 196
+        height: 169
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3a165c2af0c96b40bfa7e8c16fb2731
+      internalID: 1030315661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_15
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 486
+        width: 118
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ecc3aab6cc9832458938d05527c4b37
+      internalID: -650456368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_18
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 238
+        width: 152
+        height: 241
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8db44a49854b9f42afacdabb19597fc
+      internalID: -1433888255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Player (Everything) (2)_19
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 486
+        width: 207
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af47205a9eae2bc4289b035ac7a8a8b6
+      internalID: -353106473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Blue Player (Everything) (2)_5: -1252029127
+      Blue Player (Everything) (2)_0: 1236244263
+      Blue Player (Everything) (2)_11: 927421344
+      Blue Player (Everything) (2)_8: -1834331819
+      Blue Player (Everything) (2)_12: 1030315661
+      Blue Player (Everything) (2)_21: -1883524347
+      Blue Player (Everything) (2)_7: -1542320726
+      Blue Player (Everything) (2)_23: -2105984712
+      Blue Player (Everything) (2)_19: -353106473
+      Blue Player (Everything) (2)_10: 1433800883
+      Blue Player (Everything) (2)_13: 732829651
+      Blue Player (Everything) (2)_17: -1979204787
+      Blue Player (Everything) (2)_4: 1101765633
+      Blue Player (Everything) (2)_18: -1433888255
+      Blue Player (Everything) (2)_6: -1228355089
+      Blue Player (Everything) (2)_22: 93896653
+      Blue Player (Everything) (2)_15: -650456368
+      Blue Player (Everything) (2)_3: -78533842
+      Blue Player (Everything) (2)_25: 537856806
+      Blue Player (Everything) (2)_9: -807459668
+      Blue Player (Everything) (2)_24: 633856456
+      Blue Player (Everything) (2)_20: -1515361042
+      Blue Player (Everything) (2)_1: 1493891094
+      Blue Player (Everything) (2)_16: 2047510310
+      Blue Player (Everything) (2)_2: -1672556711
+      Blue Player (Everything) (2)_14: -1126902415
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

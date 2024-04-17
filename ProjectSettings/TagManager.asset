@@ -3,7 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Hitbox
+  - Player0
+  - Player1
+  - Sandbag
+  - Shield
+  - Horizontal Wall
+  - Cursor
+  - Ground
+  - Ceiling
+  - Vertical Wall
+  - Boundary
+  - DMG0
+  - DMG1
+  - OnlineManager
   layers:
   - Default
   - TransparentFX
@@ -11,8 +25,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Ground
+  - Player
   - 
   - 
   - 
@@ -38,6 +52,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 4273564259
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

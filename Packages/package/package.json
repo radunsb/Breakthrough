@@ -1,0 +1,17 @@
+{
+  "name": "com.unity.inputsystem.ps4",
+  "displayName": "Input System PS4",
+  "version": "0.1.5-pre",
+  "unity": "2019.1",
+  "description": "Playstation 4 Devices for new Input System",
+  "keywords": [
+    "input",
+    "keyboard",
+    "mouse",
+    "gamepad",
+    "touch"
+  ],
+  "dependencies": {
+    "com.unity.inputsystem": "1.6.1"
+  }
+}

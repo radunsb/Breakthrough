@@ -35,7 +35,6 @@ public class OnlineKnockbackScript : KnockbackScript
     [ServerRpc]
     void takeKnockbackServerRpc(Vector2 force)
     {
-        print("Should be taking knockback");
         _rbody.velocity = Vector2.zero;
         ulong clientId =
         GetComponent<NetworkObject>().OwnerClientId;
@@ -57,7 +56,6 @@ public class OnlineKnockbackScript : KnockbackScript
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        print("hi");
         if (collision.tag.Equals("Hitbox") && IsLocalPlayer)
         {
             if (!_inKnockback)

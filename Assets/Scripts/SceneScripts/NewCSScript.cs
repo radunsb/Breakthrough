@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class NewCSScript : MonoBehaviour
 {
+    public AudioSource _as;
     int[] matchInfo;
     public string state;
     public GameObject _cursorPrefab;
@@ -17,7 +18,8 @@ public class NewCSScript : MonoBehaviour
     string[] characters = {"", "REDMAN", "BLUEBLADE", "GREENBOW", "GOLDENFURY" };
     void Start()
     {
-        
+        _as.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
+        GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>().StopMusic();
         int numPlayers = PlayerPrefs.GetString("Match Type") == "2 Player Local" ? 2 : 1;
         matchInfo = new int[] { -1, -1, -1 };
         state = "player select";

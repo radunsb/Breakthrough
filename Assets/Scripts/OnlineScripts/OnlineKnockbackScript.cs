@@ -6,11 +6,12 @@ using UnityEngine;
 public class OnlineKnockbackScript : KnockbackScript
 {
     OnlineMatchScript _oms;
-    NetworkVariable<float> charDamage = new NetworkVariable<float>();
+    public NetworkVariable<float> charDamage = new NetworkVariable<float>();
     // Start is called before the first frame update
     protected override void Start()
     {
         charDamage.Value = 0;
+        charDamage.OnValueChanged += updateDamageServerRpc;
         _oms = GameObject.FindObjectOfType<OnlineMatchScript>();
         StartCoroutine(waitForSecondPlayer());      
     }
@@ -66,7 +67,7 @@ public class OnlineKnockbackScript : KnockbackScript
                 {
                     _as.PlayOneShot(Random.Range(0f, 1f) < 0.5 ? hitsound1 : hitsound2);
                     float ld = hs.launchDirection;
-                    _damage += hs.damage;
+                    updateDamageServerRpc(charDamage.Value, charDamage.Value + hs.damage);
                     //for now, just flip the launch direction if attacker is facing left
                     //might have to be made more complex depending on the kinds of moves we add
                     if (_opponentScript.getFlipX())
@@ -88,7 +89,7 @@ public class OnlineKnockbackScript : KnockbackScript
                     {
                         _as.PlayOneShot(Random.Range(0f, 1f) < 0.5 ? hitsound1 : hitsound2);
                         float ld = hs.launchDirection;
-                        _damage += hs.damage;
+                        updateDamageServerRpc(charDamage.Value, charDamage.Value + hs.damage);
                         //for now, just flip the launch direction if attacker is facing left
                         //might have to be made more complex depending on the kinds of moves we add
                         if (_opponentScript.getFlipX())
@@ -109,14 +110,13 @@ public class OnlineKnockbackScript : KnockbackScript
                     }
                 }
             }
-            updateDamageServerRpc(_damage);
         }       
     }
 
-    [ServerRpc]
-    public void updateDamageServerRpc(float d)
+    [ServerRpc(RequireOwnership = false)]
+    public void updateDamageServerRpc(float previous, float current)
     {
-        charDamage.Value = d;
+        charDamage.Value = current;
         updateDamageClientRpc();
     }
     [ClientRpc]

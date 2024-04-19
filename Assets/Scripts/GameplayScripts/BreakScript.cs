@@ -14,6 +14,7 @@ public class BreakScript : NetworkBehaviour
     bool[] hasPlayedSFX = { false, false, false };
     bool isOnline;
     NetworkVariable<float> onlineHealth = new NetworkVariable<float>(100);
+    KnockbackScript ks;
 
     private void Start()
     {
@@ -65,41 +66,6 @@ public class BreakScript : NetworkBehaviour
                 Destroy(gameObject);
             }
         }
-        else
-        {
-            if (IsServer) {
-                if (onlineHealth.Value < 50)
-                {
-                    if (!hasPlayedSFX[0])
-                    {
-                        _ms.playSFX(0);
-                        hasPlayedSFX[0] = true;
-                    }
-                    GetComponent<SpriteRenderer>().sprite = sprites[1];
-                    doBreakingClientRpc(0);
-                }
-                if(onlineHealth.Value < 25)
-                {
-                    if (!hasPlayedSFX[1])
-                    {
-                        _ms.playSFX(0);
-                        hasPlayedSFX[1] = true;
-                    }
-                    GetComponent<SpriteRenderer>().sprite = sprites[2];
-                    doBreakingClientRpc(1);
-                }
-                if(onlineHealth.Value < 0)
-                {
-                    if (!hasPlayedSFX[2])
-                    {
-                        _ms.playSFX(1);
-                        hasPlayedSFX[2] = true;
-                    }
-                    Destroy(gameObject);
-                    doBreakingClientRpc(2);
-                }
-            }
-        }
 
     }
 
@@ -115,7 +81,10 @@ public class BreakScript : NetworkBehaviour
                 GetComponent<SpriteRenderer>().sprite = sprites[2];
                 break;
             case 2:
-                Destroy(gameObject);
+                if (!IsServer)
+                {
+                    Destroy(gameObject);
+                }
                 break;
             default: break;
         }
@@ -128,7 +97,7 @@ public class BreakScript : NetworkBehaviour
             if (!isOnline)
             {
                 Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-                KnockbackScript ks = collision.gameObject.GetComponent<KnockbackScript>();
+                ks = collision.gameObject.GetComponent<KnockbackScript>();
                 //Makes sure player impacting is actively being knocked back
                 //Allows us to avoid having floor take damage from jumping, etc.
                 if (ks.movePercent < 1)
@@ -150,18 +119,57 @@ public class BreakScript : NetworkBehaviour
             {
                 if (IsServer)
                 {
-                    KnockbackScript ks = collision.gameObject.GetComponent<KnockbackScript>();
-                    if(ks.movePercent < 1)
-                    {
-                        onlineHealth.Value -= (ks.getDamage() / 7f * (1.2f - ks.movePercent));
-                    }
-                    else if (gameObject.tag.Equals("Ground"))
-                    {
-                        onlineHealth.Value -= .8f;
-                    }
+                    ks = collision.gameObject.GetComponent<OnlineKnockbackScript>();
+                    doCollisionServerRpc();
                 }
             }
         }
 
+    }
+    [ServerRpc(RequireOwnership = false)]
+    void doCollisionServerRpc()
+    {
+        print("Trying to do damage");
+        if (ks.movePercent < 1)
+        {
+            onlineHealth.Value -= (ks.getDamage() / 7f * (1.2f - ks.movePercent));
+        }
+        else if (gameObject.tag.Equals("Ground"))
+        {
+            onlineHealth.Value -= .8f;
+        }
+        if (onlineHealth.Value < 50)
+        {
+            if (!hasPlayedSFX[0])
+            {
+                _ms.playSFX(0);
+                hasPlayedSFX[0] = true;
+                GetComponent<SpriteRenderer>().sprite = sprites[1];
+                doBreakingClientRpc(0);
+            }
+
+        }
+        if (onlineHealth.Value < 25)
+        {
+            if (!hasPlayedSFX[1])
+            {
+                _ms.playSFX(0);
+                hasPlayedSFX[1] = true;
+                GetComponent<SpriteRenderer>().sprite = sprites[2];
+                doBreakingClientRpc(1);
+            }
+
+        }
+        if (onlineHealth.Value < 0)
+        {
+            if (!hasPlayedSFX[2])
+            {
+                _ms.playSFX(1);
+                hasPlayedSFX[2] = true;
+                Destroy(gameObject);
+                doBreakingClientRpc(2);
+            }
+
+        }
     }
 }

@@ -35,7 +35,9 @@ public class TitleScript : MonoBehaviour
     protected virtual void Start()
     {
         _as = GetComponent<AudioSource>();
+        _as.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
         updateButtonColors(buttons, _buttonActive);
+        GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>().PlayMusic();
     }
     private void Awake()
     {

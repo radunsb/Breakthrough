@@ -58,27 +58,35 @@ public class OnlineMatchScript : MatchScript
         if (IsServer)
         {
             playerOne = players[0];
+            playerTwo = players[0];
             foreach(GameObject player in players)
             {
-                if(player != gameObject)
+                if(player.GetComponent<OnlinePlayerScript>().IsLocalPlayer)
                 {
                     playerOne = player;
                 }
+                else
+                {
+                    playerTwo = player;
+                }
             }
-            playerTwo = gameObject;
             playerOne.transform.position = new Vector2(-4, -2);
             playerTwo.transform.position = new Vector2(4, -2);
             destroyBackgroundClientRpc("Lobby");
         }
         else
         {
-            playerOne = gameObject;
+            playerOne = players[0];
             playerTwo = players[0];
             foreach (GameObject player in players)
             {
-                if (player != gameObject)
+                if (player.GetComponent<OnlinePlayerScript>().IsLocalPlayer)
                 {
                     playerTwo = player;
+                }
+                else
+                {
+                    playerOne = player;
                 }
             }
         }
@@ -131,11 +139,16 @@ public class OnlineMatchScript : MatchScript
             matchOver(1);
         }
         else
-        {
-            p1winsText.text = "Player one wins: " + p1Score.Value;
-            p2winsText.text = "Player two wins: " + p2Score.Value;
+        {           
             roundOverServerRpc();           
         }
+    }
+
+    [ClientRpc]
+    void updateScoreTextsClientRpc()
+    {
+        p1winsText.text = "Player one wins: " + p1Score.Value;
+        p2winsText.text = "Player two wins: " + p2Score.Value;
     }
     
 
@@ -150,21 +163,27 @@ public class OnlineMatchScript : MatchScript
         newWorld.GetComponent<NetworkObject>().Spawn();
         p1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         p1.transform.position = new Vector2(-4, -2);
-        p1.GetComponent<OnlineKnockbackScript>().updateDamageServerRpc(0);
+        p1.GetComponent<OnlineKnockbackScript>().charDamage.Value = 0;
         //Reset player two
         p2.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         p2.transform.position = new Vector2(4, -2);
-        p2.GetComponent<OnlineKnockbackScript>().updateDamageServerRpc(0);
+        p2.GetComponent<OnlineKnockbackScript>().charDamage.Value = 0;
     }
 
     void matchOver(int winningPlayerIndex)
     {
+        PlayerPrefs.SetInt("P1 Points", p1Score.Value);
+        PlayerPrefs.SetInt("P2 Points", p2Score.Value);
         SceneManager.LoadScene("WinScene");
     }
 
     public override void updateCharacterPoints(int playerIndex, GameObject worldToSpawn)
     {
         print("Made it to updateCharacterPoints");
+        if (!IsOwner)
+        {
+            return;
+        }
         oldWorld = currentWorld;
         currentWorld = worldToSpawn;
         updatePointsServerRpc(playerIndex);

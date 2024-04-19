@@ -29,7 +29,7 @@ public class NetManScript : MonoBehaviour
 NetworkManager.ConnectionApprovalResponse response)
     {
         response.Approved = true;
-        response.CreatePlayerObject = true;
+        response.CreatePlayerObject = false;
     }
 
     public IEnumerator waitForOpponent()

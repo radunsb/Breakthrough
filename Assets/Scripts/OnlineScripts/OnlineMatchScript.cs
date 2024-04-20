@@ -25,6 +25,20 @@ public class OnlineMatchScript : MatchScript
     {
         _netScript.OnStartClient();
         StartCoroutine(waitForSecondPlayer());
+        p1Score.OnValueChanged += updateP1Points;
+        p2Score.OnValueChanged += updateP2Points;
+    }
+
+    public void updateP1Points(int previous, int current)
+    {
+        p1Score.Value = current;
+        p1winsText.text = "Player one wins: " + p1Score.Value;
+    }
+
+    public void updateP2Points(int previous, int current)
+    {
+        p2Score.Value = current;
+        p2winsText.text = "Player two wins: " + p2Score.Value;
     }
 
     public bool checkFor2Players()
@@ -121,7 +135,7 @@ public class OnlineMatchScript : MatchScript
     [ServerRpc]
     public void updatePointsServerRpc(int playerIndex)
     {
-        print("Made it to updatePointsServerRpc");
+        //Set NetworkVariables based off winner of round
         if(playerIndex == 0)
         {
             p1Score.Value = p1Score.Value + 1;
@@ -130,37 +144,34 @@ public class OnlineMatchScript : MatchScript
         {
             p2Score.Value = p2Score.Value + 1;
         }
+        //Determine if someone just won the match and quit out if so
         if(p1Score.Value >= 3)
         {
-            matchOver(0);
+            matchOverClientRpc(0);
         }
         else if(p2Score.Value >= 3)
         {
-            matchOver(1);
+            matchOverClientRpc(1);
         }
+        //otherwise initiate the new round
         else
-        {           
+        {
             roundOverServerRpc();           
         }
-    }
-
-    [ClientRpc]
-    void updateScoreTextsClientRpc()
-    {
-        p1winsText.text = "Player one wins: " + p1Score.Value;
-        p2winsText.text = "Player two wins: " + p2Score.Value;
-    }
-    
+    }   
 
     [ServerRpc]
     void roundOverServerRpc()
     {
         print("Made it to roundOverServerRpc");
+        //Despawn the network object for the old arena and spawn in the new one
         oldWorld.GetComponent<NetworkObject>().Despawn();
         Destroy(oldWorld);
         destroyBackgroundClientRpc("Old World");
         GameObject newWorld = Instantiate(currentWorld);
         newWorld.GetComponent<NetworkObject>().Spawn();
+        currentWorld = newWorld;
+        //Reset the player's positions server-side
         p1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         p1.transform.position = new Vector2(-4, -2);
         p1.GetComponent<OnlineKnockbackScript>().charDamage.Value = 0;
@@ -168,29 +179,57 @@ public class OnlineMatchScript : MatchScript
         p2.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         p2.transform.position = new Vector2(4, -2);
         p2.GetComponent<OnlineKnockbackScript>().charDamage.Value = 0;
+        //Reset the player's positions client-side
+        //Clunky, but should work
+        hardResetPositionsClientRpc();
     }
 
-    void matchOver(int winningPlayerIndex)
+    //Necessary so that player doesn't get stuck outside of arena while trying to interpolate back to their starting position
+    //(Easier to just set it manually)
+    [ClientRpc]
+    void hardResetPositionsClientRpc()
     {
+        p1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        p2.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        p1.transform.position = new Vector2(-4, -2);
+        p2.transform.position = new Vector2(4, -2);
+    }
+
+    [ClientRpc]
+    void matchOverClientRpc(int winningPlayerIndex)
+    {
+        
         PlayerPrefs.SetInt("P1 Points", p1Score.Value);
         PlayerPrefs.SetInt("P2 Points", p2Score.Value);
-        SceneManager.LoadScene("WinScene");
+        endGame();       
     }
 
+    void endGame()
+    {
+        if (IsServer)
+        {
+            NetworkManager.Shutdown();
+            SceneManager.LoadScene("WinScene");
+        }
+    }
+
+    //First function in chain started from boundary activation
     public override void updateCharacterPoints(int playerIndex, GameObject worldToSpawn)
     {
         print("Made it to updateCharacterPoints");
-        if (!IsOwner)
-        {
-            return;
-        }
+        //Should update the old in current worlds locally for both clients
         oldWorld = currentWorld;
         currentWorld = worldToSpawn;
-        updatePointsServerRpc(playerIndex);
+        //Everything else should only be run once, owner of this match script tells server to start the chain
+        if (IsOwner)
+        {
+            updatePointsServerRpc(playerIndex);
+        }
+    }
+    
+    public void setCurrentWorld(GameObject worldToSpawn)
+    {
+        currentWorld = worldToSpawn;
     }
 
-    public void setCurrentWorld(GameObject toSet)
-    {
-        currentWorld = toSet;
-    }
 }

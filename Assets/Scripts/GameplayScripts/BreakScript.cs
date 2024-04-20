@@ -129,10 +129,7 @@ public class BreakScript : NetworkBehaviour
                 GetComponent<SpriteRenderer>().sprite = sprites[2];
                 break;
             case 2:
-                if (!IsServer)
-                {
-                    Destroy(gameObject);
-                }
+                gameObject.SetActive(false);
                 break;
             default: break;
         }
@@ -185,7 +182,6 @@ public class BreakScript : NetworkBehaviour
         if (onlineHealth.Value < 0)
         {
             hasPlayedSFX[2] = true;
-            Destroy(gameObject);
             doBreakingClientRpc(2);
             if (!hasPlayedSFX[2])
             {

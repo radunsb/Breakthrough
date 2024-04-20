@@ -650,6 +650,18 @@ PrefabInstance:
       propertyPath: p2winsText
       value: 
       objectReference: {fileID: 1002703993}
+    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+      propertyPath: possibleEnemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 2310200732811099920, guid: c1996189e512a6249913837085e43216, type: 3}
+    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+      propertyPath: possiblePlayers.Array.data[2]
+      value: 
+      objectReference: {fileID: 6273576377274886457, guid: 8b0433a989ea04b48ad3f8e7db15847b, type: 3}
+    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+      propertyPath: possibleSandbags.Array.data[2]
+      value: 
+      objectReference: {fileID: 994748644439816535, guid: 559b11a81900ecb41b5e125c642c5a05, type: 3}
     - target: {fileID: 2748154167728070052, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
       propertyPath: m_RootOrder
       value: 1

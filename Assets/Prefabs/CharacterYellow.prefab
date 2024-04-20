@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 6645682142657423729}
   - component: {fileID: 7964291164654892604}
   - component: {fileID: 2416321593177963686}
-  - component: {fileID: 1988165873457831637}
+  - component: {fileID: 6033403753435035346}
   m_Layer: 7
   m_Name: CharacterYellow
   m_TagString: Player
@@ -997,6 +997,7 @@ MonoBehaviour:
   shieldHitsound: {fileID: 8300000, guid: c05c35e76e3bba0408bf7b8cf0152c2a, type: 3}
   _inKnockback: 0
   opponent: {fileID: 0}
+  _opponentScript: {fileID: 0}
   _playerScript: {fileID: 7964291164654892604}
   _shieldScript: {fileID: 1713403748870574648}
   movePercent: 0
@@ -1018,7 +1019,6 @@ MonoBehaviour:
   jump1Height: 10
   jump2Height: 12
   shield: {fileID: 586862533358519902}
-  _flipX: 0
   shieldHeld: 0
 --- !u!82 &2416321593177963686
 AudioSource:
@@ -1116,7 +1116,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!212 &1988165873457831637
+--- !u!212 &6033403753435035346
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

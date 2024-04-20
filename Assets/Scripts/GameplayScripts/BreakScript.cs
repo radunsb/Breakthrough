@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System.Threading;
+using System.Runtime;
 [RequireComponent(typeof(AudioSource))]
 
 public class BreakScript : NetworkBehaviour
@@ -10,6 +12,18 @@ public class BreakScript : NetworkBehaviour
     float _health = 100;
     //List of healthy and damaged sprites
     public Sprite[] sprites;
+    //Colors to indicate damage and breakability
+    public Color[] colors; 
+    Color ColorStart = new Color(0, 0, 0);
+    Color ColorEnd = new Color(0, 100, 0);
+    Color ColorHurt = new Color(100, 30, 0);
+    Color ColorBroke = new Color(100, 0, 0);
+    Color BaseColor;
+    Color TargetColor;
+    SpriteRenderer _sr;
+    float timeleft;
+    float timevary;
+
     MatchScript _ms;
     bool[] hasPlayedSFX = { false, false, false };
     bool isOnline;
@@ -18,6 +32,7 @@ public class BreakScript : NetworkBehaviour
 
     private void Start()
     {
+        _sr = GetComponent<SpriteRenderer>();
         isOnline = PlayerPrefs.GetString("Match Type") == "2 Player Online";
         _ms = GameObject.FindObjectOfType<MatchScript>();
         onlineHealth.OnValueChanged += updateDamageServerRpc;
@@ -28,10 +43,21 @@ public class BreakScript : NetworkBehaviour
     {
         if (!isOnline)
         {
-            //Destory damage at 0 health
-            if (_health < 0)
+            if (_health > 50)
             {
-                if (!hasPlayedSFX[2])
+                TargetColor = ColorStart;
+                timevary = 10.0f;
+                _sr.material.color = new Color(1 - Time.deltaTime % timevary / 30f, 100 / 30f, 0f);
+            }
+
+            //At half health go to minor damage
+            if (_health < 50 && _health > 25)
+            {
+                TargetColor = ColorHurt;
+                timevary = 5.0f;
+                _sr.material.color = new Color(200 / 30f, 100 / 30f, 0f);
+                GetComponent<SpriteRenderer>().sprite = sprites[1];
+                if (gameObject.tag.Equals("Ceiling"))
                 {
                     _ms.playSFX(1);
                     hasPlayedSFX[2] = true;
@@ -39,10 +65,14 @@ public class BreakScript : NetworkBehaviour
                 Destroy(gameObject);
             }
             //At quarter health go to major damage
-            else if (_health < 25)
+            if (_health < 25 && _health > 1)
             {
+                TargetColor = ColorBroke;
+                timevary = 1.0f;
+                _sr.material.color = new Color(200 / 30f, 0, 0f);
                 GetComponent<SpriteRenderer>().sprite = sprites[2];
                 if (gameObject.tag.Equals("Ceiling"))
+             
                 {
                     gameObject.GetComponent<Animator>().SetBool("IsBroken", true);
                 }
@@ -52,15 +82,31 @@ public class BreakScript : NetworkBehaviour
                     hasPlayedSFX[1] = true;
                 }
             }
-            //At half health go to minor damage
-            else if (_health < 50)
+            //Destory damage at 0 health
+            if (_health <= 0)
             {
                 GetComponent<SpriteRenderer>().sprite = sprites[1];
                 if (gameObject.tag.Equals("Ceiling"))
                 {
                     gameObject.GetComponent<Animator>().SetBool("IsHurt", true);
                 }
-                if (!hasPlayedSFX[0])
+                Destroy(gameObject);
+            }
+            _sr.material.color = _sr.material.color;
+ //           if (timeleft <= Time.deltaTime)
+ //           {
+ //               timeleft = 1;
+ //               _sr.material.color = ColorEnd;
+ //           }
+ //           else
+ //           {
+ //               _sr.material.color = new Color(1 - Time.deltaTime %timevary / 30f, 100 / 30f, 0f);
+ //           }
+        }
+        else
+        {
+            if (IsServer) {
+                if (onlineHealth.Value < 50)
                 {
                     _ms.playSFX(0);
                     hasPlayedSFX[0] = true;

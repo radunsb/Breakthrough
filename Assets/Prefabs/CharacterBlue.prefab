@@ -1214,6 +1214,7 @@ MonoBehaviour:
   shieldHitsound: {fileID: 8300000, guid: c05c35e76e3bba0408bf7b8cf0152c2a, type: 3}
   _inKnockback: 0
   opponent: {fileID: 0}
+  _opponentScript: {fileID: 0}
   _playerScript: {fileID: 4411935088459787649}
   _shieldScript: {fileID: 8407070093135947479}
   movePercent: 0
@@ -1235,7 +1236,6 @@ MonoBehaviour:
   jump1Height: 11
   jump2Height: 9
   shield: {fileID: 7730470858975572657}
-  _flipX: 0
   shieldHeld: 0
 --- !u!212 &8566840617572092960
 SpriteRenderer:

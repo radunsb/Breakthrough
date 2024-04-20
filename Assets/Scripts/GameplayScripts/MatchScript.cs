@@ -34,10 +34,10 @@ public class MatchScript : NetworkBehaviour
         {
             //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
-            new Vector2(-4f, -3f), Quaternion.identity);
+            new Vector2(-4f, -2.5f), Quaternion.identity);
             //make playerTwo a PLAYER, set to right side
             GameObject playerTwo = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player2Char")],
-                new Vector2(4f, -3f), Quaternion.identity);
+                new Vector2(4f, -2.5f), Quaternion.identity);
             //Set playerIndex of both players
             playerOne.GetComponent<PlayerScript>().playerIndex = 0;
             playerTwo.GetComponent<PlayerScript>().playerIndex = 1;
@@ -51,12 +51,12 @@ public class MatchScript : NetworkBehaviour
         {
             //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
-            new Vector2(-4f, -3f), Quaternion.identity);
+            new Vector2(-4f, -2.5f), Quaternion.identity);
             //Set playerIndex
             playerOne.GetComponent<PlayerScript>().playerIndex = 0;
             //make sandbagOne a SANDBAG, set to right side
             GameObject sandbagOne = Instantiate(possibleSandbags[PlayerPrefs.GetInt("Player2Char")],
-                new Vector2(4f, -3f), Quaternion.identity);
+                new Vector2(4f, -2.5f), Quaternion.identity);
             //Set the sandbag's opponent, since its knockBack script wont do it itself
             sandbagOne.GetComponent<KnockbackScript>().setOpponent(playerOne);
 
@@ -70,12 +70,12 @@ public class MatchScript : NetworkBehaviour
         {
             //Make playerOne a PLAYER, set to left side
             GameObject playerOne = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player1Char")],
-            new Vector2(-4f, -3f), Quaternion.identity);
+            new Vector2(-4f, -2.5f), Quaternion.identity);
             //Set playerIndex
             playerOne.GetComponent<PlayerScript>().playerIndex = 0;
             //make sandbagOne a SANDBAG, set to right side
             GameObject enemyOne = Instantiate(possibleEnemies[PlayerPrefs.GetInt("Player2Char")],
-                new Vector2(4f, -3f), Quaternion.identity);
+                new Vector2(4f, -2.5f), Quaternion.identity);
             //Set the sandbag's opponent, since its knockBack script wont do it itself
             enemyOne.GetComponent<KnockbackScript>().setOpponent(playerOne);
             enemyOne.GetComponent<AIScript>().playerIndex = 1;

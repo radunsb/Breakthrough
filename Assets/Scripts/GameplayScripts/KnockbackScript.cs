@@ -87,6 +87,7 @@ public class KnockbackScript : NetworkBehaviour
         //Double checks that inKnockback is false after 0.2 seconds (avoids weird buggy thing)
         if(movePercent > 10 / 50f)
         {
+            gameObject.GetComponent<Animator>().SetBool("Knocked", false);
             _inKnockback = false;
         }
     }
@@ -102,6 +103,7 @@ public class KnockbackScript : NetworkBehaviour
     {
         float lm = calcLaunchMultiplier(velocityMult);
         launchDirection = launchDirection * Mathf.Deg2Rad;
+        gameObject.GetComponent<Animator>().SetBool("Knocked", true);
         //Initialize a force based on the hitbox's direction and power
         Vector2 force = new Vector2(Mathf.Cos(launchDirection) * lm, Mathf.Sin(launchDirection) * lm);
         //Set the current velocity to zero so moves do knockback consistently

@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9a34d0d03121b4892743da8de9f561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonTick: {fileID: 0}
+  buttonTick: {fileID: 8300000, guid: 8bc5f1772f0cf1e45a77bc8ec919f1bf, type: 3}
   buttons:
   - {fileID: 808898951}
   - {fileID: 126415381}
@@ -299,7 +299,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8bc5f1772f0cf1e45a77bc8ec919f1bf, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

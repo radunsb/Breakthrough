@@ -241,7 +241,7 @@ MonoBehaviour:
   sfx:
   - {fileID: 8300000, guid: 0de4b83ddcec69342bf7ed360190fece, type: 3}
   - {fileID: 8300000, guid: 6fac748d2e0d2ec4ea8401fba0f838ab, type: 3}
-  roundsToWin: 0
+  roundsToWin: 3
   possiblePlayers: []
   possibleSandbags: []
   possibleEnemies: []
@@ -255,7 +255,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: eed289893fb935648a96401009662374, type: 3}
   - {fileID: 8300000, guid: de65cc693a2d3cc4f9abb19be8554346, type: 3}
   - {fileID: 8300000, guid: 97015bacda822774082e59c0493afff3, type: 3}
-  _ks: {fileID: 0}
+  currentWorld: {fileID: 0}
+  oldWorld: {fileID: 0}
 --- !u!4 &1508709082
 Transform:
   m_ObjectHideFlags: 0
@@ -908,6 +909,72 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1932251288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1932251290}
+  - component: {fileID: 1932251289}
+  - component: {fileID: 1932251291}
+  m_Layer: 0
+  m_Name: PlayerSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1932251289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932251288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660ee0fc5c4a0ce438b8654c662ce04c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 7377714095263175063, guid: 60c0cd5c8e2447048bcb2afc06ff7552, type: 3}
+  - {fileID: 4945755221771313701, guid: fdbd03c2339a3264dbc21dc08e54139a, type: 3}
+  - {fileID: 6636533459142332235, guid: f00742be72b1cd34e9cfd56bf41f5103, type: 3}
+  - {fileID: 6636533459142332235, guid: f00742be72b1cd34e9cfd56bf41f5103, type: 3}
+--- !u!4 &1932251290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932251288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.492322, y: 0.53674304, z: 0.006334465}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1932251291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932251288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 824403212
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1948237710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,7 +1119,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 2013474713}
-    PlayerPrefab: {fileID: 4945755221771313701, guid: fdbd03c2339a3264dbc21dc08e54139a, type: 3}
+    PlayerPrefab: {fileID: 0}
     NetworkPrefabs:
     - Override: 0
       Prefab: {fileID: 4945755221771313701, guid: fdbd03c2339a3264dbc21dc08e54139a, type: 3}
@@ -1126,6 +1193,16 @@ MonoBehaviour:
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
       Prefab: {fileID: 8699641503105286857, guid: c2b0df2e19c9ed7409801e444f62c14a, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 7377714095263175063, guid: 60c0cd5c8e2447048bcb2afc06ff7552, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 6636533459142332235, guid: f00742be72b1cd34e9cfd56bf41f5103, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}

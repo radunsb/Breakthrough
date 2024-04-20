@@ -18,6 +18,7 @@ TagManager:
   - DMG0
   - DMG1
   - OnlineManager
+  - Music
   layers:
   - Default
   - TransparentFX

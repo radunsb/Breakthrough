@@ -109,6 +109,20 @@ public class KnockbackScript : NetworkBehaviour
         _rbody.AddForce(force);
     }
 
+    IEnumerator knockbackBoof(HitboxScript hs,float ld)
+    {
+        _inKnockback = true;
+        for (int i = 0; i < hs.damage; i++)
+        {
+            movePercent = 0;
+            _rbody.velocity = Vector2.zero;
+            yield return new WaitForFixedUpdate();
+        }
+        takeKnockback(hs.velocityMult, ld);
+        
+        movePercent = 0;
+    }
+
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
@@ -129,11 +143,8 @@ public class KnockbackScript : NetworkBehaviour
                     {
                         ld = 180 - ld;
                     }
-                    //Character is invulnerable to attacks for a little bit after getting hit
-                    //Also subject to change depending on if we implement multi-hit moves
-                    takeKnockback(hs.velocityMult, ld);
-                    _inKnockback = true;
-                    movePercent = 0;
+                    StartCoroutine(knockbackBoof(hs, ld));
+
                 }
                 //if there is an active shield, do damage to the shield
                 else
@@ -151,11 +162,7 @@ public class KnockbackScript : NetworkBehaviour
                         {
                             ld = 180 - ld;
                         }
-                        //Character is invulnerable to attacks for a little bit after getting hit
-                        //Also subject to change depending on if we implement multi-hit moves
-                        takeKnockback(hs.velocityMult, ld);
-                        _inKnockback = true;
-                        movePercent = 0;
+                        StartCoroutine(knockbackBoof(hs, ld));
                     }
                     else
                     {

@@ -15,61 +15,34 @@ public class BreakScript : NetworkBehaviour
     bool isOnline;
     NetworkVariable<float> onlineHealth = new NetworkVariable<float>(100);
     KnockbackScript ks;
+    SpriteRenderer _sr;
 
     private void Start()
-    {
+    {      
         isOnline = PlayerPrefs.GetString("Match Type") == "2 Player Online";
         _ms = GameObject.FindObjectOfType<MatchScript>();
+        _sr = GetComponent<SpriteRenderer>();
+        _sr.material.color = Color.white;
         onlineHealth.OnValueChanged += updateDamageServerRpc;
+        StartCoroutine(wallPulsing(5, Color.green));
     }
 
-
-    void Update()
+    IEnumerator wallPulsing(float cycleTime, Color target)
     {
-        if (!isOnline)
+        for (int i = 0; i < 30; i++)
         {
-            //Destory damage at 0 health
-            if (_health < 0)
-            {
-                if (!hasPlayedSFX[2])
-                {
-                    _ms.playSFX(1);
-                    hasPlayedSFX[2] = true;
-                }
-                Destroy(gameObject);
-            }
-            //At quarter health go to major damage
-            else if (_health < 25)
-            {
-                GetComponent<SpriteRenderer>().sprite = sprites[2];
-                if (gameObject.tag.Equals("Ceiling"))
-                {
-                    gameObject.GetComponent<Animator>().SetBool("IsBroken", true);
-                }
-                if (!hasPlayedSFX[1])
-                {
-                    _ms.playSFX(0);
-                    hasPlayedSFX[1] = true;
-                }
-            }
-            //At half health go to minor damage
-            else if (_health < 50)
-            {
-                GetComponent<SpriteRenderer>().sprite = sprites[1];
-                if (gameObject.tag.Equals("Ceiling"))
-                {
-                    gameObject.GetComponent<Animator>().SetBool("IsHurt", true);
-                }
-                if (!hasPlayedSFX[0])
-                {
-                    _ms.playSFX(0);
-                    hasPlayedSFX[0] = true;
-                }
-            }         
-            
+            _sr.material.color = Color.Lerp(_sr.material.color, target, 0.1f);
+            yield return new WaitForFixedUpdate();
         }
-
+        for (int i = 0; i < 30; i++)
+        {
+            _sr.material.color = Color.Lerp(_sr.material.color, Color.white, 0.1f);
+            yield return new WaitForFixedUpdate();
+        }
+        yield return new WaitForSeconds(cycleTime);
+        StartCoroutine(wallPulsing(cycleTime, target));
     }
+
 
     [ClientRpc]
     void doBreakingClientRpc(int state)
@@ -105,7 +78,7 @@ public class BreakScript : NetworkBehaviour
                 }
                 else if (gameObject.tag.Equals("Ground"))
                 {
-                    _health -= .8f;
+                    _health -= 2f;
                 }
                 //UNCOMMENT FOR INSTANT DEATH ON WALL BREAK
                 //WILL PROBABLY LATER BE IMPLEMENTED INTO SEPARATE MODE
@@ -113,6 +86,51 @@ public class BreakScript : NetworkBehaviour
                 //           {
                 //                rb.velocity = collision.relativeVelocity;
                 //           }
+
+                //Destory damage at 0 health
+                if (_health < 0)
+                {
+                    StopAllCoroutines();
+                    if (!hasPlayedSFX[2])
+                    {
+                        _ms.playSFX(1);
+                        hasPlayedSFX[2] = true;
+                    }
+                    Destroy(gameObject);
+                }
+                //At quarter health go to major damage
+                else if (_health < 25)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(wallPulsing(2, Color.red));
+                    GetComponent<SpriteRenderer>().sprite = sprites[2];
+                    if (gameObject.tag.Equals("Ceiling"))
+                    {
+                        gameObject.GetComponent<Animator>().SetBool("IsBroken", true);
+                    }
+                    if (!hasPlayedSFX[1])
+                    {
+                        _ms.playSFX(0);
+                        hasPlayedSFX[1] = true;
+                    }
+                }
+                //At half health go to minor damage
+                else if (_health < 50)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(wallPulsing(3, Color.yellow));
+                    GetComponent<SpriteRenderer>().sprite = sprites[1];
+                    if (gameObject.tag.Equals("Ceiling"))
+                    {
+                        gameObject.GetComponent<Animator>().SetBool("IsHurt", true);
+                    }
+                    if (!hasPlayedSFX[0])
+                    {
+                        _ms.playSFX(0);
+                        hasPlayedSFX[0] = true;
+                    }
+                }
+
             }
             else
             {

@@ -851,6 +851,7 @@ GameObject:
   - component: {fileID: 7964291164654892604}
   - component: {fileID: 2416321593177963686}
   - component: {fileID: 1988165873457831637}
+  - component: {fileID: 5186521655507183883}
   m_Layer: 7
   m_Name: CharacterYellow
   m_TagString: Player
@@ -997,6 +998,7 @@ MonoBehaviour:
   shieldHitsound: {fileID: 8300000, guid: c05c35e76e3bba0408bf7b8cf0152c2a, type: 3}
   _inKnockback: 0
   opponent: {fileID: 0}
+  _opponentScript: {fileID: 0}
   _playerScript: {fileID: 7964291164654892604}
   _shieldScript: {fileID: 1713403748870574648}
   movePercent: 0
@@ -1018,7 +1020,6 @@ MonoBehaviour:
   jump1Height: 10
   jump2Height: 12
   shield: {fileID: 586862533358519902}
-  _flipX: 0
   shieldHeld: 0
 --- !u!82 &2416321593177963686
 AudioSource:
@@ -1168,6 +1169,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5186521655507183883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5922149996944618142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &6091734149391490537
 GameObject:
   m_ObjectHideFlags: 0
@@ -5799,6 +5816,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6923871566079631614}
     m_Modifications:
+    - target: {fileID: 1109902074860259681, guid: 9f16bf2fdb85d37409584f056e8fca31, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109902074860259681, guid: 9f16bf2fdb85d37409584f056e8fca31, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109902074860259681, guid: 9f16bf2fdb85d37409584f056e8fca31, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2088498949732244188, guid: 9f16bf2fdb85d37409584f056e8fca31, type: 3}
       propertyPath: m_RootOrder
       value: 0

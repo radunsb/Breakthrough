@@ -132,7 +132,16 @@ public class AIScript : PlayerScript
             case "Retreating":
                 return ((_opponent.transform.position.x < transform.position.x) ? Vector2.right : Vector2.left);
             case "Approaching":
-                return ((_opponent.transform.position.x < transform.position.x) ? Vector2.left : Vector2.right);
+                float dX = transform.position.x - _opponent.transform.position.x;
+                if (dX >= 1.5f)
+                {
+                    return Vector2.left;
+                }
+                else if (dX <= -1.5f)
+                {
+                    return Vector2.right;
+                }
+                else return Vector2.zero;
             case "Attacking":
                 float distX = transform.position.x - _opponent.transform.position.x;
                 float distY = transform.position.y - _opponent.transform.position.y;

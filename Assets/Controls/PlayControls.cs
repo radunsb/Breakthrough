@@ -357,6 +357,15 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Special"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e0c512b-31dd-4722-aa32-d99b2369b3f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -419,17 +428,6 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""46d09f6c-4e1f-433b-8ea2-e1f12ff3b0e7"",
                     ""path"": ""<Keyboard>/j"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Jump_Button"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8ed46402-68ae-483f-8fcb-2a031ba52e48"",
-                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -654,6 +652,17 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5d920247-98cb-4d4a-a68a-01d57d778119"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -951,6 +960,7 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
         m_InGame_Strong_Button = m_InGame.FindAction("Strong_Button", throwIfNotFound: true);
         m_InGame_Shield_Button = m_InGame.FindAction("Shield_Button", throwIfNotFound: true);
         m_InGame_Pause = m_InGame.FindAction("Pause", throwIfNotFound: true);
+        m_InGame_Special = m_InGame.FindAction("Special", throwIfNotFound: true);
         // CharacterSelect
         m_CharacterSelect = asset.FindActionMap("CharacterSelect", throwIfNotFound: true);
         m_CharacterSelect_Move = m_CharacterSelect.FindAction("Move", throwIfNotFound: true);
@@ -1086,6 +1096,7 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Strong_Button;
     private readonly InputAction m_InGame_Shield_Button;
     private readonly InputAction m_InGame_Pause;
+    private readonly InputAction m_InGame_Special;
     public struct InGameActions
     {
         private @PlayControls m_Wrapper;
@@ -1096,6 +1107,7 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
         public InputAction @Strong_Button => m_Wrapper.m_InGame_Strong_Button;
         public InputAction @Shield_Button => m_Wrapper.m_InGame_Shield_Button;
         public InputAction @Pause => m_Wrapper.m_InGame_Pause;
+        public InputAction @Special => m_Wrapper.m_InGame_Special;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1123,6 +1135,9 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Special.started += instance.OnSpecial;
+            @Special.performed += instance.OnSpecial;
+            @Special.canceled += instance.OnSpecial;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -1145,6 +1160,9 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Special.started -= instance.OnSpecial;
+            @Special.performed -= instance.OnSpecial;
+            @Special.canceled -= instance.OnSpecial;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -1264,6 +1282,7 @@ public partial class @PlayControls: IInputActionCollection2, IDisposable
         void OnStrong_Button(InputAction.CallbackContext context);
         void OnShield_Button(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnSpecial(InputAction.CallbackContext context);
     }
     public interface ICharacterSelectActions
     {

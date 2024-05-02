@@ -29,6 +29,7 @@ public class PlayerScript : NetworkBehaviour
     private InputAction jumpButton;
     private InputAction shieldButton;
     private InputAction pauseButton;
+    private InputAction specialButton;
     protected Animator animator;
     private InputActionAsset inputAsset;
     private InputActionMap inGame;
@@ -79,6 +80,10 @@ public class PlayerScript : NetworkBehaviour
         jumpButton.performed += doJumps;
         jumpButton.Enable();
 
+        specialButton = inGame.FindAction("Special");
+        specialButton.performed += doSpecialButton;
+        specialButton.Enable();
+
         shieldButton = inGame.FindAction("Shield_Button");
         shieldButton.performed += (InputAction.CallbackContext context) => { shieldHeld = true; _canMove = false; };
         shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
@@ -97,6 +102,9 @@ public class PlayerScript : NetworkBehaviour
 
         strongButton.performed -= doStrongButton;
         strongButton.Disable();
+
+        specialButton.performed -= doSpecialButton;
+        specialButton.Disable();
 
         inputDirection.Disable();
 
@@ -192,6 +200,14 @@ public class PlayerScript : NetworkBehaviour
         if (!knockbackScript.getInKnockback())
         {
             animator.SetTrigger("Strong Button");
+        }
+    }
+
+    protected virtual void doSpecialButton(InputAction.CallbackContext context)
+    {
+        if (!knockbackScript.getInKnockback())
+        {
+            animator.SetTrigger("Special Button");
         }
     }
 

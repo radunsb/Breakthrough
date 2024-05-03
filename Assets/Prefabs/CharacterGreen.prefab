@@ -1155,7 +1155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6273576377274886457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1341,8 +1341,8 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Menus
+  m_DefaultControlScheme: Controller
+  m_DefaultActionMap: InGame
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!95 &3402105644317986238
@@ -1377,8 +1377,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6005dce82d82d44ae8a4657c11853e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitsound1: {fileID: 8300000, guid: 3e1b92e16de89b143b5cbe1a1bdd82c9, type: 3}
+  hitsound2: {fileID: 8300000, guid: 7a041ff3a0f43f64784df9da6b7ac143, type: 3}
+  shieldHitsound: {fileID: 8300000, guid: c05c35e76e3bba0408bf7b8cf0152c2a, type: 3}
   _inKnockback: 0
   opponent: {fileID: 0}
+  _opponentScript: {fileID: 0}
   _playerScript: {fileID: 2902597265035161528}
   _shieldScript: {fileID: 7050850267602314478}
   movePercent: 0
@@ -1400,7 +1404,6 @@ MonoBehaviour:
   jump1Height: 11
   jump2Height: 9
   shield: {fileID: 9095697892528992392}
-  _flipX: 0
   shieldHeld: 0
 --- !u!212 &7174734913857326617
 SpriteRenderer:
@@ -5376,6 +5379,10 @@ PrefabInstance:
     - target: {fileID: 4331793286218426573, guid: a6d534cd2fc7ba348973eceafb10c24a, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4331793286218426573, guid: a6d534cd2fc7ba348973eceafb10c24a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6d534cd2fc7ba348973eceafb10c24a, type: 3}

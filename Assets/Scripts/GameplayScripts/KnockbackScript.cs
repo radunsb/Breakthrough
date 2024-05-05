@@ -79,10 +79,10 @@ public class KnockbackScript : NetworkBehaviour
         {
             movePercent = 1;
         }
-        //Should take around .6 seconds to get to full movePercent
+        //Should take around 1 second to get to full movePercent
         if (movePercent < 1)
         {
-            movePercent += (1 / 30f);
+            movePercent += (1 / 50f);
         }
         //Double checks that inKnockback is false after 0.2 seconds (avoids weird buggy thing)
         if(movePercent > 10 / 50f)

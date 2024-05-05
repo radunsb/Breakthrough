@@ -3419,7 +3419,23 @@ PrefabInstance:
     - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -9095717837082945937, guid: c84232a89e85fd3489456a033403fe38, type: 3}
+      objectReference: {fileID: 21300000, guid: fb512f4f6b6d45d44973d1870a2ef207, type: 3}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -3430,7 +3446,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3476,13 +3496,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hitbox (Capsule)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9004376545007874766, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
 --- !u!4 &5610738493253748961 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
   m_PrefabInstance: {fileID: 1591826061760784400}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5610738493253748974 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6614122849637884158, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+  m_PrefabInstance: {fileID: 1591826061760784400}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &5569634459137998279
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5610738493253748974}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.32
 --- !u!1001 &1662335038131051368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8187,7 +8229,23 @@ PrefabInstance:
     - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -9095717837082945937, guid: c84232a89e85fd3489456a033403fe38, type: 3}
+      objectReference: {fileID: 21300000, guid: fb512f4f6b6d45d44973d1870a2ef207, type: 3}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -8198,7 +8256,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8244,13 +8306,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hitbox (Capsule)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9004376545007874766, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
 --- !u!4 &736558248915115271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
   m_PrefabInstance: {fileID: 5905013385817095670}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &736558248915115272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6614122849637884158, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+  m_PrefabInstance: {fileID: 5905013385817095670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &7413171863905902394
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736558248915115272}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.32000002
 --- !u!1001 &5933107947847624991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8539,7 +8623,23 @@ PrefabInstance:
     - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -9095717837082945937, guid: c84232a89e85fd3489456a033403fe38, type: 3}
+      objectReference: {fileID: 21300000, guid: fb512f4f6b6d45d44973d1870a2ef207, type: 3}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -8550,7 +8650,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8596,13 +8700,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hitbox (Capsule)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9004376545007874766, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
 --- !u!4 &593236724647846629 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
   m_PrefabInstance: {fileID: 6048769810201575956}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &593236724647846634 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6614122849637884158, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+  m_PrefabInstance: {fileID: 6048769810201575956}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &3604187867934778422
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593236724647846634}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.32
 --- !u!1001 &6191291646271473597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10513,7 +10639,23 @@ PrefabInstance:
     - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -9095717837082945937, guid: c84232a89e85fd3489456a033403fe38, type: 3}
+      objectReference: {fileID: 21300000, guid: fb512f4f6b6d45d44973d1870a2ef207, type: 3}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -10524,7 +10666,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10570,8 +10716,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hitbox (Capsule)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9004376545007874766, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+--- !u!1 &4019143163311437927 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6614122849637884158, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+  m_PrefabInstance: {fileID: 7785818694175414425}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &8685779186487199677
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4019143163311437927}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.32
 --- !u!4 &4019143163311437928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
@@ -11119,7 +11287,23 @@ PrefabInstance:
     - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -9095717837082945937, guid: c84232a89e85fd3489456a033403fe38, type: 3}
+      objectReference: {fileID: 21300000, guid: fb512f4f6b6d45d44973d1870a2ef207, type: 3}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884144, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -11130,7 +11314,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11176,8 +11364,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hitbox (Capsule)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9004376545007874766, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+--- !u!1 &3024418028778346037 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6614122849637884158, guid: 523dbe95376215247b214d3c243a94e8, type: 3}
+  m_PrefabInstance: {fileID: 8228905121894577867}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &1447846718115993263
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3024418028778346037}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.32000002
 --- !u!4 &3024418028778346042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6614122849637884145, guid: 523dbe95376215247b214d3c243a94e8, type: 3}

@@ -55,10 +55,12 @@ public class KnockbackScript : NetworkBehaviour
         if(playerIndex == 0)
         {
             dmgText = GameObject.FindGameObjectWithTag("DMG0").gameObject.GetComponent<Text>();
+            dmgText.color = Color.cyan;
         }
         else
         {
             dmgText = GameObject.FindGameObjectWithTag("DMG1").gameObject.GetComponent<Text>();
+            dmgText.color = new Color(1f, 0.4f, 0f);
         }
     }
 
@@ -67,8 +69,7 @@ public class KnockbackScript : NetworkBehaviour
     {
         if (dmgText != null)
         {
-            dmgText.text = "Damage: " + _damage;
-            dmgText.transform.position = new Vector2(transform.position.x, transform.position.y + 1);
+            dmgText.text = _damage + "%";
         }
     }
 

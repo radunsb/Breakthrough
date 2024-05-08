@@ -17,6 +17,7 @@ public class MatchScript : NetworkBehaviour
     public GameObject[] possiblePlayers;
     public GameObject[] possibleSandbags;
     public GameObject[] possibleEnemies;
+    public GameObject[] icons;
     public Text p1winsText;
     public Text p2winsText;
     public int[] matchInfo;
@@ -39,6 +40,8 @@ public class MatchScript : NetworkBehaviour
             GameObject playerTwo = Instantiate(possiblePlayers[PlayerPrefs.GetInt("Player2Char")],
                 new Vector2(4f, -3f), Quaternion.identity);
             //Set playerIndex of both players
+            icons[PlayerPrefs.GetInt("Player1Char")].SetActive(true);
+            icons[PlayerPrefs.GetInt("Player2Char") + 4].SetActive(true);
             playerOne.GetComponent<PlayerScript>().playerIndex = 0;
             playerTwo.GetComponent<PlayerScript>().playerIndex = 1;
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
@@ -62,6 +65,8 @@ public class MatchScript : NetworkBehaviour
 
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
             p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+            icons[PlayerPrefs.GetInt("Player1Char")].SetActive(true);
+            icons[4].SetActive(true);
             //set gameObjects for each entity
             p1 = playerOne;
             p2 = sandbagOne;
@@ -81,6 +86,8 @@ public class MatchScript : NetworkBehaviour
             enemyOne.GetComponent<AIScript>().playerIndex = 1;
             p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
             p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+            icons[PlayerPrefs.GetInt("Player1Char")].SetActive(true);
+            icons[PlayerPrefs.GetInt("Player2Char") + 4].SetActive(true);
             //set gameObjects for each entity
             p1 = playerOne;
             p2 = enemyOne;
@@ -101,6 +108,8 @@ public class MatchScript : NetworkBehaviour
         {
             currentWorld = GameObject.Find("Tower (Main)");
         }
+        p1winsText.color = Color.cyan;
+        p2winsText.color = new Color(1f, 0.4f, 0f);
 
     }
 

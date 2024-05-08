@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2748154167728070051}
   - component: {fileID: 8278488717210116492}
   - component: {fileID: 2615525240327618189}
+  - component: {fileID: 9052094248422744195}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -55,7 +56,7 @@ MonoBehaviour:
   possiblePlayers:
   - {fileID: 7784593719400307393, guid: c8d7428527e30d6478839a38c862eb4b, type: 3}
   - {fileID: 4783516849323813632, guid: 7692c48c62318f3478fa2b3bd05e8095, type: 3}
-  - {fileID: 5922149996944618142, guid: 6abd5451a285942479ec794b9510e2a1, type: 3}
+  - {fileID: 6273576377274886457, guid: b75a6fe7afe6673498128d8db6914696, type: 3}
   - {fileID: 5922149996944618142, guid: 6abd5451a285942479ec794b9510e2a1, type: 3}
   possibleSandbags:
   - {fileID: 9096532231997383842, guid: ebd30c47606b17d47b5f38221174097f, type: 3}
@@ -65,7 +66,7 @@ MonoBehaviour:
   possibleEnemies:
   - {fileID: 4815162798190022052, guid: 841798a3dded7e447a6ecc35b01e5dd1, type: 3}
   - {fileID: 2636372427810059272, guid: 3fe207ac9e9c03e4a8c8c1748021df4e, type: 3}
-  - {fileID: 3278803596915699505, guid: 36014981e8d07494d9dd0604761eab6f, type: 3}
+  - {fileID: 1951229565116711756, guid: cb0efa2d942c3db4d855b42b751e59e3, type: 3}
   - {fileID: 3278803596915699505, guid: 36014981e8d07494d9dd0604761eab6f, type: 3}
   p1winsText: {fileID: 0}
   p2winsText: {fileID: 0}
@@ -262,3 +263,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9052094248422744195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748154167728070050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

@@ -835,9 +835,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIndex: 0
   walkSpeed: 3
-  runSpeed: 6
-  jump1Height: 11
-  jump2Height: 9
+  runSpeed: 7
+  jump1Height: 9
+  jump2Height: 8
   shield: {fileID: 9095697892528992392}
   shieldHeld: 0
 --- !u!212 &7174734913857326617

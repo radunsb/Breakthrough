@@ -942,7 +942,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 7377714095263175063, guid: 60c0cd5c8e2447048bcb2afc06ff7552, type: 3}
   - {fileID: 4945755221771313701, guid: fdbd03c2339a3264dbc21dc08e54139a, type: 3}
-  - {fileID: 6636533459142332235, guid: f00742be72b1cd34e9cfd56bf41f5103, type: 3}
+  - {fileID: 1244314877972183035, guid: 6aaf7ca83c9117847ac1a201c884451e, type: 3}
   - {fileID: 6636533459142332235, guid: f00742be72b1cd34e9cfd56bf41f5103, type: 3}
 --- !u!4 &1932251290
 Transform:

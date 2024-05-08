@@ -243,7 +243,7 @@ public class PlayerScript : NetworkBehaviour
         {
             animator.SetBool("Downward Hold", true);
         }
-        else if(dir.x > 0.4 && !_flipX.Value || dir.x < 0.4 && _flipX.Value)
+        else if(dir.x > 0.4 && !_flipX.Value || dir.x < -0.4 && _flipX.Value)
         {            
             animator.SetBool("Forward Hold", true);
         }      

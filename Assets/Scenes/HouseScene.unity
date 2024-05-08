@@ -650,6 +650,10 @@ PrefabInstance:
       propertyPath: p2winsText
       value: 
       objectReference: {fileID: 1002703993}
+    - target: {fileID: 2748154167728070051, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+      propertyPath: possiblePlayers.Array.data[2]
+      value: 
+      objectReference: {fileID: 6273576377274886457, guid: b75a6fe7afe6673498128d8db6914696, type: 3}
     - target: {fileID: 2748154167728070052, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -704,6 +708,27 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: eed289893fb935648a96401009662374, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+--- !u!1 &1701086592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2748154167728070050, guid: 0f3bb8722af4d9a4ba138caabea6677b, type: 3}
+  m_PrefabInstance: {fileID: 1701086591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1701086593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701086592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1150094089
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &8605415257114195524
 PrefabInstance:
   m_ObjectHideFlags: 0

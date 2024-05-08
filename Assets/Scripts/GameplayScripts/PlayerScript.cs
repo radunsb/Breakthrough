@@ -143,6 +143,7 @@ public class PlayerScript : NetworkBehaviour
     void Update()
     {
         animator.SetBool("Grounded", _grounded);
+        animator.SetBool("InKnockback", knockbackScript._inKnockback);
     }
 
     private void pause(InputAction.CallbackContext context)
@@ -292,6 +293,7 @@ public class PlayerScript : NetworkBehaviour
         Invoke("resetIsJumping", 0.2f);
         _rbody.velocity = new Vector2(_rbody.velocity.x, jump1Height);
         timesJumped = 1;
+        animator.SetTrigger("Jump");
     }
 
     void resetIsJumping()
@@ -303,6 +305,7 @@ public class PlayerScript : NetworkBehaviour
     {
         _rbody.velocity = new Vector2(_rbody.velocity.x, jump2Height);
         timesJumped = 2;
+        animator.SetTrigger("Jump");
     }
     //Raycast down from the left, middle, and right sides of the player character.
     //Returns true if the raycast hits something belonging to the ground layer.

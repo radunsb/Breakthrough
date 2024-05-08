@@ -11,14 +11,17 @@ public class ShieldScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //If holding shield, gradually decrease health
         if (shieldActive())
         {
             _health -= 5 / 60f;
         }
+        //If they're not holding, increase up to full health
         else if(_health < 30)
         {
             _health += 5 / 60f;
         }
+        //Don't let it go too negative
         if(_health < -2)
         {
             _health = -2;

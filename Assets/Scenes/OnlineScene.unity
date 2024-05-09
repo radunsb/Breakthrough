@@ -573,6 +573,7 @@ MonoBehaviour:
   possiblePlayers: []
   possibleSandbags: []
   possibleEnemies: []
+  icons: []
   p1winsText: {fileID: 1527319233}
   p2winsText: {fileID: 87067942}
   matchInfo: 
@@ -1451,6 +1452,11 @@ MonoBehaviour:
       OverridingTargetPrefab: {fileID: 0}
     - Override: 0
       Prefab: {fileID: 6636533459142332235, guid: f00742be72b1cd34e9cfd56bf41f5103, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 1244314877972183035, guid: 6aaf7ca83c9117847ac1a201c884451e, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}

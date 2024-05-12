@@ -28,7 +28,7 @@ public class MultiplayerScript : TitleScript
                 break;
             case 1:
                 PlayerPrefs.SetString("Match Type", "2 Player Online");
-                SceneManager.LoadScene("CSScene");
+                SceneManager.LoadScene("NetworkSetupScene");
                 break;
             case 2:
                 SceneManager.LoadScene("TitleScene");

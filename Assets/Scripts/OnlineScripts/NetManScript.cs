@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System.Net;
+using Unity.Netcode.Transports.UTP;
 
 public class NetManScript : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class NetManScript : MonoBehaviour
     }
     public void OnStartHost()
     {
+        UnityTransport transport =
+        (UnityTransport)NetworkManager.Singleton.NetworkConfig.NetworkTransport;
+        transport.SetConnectionData(PlayerPrefs.GetString("targetIP"), 7777);
         NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
         NetworkManager.Singleton.ConnectionApprovalCallback = ConnectionCallback;
         NetworkManager.Singleton.StartHost();
@@ -19,6 +24,9 @@ public class NetManScript : MonoBehaviour
 
     public void OnStartClient()
     {
+        UnityTransport transport =
+        (UnityTransport)NetworkManager.Singleton.NetworkConfig.NetworkTransport;
+        transport.SetConnectionData(PlayerPrefs.GetString("targetIP"), 7777);
         NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
         NetworkManager.Singleton.ConnectionApprovalCallback = ConnectionCallback;
         NetworkManager.Singleton.StartClient();

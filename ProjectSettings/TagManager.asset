@@ -19,6 +19,7 @@ TagManager:
   - DMG1
   - OnlineManager
   - Music
+  - Rick
   layers:
   - Default
   - TransparentFX

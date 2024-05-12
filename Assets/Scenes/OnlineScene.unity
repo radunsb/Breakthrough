@@ -583,7 +583,7 @@ MonoBehaviour:
   bm:
   - {fileID: 8300000, guid: eed289893fb935648a96401009662374, type: 3}
   - {fileID: 8300000, guid: de65cc693a2d3cc4f9abb19be8554346, type: 3}
-  - {fileID: 8300000, guid: 97015bacda822774082e59c0493afff3, type: 3}
+  - {fileID: 8300000, guid: 48c668ed80ed6f04e862807fd9923499, type: 3}
   currentWorld: {fileID: 0}
   oldWorld: {fileID: 0}
 --- !u!4 &1508709082
@@ -1460,7 +1460,7 @@ MonoBehaviour:
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
-    TickRate: 30
+    TickRate: 50
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
     ConnectionData: 

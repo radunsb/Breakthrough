@@ -36,7 +36,6 @@ public class OnlineKnockbackScript : KnockbackScript
     [ServerRpc]
     void takeKnockbackServerRpc(Vector2 force)
     {
-        _rbody.velocity = Vector2.zero;
         ulong clientId =
         GetComponent<NetworkObject>().OwnerClientId;
         ClientRpcParams param = new ClientRpcParams
@@ -58,12 +57,13 @@ public class OnlineKnockbackScript : KnockbackScript
     IEnumerator knockbackBoof(HitboxScript hs, float ld)
     {
         _inKnockback = true;
-        for (int i = 0; i < hs.damage; i++)
+        for (int i = 0; i < hs.damage * 2; i++)
         {
             movePercent = 0;
-            _rbody.velocity = Vector2.zero;
+            _oms.freezePlayersClientRpc();
             yield return new WaitForFixedUpdate();
         }
+        _oms.unfreezePlayersClientRpc();
         takeKnockback(hs.velocityMult, ld);
 
         movePercent = 0;

@@ -113,7 +113,7 @@ public class KnockbackScript : NetworkBehaviour
     IEnumerator knockbackBoof(HitboxScript hs,float ld)
     {
         _inKnockback = true;
-        for (int i = 0; i < hs.damage; i++)
+        for (int i = 0; i < hs.damage * 2; i++)
         {
             movePercent = 0;
             _rbody.velocity = Vector2.zero;

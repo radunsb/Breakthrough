@@ -53,10 +53,11 @@ public class OnlinePlayerScript : PlayerScript
     }
     protected override void FixedUpdate()
     {
-        if (IsLocalPlayer) {
+        if (IsLocalPlayer)
+        {
             ulong ping = NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetCurrentRtt(serverId);
             pingList.Enqueue(Convert.ToInt32(ping.ToString()));
-            if(pingList.Count > 5)
+            if (pingList.Count > 5)
             {
                 pingList.Dequeue();
             }
@@ -89,7 +90,7 @@ public class OnlinePlayerScript : PlayerScript
                 _oldPos = _rbody.position;
                 UpdatePosnServerRpc(_rbody.position);
             }
-            if(_oldRot != _rbody.transform.eulerAngles)
+            if (_oldRot != _rbody.transform.eulerAngles)
             {
                 _oldRot = _rbody.transform.eulerAngles;
                 UpdateRotServerRpc(_rbody.transform.eulerAngles);
@@ -106,14 +107,19 @@ public class OnlinePlayerScript : PlayerScript
     void LerpRemote()
     {
         _rbody.transform.eulerAngles = _receivedRot.Value;
-        float velo = (Vector2.Distance(_receivedPosn.Value, _rbody.position) * NetworkManager.Singleton.NetworkTickSystem.TickRate);
-        if (Vector2.Distance(_rbody.position, _receivedPosn.Value) < 0.1)
-        {     
+        if (Vector2.Distance(_rbody.position, _receivedPosn.Value) < 0.02)
+        {
             return;
         }
         Vector2 velocity = (_receivedPosn.Value - _rbody.position) * tickRate;
-        Vector2 target = _receivedPosn.Value + (velocity * currentPing/2);
-        _rbody.position = Vector2.Lerp(_rbody.position, target, 0.4f);
+        Vector2 target = _receivedPosn.Value + (velocity * currentPing / 2);
+        _rbody.position = Vector2.Lerp(_rbody.position, target, 0.5f);
+    }
+
+    public void freeze()
+    {
+        _rbody.velocity = Vector2.zero;
+        _rbody.gravityScale = 0f;
     }
 
     [ServerRpc]
@@ -188,11 +194,11 @@ public class OnlinePlayerScript : PlayerScript
     [ClientRpc]
     void setAnimationStatesClientRpc(string type, string name, bool outcome)
     {
-        if(type == "trigger")
+        if (type == "trigger")
         {
             animator.SetTrigger(name);
         }
-        else if(type == "bool")
+        else if (type == "bool")
         {
             animator.SetBool(name, outcome);
         }

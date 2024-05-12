@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking.Match;
 using UnityEngine.SceneManagement;
 using System.Globalization;
+using System;
 
 public class OnlineMatchScript : MatchScript
 {
@@ -17,6 +18,7 @@ public class OnlineMatchScript : MatchScript
     GameObject p2;
     public GameObject currentWorld;
     public GameObject oldWorld;
+    bool gameHasStarted;
 
     NetworkVariable<int> p1Score = new NetworkVariable<int>();
     NetworkVariable<int> p2Score = new NetworkVariable<int>();
@@ -27,6 +29,21 @@ public class OnlineMatchScript : MatchScript
         StartCoroutine(waitForSecondPlayer());
         p1Score.OnValueChanged += updateP1Points;
         p2Score.OnValueChanged += updateP2Points;
+    }
+
+    private void Update()
+    {
+        if (gameHasStarted && !checkFor2Players())
+        {
+            if (p1Score.Value < 3 && p2Score.Value < 3)
+            {
+                SceneManager.LoadScene("TitleScene");
+            }
+            else
+            {
+                SceneManager.LoadScene("WinScene");
+            }
+        }
     }
 
     public void updateP1Points(int previous, int current)
@@ -58,60 +75,64 @@ public class OnlineMatchScript : MatchScript
     }
     IEnumerator waitForSecondPlayer()
     {
-        while (!checkFor2Players())
+        if (!gameHasStarted)
         {
-            yield return new WaitForSeconds(1);
-        }
-        GetComponent<OnlineStarterScript>().Initialize();
-        _as.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
-        _asSFX.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
-        matchInfo = new int[3];
-        GameObject playerOne;
-        GameObject playerTwo;
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        if (IsServer)
-        {
-            playerOne = players[0];
-            playerTwo = players[0];
-            foreach(GameObject player in players)
+            while (!checkFor2Players())
             {
-                if(player.GetComponent<OnlinePlayerScript>().IsLocalPlayer)
+                yield return new WaitForSeconds(1);
+            }
+            GetComponent<OnlineStarterScript>().Initialize();
+            _as.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
+            _asSFX.volume = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 1.0f;
+            matchInfo = new int[3];
+            GameObject playerOne;
+            GameObject playerTwo;
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            if (IsServer)
+            {
+                playerOne = players[0];
+                playerTwo = players[0];
+                foreach (GameObject player in players)
                 {
-                    playerOne = player;
+                    if (player.GetComponent<OnlinePlayerScript>().IsLocalPlayer)
+                    {
+                        playerOne = player;
+                    }
+                    else
+                    {
+                        playerTwo = player;
+                    }
                 }
-                else
+                playerOne.transform.position = new Vector2(-4, -2);
+                playerTwo.transform.position = new Vector2(4, -2);
+                
+                destroyBackgroundClientRpc("Lobby");
+            }
+            else
+            {
+                playerOne = players[0];
+                playerTwo = players[0];
+                foreach (GameObject player in players)
                 {
-                    playerTwo = player;
+                    if (player.GetComponent<OnlinePlayerScript>().IsLocalPlayer)
+                    {
+                        playerTwo = player;
+                    }
+                    else
+                    {
+                        playerOne = player;
+                    }
                 }
             }
-            playerOne.transform.position = new Vector2(-4, -2);
-            playerTwo.transform.position = new Vector2(4, -2);
-            destroyBackgroundClientRpc("Lobby");
+            gameHasStarted = true;
+            p1winsText.text = "Player one wins: " + p1Score.Value;
+            p2winsText.text = "Player two wins: " + p2Score.Value;
+            //Set gameObjects for each entity
+            p1 = playerOne;
+            p2 = playerTwo;
+            matchInfo[2] = PlayerPrefs.GetInt("Stage");
+            playMusic(matchInfo[2]);
         }
-        else
-        {
-            playerOne = players[0];
-            playerTwo = players[0];
-            foreach (GameObject player in players)
-            {
-                if (player.GetComponent<OnlinePlayerScript>().IsLocalPlayer)
-                {
-                    playerTwo = player;
-                }
-                else
-                {
-                    playerOne = player;
-                }
-            }
-        }
-
-        p1winsText.text = "Player one wins: " + p1Score.Value;
-        p2winsText.text = "Player two wins: " + p2Score.Value;
-        //Set gameObjects for each entity
-        p1 = playerOne;
-        p2 = playerTwo;
-        matchInfo[2] = PlayerPrefs.GetInt("Stage");
-        playMusic(matchInfo[2]);
     }
 
     [ClientRpc]
@@ -130,6 +151,21 @@ public class OnlineMatchScript : MatchScript
         {
             Destroy(oldWorld);
         }
+    }
+
+    [ClientRpc]
+    public void freezePlayersClientRpc()
+    {
+        p1.GetComponent<OnlinePlayerScript>().freeze();
+        p2.GetComponent<OnlinePlayerScript>().freeze();
+        
+    }
+
+    [ClientRpc]
+    public void unfreezePlayersClientRpc()
+    {
+        p1.GetComponent<Rigidbody2D>().gravityScale = 1.8f;
+        p2.GetComponent<Rigidbody2D>().gravityScale = 1.8f;
     }
 
     [ServerRpc]
@@ -201,16 +237,17 @@ public class OnlineMatchScript : MatchScript
         
         PlayerPrefs.SetInt("P1 Points", p1Score.Value);
         PlayerPrefs.SetInt("P2 Points", p2Score.Value);
-        endGame();       
-    }
-
-    void endGame()
-    {
         if (IsServer)
         {
+            StartCoroutine(stalling());
             NetworkManager.Shutdown();
-            SceneManager.LoadScene("WinScene");
         }
+        SceneManager.LoadScene("WinScene");
+    }
+
+    IEnumerator stalling()
+    {
+        yield return new WaitForSeconds(2);
     }
 
     //First function in chain started from boundary activation

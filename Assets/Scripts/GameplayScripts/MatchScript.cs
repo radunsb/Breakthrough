@@ -49,6 +49,8 @@ public class MatchScript : NetworkBehaviour
             //Set gameObjects for each entity
             p1 = playerOne;
             p2 = playerTwo;
+            p1.GetComponent<PlayerScript>().triangle.GetComponent<SpriteRenderer>().color = Color.cyan;
+            p2.GetComponent<PlayerScript>().triangle.GetComponent<SpriteRenderer>().color = new Color(1f, 0.4f, 0f);
         }
         else if (PlayerPrefs.GetString("Match Type") == "Training")
         {
@@ -70,6 +72,7 @@ public class MatchScript : NetworkBehaviour
             //set gameObjects for each entity
             p1 = playerOne;
             p2 = sandbagOne;
+            p1.GetComponent<PlayerScript>().triangle.GetComponent<SpriteRenderer>().color = Color.cyan;
         }
         else if (PlayerPrefs.GetString("Match Type") == "1 Player Local")
         {
@@ -91,6 +94,7 @@ public class MatchScript : NetworkBehaviour
             //set gameObjects for each entity
             p1 = playerOne;
             p2 = enemyOne;
+            p1.GetComponent<PlayerScript>().triangle.GetComponent<SpriteRenderer>().color = Color.cyan;
         }
         matchInfo[0] = PlayerPrefs.GetInt("Player1Char");
         matchInfo[1] = PlayerPrefs.GetInt("Player2Char");
@@ -110,6 +114,7 @@ public class MatchScript : NetworkBehaviour
         }
         p1winsText.color = Color.cyan;
         p2winsText.color = new Color(1f, 0.4f, 0f);
+        
 
     }
 

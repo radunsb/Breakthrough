@@ -37,7 +37,7 @@ public class OnlineMatchScript : MatchScript
         {
             if (p1Score.Value < 3 && p2Score.Value < 3)
             {
-                SceneManager.LoadScene("TitleScene");
+                SceneManager.LoadScene("DisconnectScene");
             }
             else
             {
@@ -239,8 +239,7 @@ public class OnlineMatchScript : MatchScript
         PlayerPrefs.SetInt("P2 Points", p2Score.Value);
         if (IsServer)
         {
-            StartCoroutine(stalling());
-            NetworkManager.Shutdown();
+            StartCoroutine(stalling());           
         }
         SceneManager.LoadScene("WinScene");
     }
@@ -248,6 +247,7 @@ public class OnlineMatchScript : MatchScript
     IEnumerator stalling()
     {
         yield return new WaitForSeconds(2);
+        NetworkManager.Shutdown();
     }
 
     //First function in chain started from boundary activation

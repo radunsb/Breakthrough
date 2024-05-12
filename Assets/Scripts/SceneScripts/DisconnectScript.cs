@@ -39,13 +39,18 @@ public class DisconnectScript : MonoBehaviour
     private void FixedUpdate()
     {
         transform.Rotate(0, 0, 0.02f);
-        GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color.WithAlpha(GetComponent<SpriteRenderer>().color.a - 0.0005f);
+        Color col = GetComponent<SpriteRenderer>().color;
+        float newA = GetComponent<SpriteRenderer>().color.a - 0.0005f;
+        GetComponent<SpriteRenderer>().color = new Color(col.r, col.g, col.b, newA);
         if(GetComponent<SpriteRenderer>().color.a < .1f)
         {
             GameObject rick = GameObject.FindGameObjectWithTag("Rick");
             if (rick.GetComponent<SpriteRenderer>().color.a < 0.5f)
             {
-                rick.GetComponent<SpriteRenderer>().color = rick.GetComponent<SpriteRenderer>().color.WithAlpha(rick.GetComponent<SpriteRenderer>().color.a + 0.001f);
+                Color rickCol = rick.GetComponent<SpriteRenderer>().color;
+                float rickNewA = rick.GetComponent<SpriteRenderer>().color.a + 0.0005f;
+                rick.GetComponent<SpriteRenderer>().color = new Color(rickCol.r, rickCol.g, rickCol.b, rickNewA);
+
             }
         }
     }

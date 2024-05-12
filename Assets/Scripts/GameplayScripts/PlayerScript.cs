@@ -35,7 +35,7 @@ public class PlayerScript : NetworkBehaviour
     private InputActionMap inGame;
 
     //Private vars
-    protected Rigidbody2D _rbody;
+    public Rigidbody2D _rbody;
     protected int timesJumped;
     protected bool _grounded;
     protected bool _canMove;
@@ -148,7 +148,10 @@ public class PlayerScript : NetworkBehaviour
 
     private void pause(InputAction.CallbackContext context)
     {
-        SceneManager.LoadScene("TitleScene");
+        if (PlayerPrefs.GetString("Match Type") != "2 Player Online")
+        {
+            SceneManager.LoadScene("TitleScene");
+        }
     }
     protected virtual void FixedUpdate()
     {

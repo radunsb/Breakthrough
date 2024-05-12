@@ -118,8 +118,13 @@ public class KnockbackScript : NetworkBehaviour
         {
             movePercent = 0;
             _rbody.velocity = Vector2.zero;
+            _rbody.gravityScale = 0f;
+            _opponentScript._rbody.velocity = Vector2.zero;
+            _opponentScript._rbody.gravityScale = 0f;
             yield return new WaitForFixedUpdate();
         }
+        _rbody.gravityScale = 1.8f;
+        _opponentScript._rbody.gravityScale = 1.8f;
         takeKnockback(hs.velocityMult, ld);
         
         movePercent = 0;

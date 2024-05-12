@@ -147,9 +147,10 @@ public class BreakScript : NetworkBehaviour
                 }
             }
         }
-    [ServerRpc(RequireOwnership = false)]
+    [ServerRpc (RequireOwnership = false)]
     public void updateDamageServerRpc(float previous, float current)
     {
+        print("Updating Damage");
         onlineHealth.Value = current;
         if (onlineHealth.Value < 0)
         {

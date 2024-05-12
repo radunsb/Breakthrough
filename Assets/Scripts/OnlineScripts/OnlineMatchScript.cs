@@ -170,8 +170,23 @@ public class OnlineMatchScript : MatchScript
         
     }
 
+    [ServerRpc (RequireOwnership = false)]
+    public void freezePlayersServerRpc()
+    {
+        p1.GetComponent<OnlinePlayerScript>().freeze();
+        p2.GetComponent<OnlinePlayerScript>().freeze();
+
+    }
+
     [ClientRpc]
     public void unfreezePlayersClientRpc()
+    {
+        p1.GetComponent<Rigidbody2D>().gravityScale = 1.8f;
+        p2.GetComponent<Rigidbody2D>().gravityScale = 1.8f;
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    public void unfreezePlayersServerRpc()
     {
         p1.GetComponent<Rigidbody2D>().gravityScale = 1.8f;
         p2.GetComponent<Rigidbody2D>().gravityScale = 1.8f;

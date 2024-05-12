@@ -64,9 +64,11 @@ public class OnlineKnockbackScript : KnockbackScript
         {
             movePercent = 0;
             _oms.freezePlayersClientRpc();
+            _oms.freezePlayersServerRpc();
             yield return new WaitForFixedUpdate();
         }
         _oms.unfreezePlayersClientRpc();
+        _oms.unfreezePlayersServerRpc();
         takeKnockback(hs.velocityMult, ld);
 
         movePercent = 0;

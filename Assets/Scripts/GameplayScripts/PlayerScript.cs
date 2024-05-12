@@ -14,6 +14,7 @@ using UnityEngine.SceneManagement;
 public class PlayerScript : NetworkBehaviour
 {
     public int playerIndex = 0;
+    public GameObject triangle;
 
     //Character Specific Variables
     public float walkSpeed;
@@ -155,6 +156,7 @@ public class PlayerScript : NetworkBehaviour
     }
     protected virtual void FixedUpdate()
     {
+
         //Get the current position of the left joystick/movement keys
         directions = inputDirection.ReadValue<Vector2>();
         //Determines whether forward hold, upward hold, or downward hold (for attacks)

@@ -23,8 +23,8 @@ public class KnockbackScript : NetworkBehaviour
     public PlayerScript _opponentScript;
     public PlayerScript _playerScript;
     public ShieldScript _shieldScript;
-    int playerIndex;
-    Text dmgText;
+    protected int playerIndex;
+    public Text dmgText;
     //Percentage that the player's input overrides existing velocity
     //Set to 0 on hit and gradually increases back to 1
     public float movePercent;

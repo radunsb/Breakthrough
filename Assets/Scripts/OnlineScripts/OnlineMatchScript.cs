@@ -29,6 +29,7 @@ public class OnlineMatchScript : MatchScript
         StartCoroutine(waitForSecondPlayer());
         p1Score.OnValueChanged += updateP1Points;
         p2Score.OnValueChanged += updateP2Points;
+        
     }
 
     private void Update()
@@ -124,14 +125,22 @@ public class OnlineMatchScript : MatchScript
                     }
                 }
             }
+            p1 = playerOne;
+            p2 = playerTwo;
+            p1.GetComponent<PlayerScript>().playerIndex = 0;
+            p2.GetComponent<PlayerScript>().playerIndex = 1;
             gameHasStarted = true;
             p1winsText.text = "Player one wins: " + p1Score.Value;
             p2winsText.text = "Player two wins: " + p2Score.Value;
-            //Set gameObjects for each entity
-            p1 = playerOne;
-            p2 = playerTwo;
+            //Set gameObjects for each entity           
             matchInfo[2] = PlayerPrefs.GetInt("Stage");
             playMusic(matchInfo[2]);
+            icons[p1.GetComponent<OnlinePlayerScript>().characterType].SetActive(true);
+            icons[p2.GetComponent<OnlinePlayerScript>().characterType + 4].SetActive(true);
+            p1winsText.color = Color.cyan;
+            p2winsText.color = new Color(1f, 0.4f, 0f);
+            p1.GetComponent<PlayerScript>().triangle.GetComponent<SpriteRenderer>().color = Color.cyan;
+            p2.GetComponent<PlayerScript>().triangle.GetComponent<SpriteRenderer>().color = new Color(1f, 0.4f, 0f);
         }
     }
 

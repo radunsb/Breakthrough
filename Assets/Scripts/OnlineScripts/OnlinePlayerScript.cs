@@ -17,6 +17,7 @@ public class OnlinePlayerScript : PlayerScript
     ulong serverId;
     uint tickRate;
     public int preferredStage = -1;
+    public int characterType;
 
     protected override void Awake()
     {
@@ -29,11 +30,11 @@ public class OnlinePlayerScript : PlayerScript
         base.OnNetworkSpawn();
         if ((IsHost && IsLocalPlayer) || (!IsHost && !IsLocalPlayer))
         {
-            playerIndex = 1;
+            playerIndex = 0;
         }
         else
         {
-            playerIndex = 0;
+            playerIndex = 1;
         }
         tickRate = NetworkManager.Singleton.NetworkTickSystem.TickRate;
     }

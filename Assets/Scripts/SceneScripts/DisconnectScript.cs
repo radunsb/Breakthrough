@@ -45,7 +45,7 @@ public class DisconnectScript : MonoBehaviour
         if(GetComponent<SpriteRenderer>().color.a < .1f)
         {
             GameObject rick = GameObject.FindGameObjectWithTag("Rick");
-            if (rick.GetComponent<SpriteRenderer>().color.a < 0.5f)
+            if (rick.GetComponent<SpriteRenderer>().color.a < 0.2f)
             {
                 Color rickCol = rick.GetComponent<SpriteRenderer>().color;
                 float rickNewA = rick.GetComponent<SpriteRenderer>().color.a + 0.0005f;

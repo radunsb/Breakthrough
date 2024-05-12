@@ -95,8 +95,8 @@ public class OnlinePlayerScript : PlayerScript
                 _oldRot = _rbody.transform.eulerAngles;
                 UpdateRotServerRpc(_rbody.transform.eulerAngles);
             }
-            animator.ResetTrigger("Normal button");
-            animator.ResetTrigger("Strong Button");
+            resetTriggerClientRpc("Normal button");
+            resetTriggerClientRpc("Strong Button");
         }
         else
         {
@@ -166,7 +166,7 @@ public class OnlinePlayerScript : PlayerScript
         {
             setAnimationStatesClientRpc("bool", "Downward Hold", true);
         }
-        else if (dir.x > 0.4 && !getFlipX() || dir.x < 0.4 && getFlipX())
+        else if (dir.x > 0.4 && !getFlipX() || dir.x < -0.4 && getFlipX())
         {
             setAnimationStatesClientRpc("bool", "Forward Hold", true);
         }
@@ -190,18 +190,50 @@ public class OnlinePlayerScript : PlayerScript
             setAnimationStatesClientRpc("trigger", "Strong Button", true);
         }
     }
+    [ServerRpc]
+    void doSpecialServerRpc()
+    {
+        if (!knockbackScript.getInKnockback())
+        {
+            setAnimationStatesClientRpc("trigger", "Special Button", true);
+        }
+    }
 
     [ClientRpc]
     void setAnimationStatesClientRpc(string type, string name, bool outcome)
     {
-        if (type == "trigger")
-        {
-            animator.SetTrigger(name);
-        }
-        else if (type == "bool")
-        {
-            animator.SetBool(name, outcome);
-        }
+            if (type == "trigger")
+            {
+                animator.SetTrigger(name);
+            }
+            else if (type == "bool")
+            {
+                animator.SetBool(name, outcome);
+            }
+    }
+
+    [ClientRpc]
+    void resetTriggerClientRpc(string name)
+    {
+        animator.ResetTrigger(name);
+    }
+
+    protected override void singleJump()
+    {
+        _grounded = false;
+        _isJumping = true;
+        //Done so that the raycast doesn't immediately make you grounded when you try and jump
+        Invoke("resetIsJumping", 0.2f);
+        _rbody.velocity = new Vector2(_rbody.velocity.x, jump1Height);
+        timesJumped = 1;
+        setAnimationStatesClientRpc("trigger", "Jump", true);
+    }
+
+    protected override void doubleJump()
+    {
+        _rbody.velocity = new Vector2(_rbody.velocity.x, jump2Height);
+        timesJumped = 2;
+        setAnimationStatesClientRpc("trigger", "Jump", true);
     }
 
     protected override void doJumps(InputAction.CallbackContext context)
@@ -223,6 +255,13 @@ public class OnlinePlayerScript : PlayerScript
         if (IsLocalPlayer)
         {
             doStrongServerRpc();
+        }
+    }
+    protected override void doSpecialButton(InputAction.CallbackContext context)
+    {
+        if (IsLocalPlayer)
+        {
+            doSpecialServerRpc();
         }
     }
 

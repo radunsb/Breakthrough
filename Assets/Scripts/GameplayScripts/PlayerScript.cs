@@ -288,7 +288,7 @@ public class PlayerScript : NetworkBehaviour
     }
 
     
-    protected void singleJump()
+    protected virtual void singleJump()
     {
         _grounded = false;
         _isJumping = true;
@@ -304,7 +304,7 @@ public class PlayerScript : NetworkBehaviour
         _isJumping = false;
     }
 
-    void doubleJump()
+    protected virtual void doubleJump()
     {
         _rbody.velocity = new Vector2(_rbody.velocity.x, jump2Height);
         timesJumped = 2;
@@ -332,17 +332,42 @@ public class PlayerScript : NetworkBehaviour
             _canMove = false;
             _rbody.velocity = new Vector2(0f, _rbody.velocity.y);
         }
+        if(PlayerPrefs.GetString("Match Type") == "2 Player Online" && IsLocalPlayer)
+        {
+            setAnimationStatesClientRpc("bool", "Ready", true);
+        }
 
     }
     void stopAttackButAllowMovement()
     {
         animator.SetBool("Ready", false);
+        if (PlayerPrefs.GetString("Match Type") == "2 Player Online" && IsLocalPlayer)
+        {
+            setAnimationStatesClientRpc("bool", "Ready", true);
+        }
     }
     //Allows the player to attack and move again.
     void canAttack()
     {
         animator.SetBool("Ready", true);
         if (!_canMove) _canMove  = true;
+        if (PlayerPrefs.GetString("Match Type") == "2 Player Online" && IsLocalPlayer)
+        {
+            setAnimationStatesClientRpc("bool", "Ready", true);
+        }
+    }
+
+    [ClientRpc]
+    void setAnimationStatesClientRpc(string type, string name, bool outcome)
+    {
+        if (type == "trigger")
+        {
+            animator.SetTrigger(name);
+        }
+        else if (type == "bool")
+        {
+            animator.SetBool(name, outcome);
+        }
     }
 
     public bool getFlipX()

@@ -101,6 +101,7 @@ public class KnockbackScript : NetworkBehaviour
 
     protected virtual void takeKnockback(float velocityMult, float launchDirection)
     {
+        movePercent = 0;
         float lm = calcLaunchMultiplier(velocityMult);
         launchDirection = launchDirection * Mathf.Deg2Rad;
         //Initialize a force based on the hitbox's direction and power
@@ -113,7 +114,7 @@ public class KnockbackScript : NetworkBehaviour
     IEnumerator knockbackBoof(HitboxScript hs,float ld)
     {
         _inKnockback = true;
-        for (int i = 0; i < hs.damage; i++)
+        for (int i = 0; i < hs.damage * 2; i++)
         {
             movePercent = 0;
             _rbody.velocity = Vector2.zero;

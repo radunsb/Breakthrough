@@ -498,7 +498,6 @@ GameObject:
   - component: {fileID: 1519813344966831061}
   - component: {fileID: 6209416330601124535}
   - component: {fileID: 6652166794736159944}
-  - component: {fileID: 1566326518489784342}
   m_Layer: 0
   m_Name: Ceiling (3)
   m_TagString: Untagged
@@ -711,22 +710,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1566326518489784342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5883403222707103496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &5917983797135302442
 GameObject:
   m_ObjectHideFlags: 0

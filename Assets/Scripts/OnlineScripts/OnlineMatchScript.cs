@@ -199,14 +199,6 @@ public class OnlineMatchScript : MatchScript
     [ServerRpc]
     void roundOverServerRpc()
     {
-        print("Made it to roundOverServerRpc");
-        //Despawn the network object for the old arena and spawn in the new one
-        oldWorld.GetComponent<NetworkObject>().Despawn();
-        Destroy(oldWorld);
-        destroyBackgroundClientRpc("Old World");
-        GameObject newWorld = Instantiate(currentWorld);
-        newWorld.GetComponent<NetworkObject>().Spawn();
-        currentWorld = newWorld;
         //Reset the player's positions server-side
         p1.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         p1.transform.position = new Vector2(-4, -2);
@@ -218,6 +210,14 @@ public class OnlineMatchScript : MatchScript
         //Reset the player's positions client-side
         //Clunky, but should work
         hardResetPositionsClientRpc();
+        //Despawn the network object for the old arena and spawn in the new one
+        oldWorld.GetComponent<NetworkObject>().Despawn();
+        Destroy(oldWorld);
+        destroyBackgroundClientRpc("Old World");
+        GameObject newWorld = Instantiate(currentWorld);
+        newWorld.GetComponent<NetworkObject>().Spawn();
+        currentWorld = newWorld;
+        
     }
 
     //Necessary so that player doesn't get stuck outside of arena while trying to interpolate back to their starting position

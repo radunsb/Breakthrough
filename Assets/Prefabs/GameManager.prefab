@@ -68,6 +68,7 @@ MonoBehaviour:
   - {fileID: 2636372427810059272, guid: 3fe207ac9e9c03e4a8c8c1748021df4e, type: 3}
   - {fileID: 1951229565116711756, guid: cb0efa2d942c3db4d855b42b751e59e3, type: 3}
   - {fileID: 3278803596915699505, guid: 36014981e8d07494d9dd0604761eab6f, type: 3}
+  icons: []
   p1winsText: {fileID: 0}
   p2winsText: {fileID: 0}
   matchInfo: 

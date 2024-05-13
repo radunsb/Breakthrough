@@ -148,8 +148,8 @@ public class MatchScript : NetworkBehaviour
 
     protected virtual IEnumerator roundOver(int winningPlayerIndex, GameObject worldToSpawn)
     {
+        transition();
         yield return new WaitForSeconds(5);
-        _victoryScript.transition();
         
         //Destroy the current background and walls
         Destroy(currentWorld);
@@ -167,6 +167,20 @@ public class MatchScript : NetworkBehaviour
         p2.GetComponent<KnockbackScript>().setDamage(0);
         p1winsText.text = "Player one wins: " + PlayerPrefs.GetInt("P1 Points");
         p2winsText.text = "Player two wins: " + PlayerPrefs.GetInt("P2 Points");
+
+    }
+
+    void transition()
+    {
+        RaycastHit2D Rhit = Physics2D.Raycast(transform.position, Vector2.right);
+        float Rdist = Mathf.Abs(Rhit.point.y - transform.position.y);
+        print(Rdist);
+        RaycastHit2D Lhit = Physics2D.Raycast(transform.position, Vector2.left);
+        float Ldist = Mathf.Abs(Lhit.point.y - transform.position.y);
+        RaycastHit2D Dhit = Physics2D.Raycast(transform.position, -Vector2.up);
+        float Ddist = Mathf.Abs(Dhit.point.y - transform.position.y);
+        RaycastHit2D Uhit = Physics2D.Raycast(transform.position, Vector2.up);
+        float Udist = Mathf.Abs(Uhit.point.y - transform.position.y);
 
     }
 

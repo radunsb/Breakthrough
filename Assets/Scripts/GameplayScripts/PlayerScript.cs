@@ -247,34 +247,26 @@ public class PlayerScript : NetworkBehaviour
 
     protected virtual void wallBounce(InputAction.CallbackContext context)
     {
-        if (knockbackScript.getInKnockback()) 
-        {
-            RaycastHit2D Rhit = Physics2D.Raycast(transform.position, Vector2.right);
-            float Rdist = Mathf.Abs(Rhit.point.y - transform.position.y);
-            print(Rdist);
-            RaycastHit2D Lhit = Physics2D.Raycast(transform.position, Vector2.left);
-            float Ldist = Mathf.Abs(Lhit.point.y - transform.position.y);
-            RaycastHit2D Dhit = Physics2D.Raycast(transform.position, -Vector2.up);
-            float Ddist = Mathf.Abs(Dhit.point.y - transform.position.y);
-            RaycastHit2D Uhit = Physics2D.Raycast(transform.position, Vector2.up);
-            float Udist = Mathf.Abs(Uhit.point.y - transform.position.y);
-            if (Rhit.collider == null && Rdist <= 1 && knockbackScript.movePercent < 0.99f)
+            RaycastHit2D Rhit = Physics2D.Raycast(transform.position, Vector2.right, 1f);
+            RaycastHit2D Lhit = Physics2D.Raycast(transform.position, Vector2.left, 1f);
+            RaycastHit2D Dhit = Physics2D.Raycast(transform.position, Vector2.down, 1f);
+            RaycastHit2D Uhit = Physics2D.Raycast(transform.position, Vector2.up, 1f);
+            if (Rhit.collider != null && knockbackScript.movePercent < 0.99f)
             {
                 wallTech();
             }
-            if (Lhit.collider == null && Ldist <= 1 && knockbackScript.movePercent < 0.99f)
+            if (Lhit.collider != null && knockbackScript.movePercent < 0.99f)
             {
                 wallTech();
             }
-            if (Dhit.collider == null && Ddist <= 1 && knockbackScript.movePercent < 0.99f)
+            if (Dhit.collider != null && knockbackScript.movePercent < 0.99f)
             {
                 wallTech();
             }
-            if (Uhit.collider == null && Udist <= 1 && knockbackScript.movePercent < 0.99f)
+            if (Uhit.collider != null && knockbackScript.movePercent < 0.99f)
             {
                 wallTech();
             }
-        }
     }
 
     protected virtual void doJumps(InputAction.CallbackContext context)

@@ -87,8 +87,8 @@ public class PlayerScript : NetworkBehaviour
         specialButton.Enable();
 
         shieldButton = inGame.FindAction("Shield_Button");
-        shieldButton.performed += (InputAction.CallbackContext context) => { shieldHeld = true; _canMove = false; };
-        shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
+        shieldButton.performed += doShieldButton;
+        shieldButton.canceled += undoShieldButton;
         shieldButton.Enable();
 
         pauseButton = inGame.FindAction("Pause");
@@ -113,8 +113,8 @@ public class PlayerScript : NetworkBehaviour
         jumpButton.performed -= doJumps;
         jumpButton.Disable();
 
-        shieldButton.performed += (InputAction.CallbackContext context) => { shieldHeld = true; _canMove = false; };
-        shieldButton.canceled += (InputAction.CallbackContext context) => { shieldHeld = false; _canMove = true; };
+        shieldButton.performed -= doShieldButton;
+        shieldButton.canceled -= undoShieldButton;
         shieldButton.Disable();
 
         pauseButton.performed -= pause;
@@ -216,6 +216,16 @@ public class PlayerScript : NetworkBehaviour
         {
             animator.SetTrigger("Special Button");
         }
+    }
+
+    protected virtual void doShieldButton(InputAction.CallbackContext context)
+    {
+        shieldHeld = true; _canMove = false;
+    }
+
+    protected virtual void undoShieldButton(InputAction.CallbackContext context)
+    {
+        shieldHeld = false; _canMove = true;
     }
 
     protected virtual void doJumps(InputAction.CallbackContext context)

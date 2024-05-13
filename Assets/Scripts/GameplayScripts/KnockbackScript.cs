@@ -132,9 +132,14 @@ public class KnockbackScript : NetworkBehaviour
         movePercent = 0;
     }
     
-    protected virtual void OnCollisionEnter2D(Collider collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-
+        if((collision.gameObject.tag == "Ceiling" || collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Horizontal Wall") && _inKnockback)
+        {
+            Vector2 old = new Vector2(_rbody.velocity.x, _rbody.velocity.y);
+            _rbody.velocity = new Vector2(0.0f, 0.0f);
+            _rbody.velocity = -old;
+        }
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)

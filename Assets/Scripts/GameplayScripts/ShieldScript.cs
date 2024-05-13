@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class ShieldScript : MonoBehaviour
+public class ShieldScript : NetworkBehaviour
 {
     protected float _health = 30;
     public PlayerScript _playerScript;
@@ -36,5 +37,12 @@ public class ShieldScript : MonoBehaviour
     public void reduceHealth(float damage)
     {
         _health -= damage;
+        matchHealthServerRpc(_health);
+    }
+
+    [ServerRpc]
+    public void matchHealthServerRpc(float h)
+    {
+        _health = h;
     }
 }

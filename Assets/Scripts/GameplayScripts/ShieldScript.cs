@@ -9,6 +9,12 @@ public class ShieldScript : NetworkBehaviour
 {
     protected float _health = 30;
     public PlayerScript _playerScript;
+    bool isOnline;
+
+    private void Start()
+    {
+        isOnline = PlayerPrefs.GetString("Match Type") == "2 Player Online";
+    }
 
     private void FixedUpdate()
     {
@@ -41,7 +47,10 @@ public class ShieldScript : NetworkBehaviour
     public void reduceHealth(float damage)
     {
         _health -= damage;
-        matchHealthServerRpc(_health);
+        if (isOnline)
+        {
+            matchHealthServerRpc(_health);
+        }
     }
 
     [ServerRpc]

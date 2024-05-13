@@ -220,12 +220,18 @@ public class PlayerScript : NetworkBehaviour
 
     protected virtual void doShieldButton(InputAction.CallbackContext context)
     {
-        shieldHeld = true; _canMove = false;
+        if (!knockbackScript.getInKnockback())
+        {
+            shieldHeld = true; _canMove = false;
+        }
     }
 
     protected virtual void undoShieldButton(InputAction.CallbackContext context)
     {
-        shieldHeld = false; _canMove = true;
+        if (!knockbackScript.getInKnockback())
+        {
+            shieldHeld = false; _canMove = true;
+        }
     }
 
     protected virtual void doJumps(InputAction.CallbackContext context)

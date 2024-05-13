@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 1661074662752948768}
   - component: {fileID: 4069282028976233712}
   - component: {fileID: 8747757839550484982}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ceiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 695680144936298964}
   - component: {fileID: 7520580947584095669}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Subway Other Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

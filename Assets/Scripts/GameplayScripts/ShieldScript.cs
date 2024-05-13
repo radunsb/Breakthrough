@@ -27,6 +27,10 @@ public class ShieldScript : NetworkBehaviour
         {
             _health = -2;
         }
+        if(_health < .5f)
+        {
+            _playerScript.shieldHeld = false;
+        }
         GetComponent<SpriteRenderer>().color = new Color(1 - _health / 30f, _health / 30f, 0f, shieldActive() ? 0.4f : 0f);
     }
     public bool shieldActive()

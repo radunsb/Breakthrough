@@ -49,6 +49,10 @@ PrefabInstance:
       value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 3267151148278439083, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267151148278439083, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

@@ -13,9 +13,11 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(KnockbackScript))]
 public class PlayerScript : NetworkBehaviour
 {
+
+    public ParticleSystem _ps;
     public int playerIndex = 0;
     public GameObject triangle;
-    
+    LayerMask _wallLayer;
 
     //Character Specific Variables
     public float walkSpeed;
@@ -124,6 +126,7 @@ public class PlayerScript : NetworkBehaviour
     }
     protected virtual void Start()
     {
+        _wallLayer = LayerMask.GetMask("Ground", "Wall");
         animator = GetComponent<Animator>();
         _rbody = GetComponent<Rigidbody2D>();
         shieldHeld = false;
@@ -198,7 +201,7 @@ public class PlayerScript : NetworkBehaviour
 
     public void wallTech()
     {
-        print("teched"); 
+        _ps.Play(); 
         knockbackScript._inKnockback = false;
         knockbackScript.movePercent = 1.0f;
         Vector2 old = new Vector2(_rbody.velocity.x, _rbody.velocity.y);
@@ -247,23 +250,23 @@ public class PlayerScript : NetworkBehaviour
 
     protected virtual void wallBounce(InputAction.CallbackContext context)
     {
-            RaycastHit2D Rhit = Physics2D.Raycast(transform.position, Vector2.right, 1f);
-            RaycastHit2D Lhit = Physics2D.Raycast(transform.position, Vector2.left, 1f);
-            RaycastHit2D Dhit = Physics2D.Raycast(transform.position, Vector2.down, 1f);
-            RaycastHit2D Uhit = Physics2D.Raycast(transform.position, Vector2.up, 1f);
-            if (Rhit.collider != null && knockbackScript.movePercent < 0.99f)
+            RaycastHit2D Rhit = Physics2D.Raycast(transform.position, Vector2.right, 1f, _wallLayer);
+            RaycastHit2D Lhit = Physics2D.Raycast(transform.position, Vector2.left, 1f, _wallLayer);
+            RaycastHit2D Dhit = Physics2D.Raycast(transform.position, Vector2.down, 1f, _wallLayer);
+            RaycastHit2D Uhit = Physics2D.Raycast(transform.position, Vector2.up, 1f, _wallLayer);
+            if (Rhit.collider != null && knockbackScript.movePercent < 0.75f)
             {
                 wallTech();
             }
-            if (Lhit.collider != null && knockbackScript.movePercent < 0.99f)
+            if (Lhit.collider != null && knockbackScript.movePercent < 0.75f)
             {
                 wallTech();
             }
-            if (Dhit.collider != null && knockbackScript.movePercent < 0.99f)
+            if (Dhit.collider != null && knockbackScript.movePercent < 0.75f)
             {
                 wallTech();
             }
-            if (Uhit.collider != null && knockbackScript.movePercent < 0.99f)
+            if (Uhit.collider != null && knockbackScript.movePercent < 0.75f)
             {
                 wallTech();
             }

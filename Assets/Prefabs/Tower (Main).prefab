@@ -215,13 +215,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 447354929703158777}
     m_Modifications:
+    - target: {fileID: 2668340963074177522, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 3267151148278439083, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_Name
       value: LWall
       objectReference: {fileID: 0}
     - target: {fileID: 3267151148278439083, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3352965018744875883, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_RootOrder
@@ -319,6 +323,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 447354929703158777}
     m_Modifications:
+    - target: {fileID: 2668340963074177522, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 3267151148278439083, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_Name
       value: Ground
@@ -463,13 +471,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 447354929703158777}
     m_Modifications:
+    - target: {fileID: 2668340963074177522, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
     - target: {fileID: 3267151148278439083, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_Name
       value: RWall
       objectReference: {fileID: 0}
     - target: {fileID: 3267151148278439083, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3352965018744875883, guid: 33f4fd5739fa36642a773552e1afc393, type: 3}
       propertyPath: m_RootOrder

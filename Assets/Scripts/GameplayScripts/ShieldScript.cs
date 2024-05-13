@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class ShieldScript : MonoBehaviour
 {
-    private float _health = 30;
+    protected float _health = 30;
     public PlayerScript _playerScript;
 
     private void FixedUpdate()

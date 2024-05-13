@@ -66,6 +66,7 @@ public class PlayerScript : NetworkBehaviour
     protected virtual void OnEnable()
     {
         //Initialize InputActions
+        _rbody = GetComponent<Rigidbody2D>();
 
         normButton = inGame.FindAction("Normal_Button");
         normButton.performed += doNormalButton;
@@ -89,6 +90,7 @@ public class PlayerScript : NetworkBehaviour
         shieldButton = inGame.FindAction("Shield_Button");
         shieldButton.performed += doShieldButton;
         shieldButton.canceled += undoShieldButton;
+        shieldButton.performed += wallBounce;
         shieldButton.Enable();
 
         pauseButton = inGame.FindAction("Pause");
@@ -194,6 +196,16 @@ public class PlayerScript : NetworkBehaviour
         animator.ResetTrigger("Strong Button");
     }
 
+    public void wallTech()
+    {
+        print("teched"); 
+        knockbackScript._inKnockback = false;
+        knockbackScript.movePercent = 1.0f;
+        Vector2 old = new Vector2(_rbody.velocity.x, _rbody.velocity.y);
+        _rbody.velocity = new Vector2(0.0f, 0.0f);
+        _rbody.velocity = -old / 4;
+    }
+
     protected virtual void doNormalButton(InputAction.CallbackContext context)
     {
         if (!knockbackScript.getInKnockback())
@@ -218,14 +230,51 @@ public class PlayerScript : NetworkBehaviour
         }
     }
 
+
     protected virtual void doShieldButton(InputAction.CallbackContext context)
     {
         shieldHeld = true; _canMove = false;
+        if (!knockbackScript.getInKnockback())
+        {
+            shieldHeld = true;
+        }
     }
 
     protected virtual void undoShieldButton(InputAction.CallbackContext context)
     {
         shieldHeld = false; _canMove = true;
+    }
+
+    protected virtual void wallBounce(InputAction.CallbackContext context)
+    {
+        if (knockbackScript.getInKnockback()) 
+        {
+            RaycastHit2D Rhit = Physics2D.Raycast(transform.position, Vector2.right);
+            float Rdist = Mathf.Abs(Rhit.point.y - transform.position.y);
+            print(Rdist);
+            RaycastHit2D Lhit = Physics2D.Raycast(transform.position, Vector2.left);
+            float Ldist = Mathf.Abs(Lhit.point.y - transform.position.y);
+            RaycastHit2D Dhit = Physics2D.Raycast(transform.position, -Vector2.up);
+            float Ddist = Mathf.Abs(Dhit.point.y - transform.position.y);
+            RaycastHit2D Uhit = Physics2D.Raycast(transform.position, Vector2.up);
+            float Udist = Mathf.Abs(Uhit.point.y - transform.position.y);
+            if (Rhit.collider == null && Rdist <= 1 && knockbackScript.movePercent < 0.99f)
+            {
+                wallTech();
+            }
+            if (Lhit.collider == null && Ldist <= 1 && knockbackScript.movePercent < 0.99f)
+            {
+                wallTech();
+            }
+            if (Dhit.collider == null && Ddist <= 1 && knockbackScript.movePercent < 0.99f)
+            {
+                wallTech();
+            }
+            if (Uhit.collider == null && Udist <= 1 && knockbackScript.movePercent < 0.99f)
+            {
+                wallTech();
+            }
+        }
     }
 
     protected virtual void doJumps(InputAction.CallbackContext context)

@@ -12,7 +12,8 @@ public class MatchScript : NetworkBehaviour
     public AudioSource _as;
     public AudioSource _asSFX;
     public AudioClip[] sfx;
-    
+
+    VictoryScript _victoryScript;
     public int roundsToWin;
     public GameObject[] possiblePlayers;
     public GameObject[] possibleSandbags;
@@ -147,7 +148,8 @@ public class MatchScript : NetworkBehaviour
 
     protected virtual IEnumerator roundOver(int winningPlayerIndex, GameObject worldToSpawn)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
+        _victoryScript.transition();
         
         //Destroy the current background and walls
         Destroy(currentWorld);

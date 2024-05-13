@@ -200,6 +200,45 @@ public class OnlinePlayerScript : PlayerScript
         }
     }
 
+
+    [ServerRpc]
+    void doShieldServerRpc()
+    {
+        if (!knockbackScript.getInKnockback())
+        {
+            shieldHeld = true; _canMove = false;
+            doShieldClientRpc();
+        }
+    }
+
+    [ServerRpc]
+    void undoShieldServerRpc()
+    {
+        if (!knockbackScript.getInKnockback())
+        {
+            shieldHeld = false; _canMove = true;
+            undoShieldClientRpc();
+        }
+    }
+
+    [ClientRpc]
+    void doShieldClientRpc()
+    {
+        if (!knockbackScript.getInKnockback())
+        {
+            shieldHeld = true; _canMove = false;
+        }
+    }
+
+    [ClientRpc]
+    void undoShieldClientRpc()
+    {
+        if (!knockbackScript.getInKnockback())
+        {
+            shieldHeld = false; _canMove = true;
+        }
+    }
+
     [ClientRpc]
     void setAnimationStatesClientRpc(string type, string name, bool outcome)
     {
@@ -263,6 +302,22 @@ public class OnlinePlayerScript : PlayerScript
         if (IsLocalPlayer)
         {
             doSpecialServerRpc();
+        }
+    }
+
+    protected override void doShieldButton(InputAction.CallbackContext context)
+    {
+        if (IsLocalPlayer)
+        {
+            doShieldServerRpc();
+        }
+    }
+
+    protected override void undoShieldButton(InputAction.CallbackContext context)
+    {
+        if (IsLocalPlayer)
+        {
+            undoShieldServerRpc();
         }
     }
 

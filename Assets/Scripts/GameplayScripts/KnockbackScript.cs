@@ -131,7 +131,11 @@ public class KnockbackScript : NetworkBehaviour
         
         movePercent = 0;
     }
+    
+    protected virtual void OnCollisionEnter2D(Collider collision)
+    {
 
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {

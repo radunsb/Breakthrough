@@ -9,6 +9,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider2D))]
 public class KnockbackScript : NetworkBehaviour
 {
+    public ParticleSystem _ps;
     protected AudioSource _as;
     public AudioClip hitsound1;
     public AudioClip hitsound2;
@@ -114,6 +115,7 @@ public class KnockbackScript : NetworkBehaviour
     IEnumerator knockbackBoof(HitboxScript hs,float ld)
     {
         _inKnockback = true;
+        _ps.Play();
         for (int i = 0; i < hs.damage * 2; i++)
         {
             movePercent = 0;

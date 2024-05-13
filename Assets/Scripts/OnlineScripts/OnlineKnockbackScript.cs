@@ -60,6 +60,7 @@ public class OnlineKnockbackScript : KnockbackScript
     IEnumerator knockbackBoof(HitboxScript hs, float ld)
     {
         _inKnockback = true;
+        playPSClientRpc();
         for (int i = 0; i < hs.damage * 2; i++)
         {
             movePercent = 0;
@@ -72,6 +73,12 @@ public class OnlineKnockbackScript : KnockbackScript
         takeKnockback(hs.velocityMult, ld);
 
         movePercent = 0;
+    }
+
+    [ClientRpc]
+    void playPSClientRpc()
+    {
+        _ps.Play();
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

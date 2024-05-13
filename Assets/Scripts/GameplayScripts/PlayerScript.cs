@@ -15,6 +15,7 @@ public class PlayerScript : NetworkBehaviour
 {
     public int playerIndex = 0;
     public GameObject triangle;
+    
 
     //Character Specific Variables
     public float walkSpeed;
